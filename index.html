@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Questionnaire V.A.L.E.U.R© — Les Sept Masques</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+(function(){
+  document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
+  document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey||e.metaKey) && ['s','u','a','c'].includes(e.key.toLowerCase())) { e.preventDefault(); return false; }
+    if (e.key==='F12'||e.key==='PrintScreen') { e.preventDefault(); return false; }
+  });
+  document.addEventListener('copy', e => { e.preventDefault(); return false; });
+  document.addEventListener('selectstart', e => {
+    if (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA') return;
+    e.preventDefault(); return false;
+  });
+})();
+</script>
+<style>
+:root {
+  --navy:#0d1117;--navy-mid:#161b24;--navy-light:#1f2836;
+  --border:rgba(255,255,255,0.08);--text:#e8eaf0;--text-muted:#8b92a5;--text-dim:#4a5568;
+  --rouge:#e53e3e;--orange:#ed8936;--jaune:#ecc94b;--vert:#48bb78;
+  --bleu:#4299e1;--indigo:#667eea;--violet:#9f7aea;
+  --gold:#c9a84c;--radius:12px;--radius-lg:20px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--navy);color:var(--text);min-height:100vh;line-height:1.6;user-select:none;-webkit-user-select:none;}
+.app{max-width:860px;margin:0 auto;padding:0 20px 60px;}
+.screen{display:none;}
+.screen.active{display:block;animation:fadeIn 0.4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── HEADER ── */
+.main-header{padding:48px 0 32px;text-align:center;border-bottom:1px solid var(--border);margin-bottom:48px;}
+.mask-dots{display:flex;gap:6px;justify-content:center;margin-bottom:16px;}
+.mask-dot{width:10px;height:10px;border-radius:50%;animation:pulse 2s infinite;}
+.mask-dot:nth-child(1){background:var(--rouge);animation-delay:0s}
+.mask-dot:nth-child(2){background:var(--orange);animation-delay:.2s}
+.mask-dot:nth-child(3){background:var(--jaune);animation-delay:.4s}
+.mask-dot:nth-child(4){background:var(--vert);animation-delay:.6s}
+.mask-dot:nth-child(5){background:var(--bleu);animation-delay:.8s}
+.mask-dot:nth-child(6){background:var(--indigo);animation-delay:1s}
+.mask-dot:nth-child(7){background:var(--violet);animation-delay:1.2s}
+@keyframes pulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+.main-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:300;background:linear-gradient(135deg,#e8eaf0,#a0aec0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.main-subtitle{font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);margin-top:8px;}
+
+/* ── CARDS ── */
+.welcome-card,.form-card{background:var(--navy-mid);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;margin-bottom:24px;}
+.welcome-card h2,.form-card h2{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:400;margin-bottom:16px;}
+.welcome-card p,.form-card p{color:var(--text-muted);margin-bottom:12px;font-size:.95rem;}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin:24px 0;}
+.info-chip{background:var(--navy-light);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;}
+.info-chip .value{font-size:1.4rem;font-weight:600;}
+.info-chip .label{font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:var(--radius);border:none;cursor:pointer;font-family:'Jost',sans-serif;font-size:.9rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:all .2s;}
+.btn-primary{background:linear-gradient(135deg,#4a6cf7,#6c47ff);color:white;box-shadow:0 4px 20px rgba(108,71,255,.35);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(108,71,255,.45);}
+.btn-secondary{background:var(--navy-light);color:var(--text-muted);border:1px solid var(--border);}
+.btn-secondary:hover{color:var(--text);border-color:rgba(255,255,255,.15);}
+.btn-group{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;}
+.btn-full{width:100%;justify-content:center;}
+
+/* ── PROGRESS ── */
+.progress-wrapper{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);padding:16px 0;border-bottom:1px solid var(--border);margin-bottom:32px;}
+.progress-info{display:flex;justify-content:space-between;margin-bottom:8px;font-size:.8rem;color:var(--text-muted);}
+.progress-bar{height:3px;background:var(--navy-light);border-radius:99px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:99px;transition:width .5s ease;background:linear-gradient(90deg,#4a6cf7,#6c47ff);}
+.step-dots{display:flex;justify-content:center;gap:8px;margin-top:10px;}
+.step-dot{width:8px;height:8px;border-radius:50%;background:var(--navy-light);border:1px solid var(--border);transition:all .3s;}
+.step-dot.active{transform:scale(1.4);border-color:white;background:white;}
+.step-dot.done{background:var(--vert);border-color:var(--vert);}
+
+/* ── FORM ── */
+.form-section{margin-bottom:32px;}
+.form-section h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:12px;}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+.form-field{display:flex;flex-direction:column;gap:6px;}
+.form-field label{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);}
+.form-field input,.form-field select{background:var(--navy-light);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--text);font-family:'Jost',sans-serif;font-size:.9rem;transition:border-color .2s;user-select:text;-webkit-user-select:text;}
+.form-field input:focus,.form-field select:focus{outline:none;border-color:rgba(102,126,234,.6);}
+.form-field select option{background:var(--navy-mid);}
+.required-star{color:var(--rouge);margin-left:2px;}
+.field-hint{font-size:.72rem;color:var(--text-dim);}
+
+/* ── PAGE QUESTIONS ── */
+.page-header{padding:32px 0 24px;border-bottom:1px solid var(--border);margin-bottom:32px;}
+.page-badge{display:inline-flex;align-items:center;gap:10px;padding:6px 16px;border-radius:99px;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px;border:1px solid rgba(255,255,255,.15);color:var(--text-muted);}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,3.5vw,2rem);font-weight:300;line-height:1.2;margin-bottom:8px;color:var(--text);}
+.page-desc{font-size:.85rem;color:var(--text-muted);font-style:italic;}
+.items-container{display:flex;flex-direction:column;gap:16px;}
+.item-card{background:var(--navy-mid);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;transition:border-color .2s,transform .2s;}
+.item-card:hover{border-color:rgba(255,255,255,.14);transform:translateX(2px);}
+.item-card.answered{border-color:rgba(72,187,120,.25);}
+.item-header{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;}
+.item-id{flex-shrink:0;font-size:.7rem;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;background:var(--navy-light);border-radius:4px;margin-top:2px;}
+.item-text{font-family:'Cormorant Garamond',serif;font-size:1.05rem;line-height:1.6;color:var(--text);}
+
+/* ── LIKERT ── */
+.likert{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+.likert-option{display:flex;flex-direction:column;align-items:center;gap:6px;}
+.likert-option input[type="radio"]{display:none;}
+.likert-btn{width:40px;height:40px;border-radius:50%;border:2px solid var(--border);background:var(--navy-light);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:600;color:var(--text-muted);transition:all .2s;user-select:none;}
+.likert-btn:hover{border-color:rgba(255,255,255,.3);color:var(--text);transform:scale(1.05);}
+.likert-option input:checked + .likert-btn{border-color:var(--gold);color:var(--navy);background:var(--gold);transform:scale(1.1);}
+.likert-label{font-size:.65rem;text-align:center;color:var(--text-dim);max-width:56px;line-height:1.2;}
+.unanswered-msg{background:rgba(229,62,62,.1);border:1px solid rgba(229,62,62,.3);border-radius:8px;padding:12px 16px;font-size:.85rem;color:#fc8181;margin-top:16px;}
+
+/* ── ACCESS SCREEN ── */
+.access-card{background:var(--navy-mid);border:1px solid var(--border);border-radius:var(--radius-lg);padding:48px 40px;text-align:center;max-width:440px;margin:60px auto 0;}
+.access-eyebrow{font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text-dim);margin-bottom:20px;}
+.access-card h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;margin-bottom:12px;color:var(--text);}
+.access-card p{color:var(--text-muted);font-size:.9rem;margin-bottom:24px;line-height:1.7;}
+.access-input-wrap{position:relative;margin-bottom:10px;}
+.access-input{width:100%;background:var(--navy-light);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;color:var(--text);font-family:'Cormorant Garamond',serif;font-size:1.3rem;letter-spacing:.3em;text-align:center;transition:border-color .2s;user-select:text;-webkit-user-select:text;}
+.access-input:focus{outline:none;border-color:rgba(102,126,234,.5);}
+.access-input.error{border-color:var(--rouge)!important;animation:shake .3s;}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.access-error{color:#fc8181;font-size:.82rem;margin-top:6px;min-height:18px;}
+.access-hint{font-size:.75rem;color:var(--text-dim);margin-top:16px;line-height:1.6;}
+.access-sep{width:40px;height:1px;background:var(--border);margin:24px auto;}
+.access-badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:24px;}
+.access-badge{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;background:var(--navy-light);border:1px solid var(--border);border-radius:4px;padding:3px 10px;color:var(--text-dim);}
+
+/* ── SENDING ── */
+.sending-overlay{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,.92);backdrop-filter:blur(8px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;}
+.sending-spinner{width:56px;height:56px;border-radius:50%;border:3px solid var(--navy-light);border-top-color:var(--indigo);animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sending-text{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;color:var(--text-muted);}
+
+/* ── MISC ── */
+.hidden{display:none!important;}
+.footer-disclaimer{text-align:center;padding:24px 0;border-top:1px solid var(--border);font-size:.75rem;color:var(--text-dim);letter-spacing:.04em;line-height:1.8;}
+@media(max-width:600px){
+  .likert{gap:4px}.likert-btn{width:34px;height:34px;font-size:.8rem}.likert-label{display:none}
+  .welcome-card,.form-card{padding:24px}
+  .access-card{padding:32px 20px;margin-top:32px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- OVERLAY ENVOI -->
+<div class="sending-overlay hidden" id="sending-overlay">
+  <div class="sending-spinner"></div>
+  <div class="sending-text" id="overlay-text">Analyse de vos résultats…</div>
+</div>
+
+<!-- HEADER -->
+<header class="main-header">
+  <div class="mask-dots">
+    <span class="mask-dot"></span><span class="mask-dot"></span><span class="mask-dot"></span>
+    <span class="mask-dot"></span><span class="mask-dot"></span><span class="mask-dot"></span>
+    <span class="mask-dot"></span>
+  </div>
+  <h1 class="main-title">Méthode V.A.L.E.U.R©</h1>
+  <p class="main-subtitle">Questionnaire d'identification des masques psychologiques</p>
+</header>
+
+<!-- ══ ÉCRAN ACCÈS ══ -->
+<div id="screen-access" class="screen active">
+  <div class="access-card">
+    <p class="access-eyebrow">Accès sécurisé</p>
+    <h2>Les 7 peurs qui empêchent d'être soi</h2>
+    <p>Ce questionnaire cartographie avec précision les stratégies de protection qui vous éloignent de vous-même. Saisissez le code d'accès communiqué par votre praticienne.</p>
+    <div class="access-badges">
+      <span class="access-badge">SHAI · TAS-20 · IUS-12</span>
+      <span class="access-badge">ECR-R · LOC+NPI · FMPS · MSI</span>
+    </div>
+    <div class="access-input-wrap">
+      <input type="password" id="access-input" class="access-input" placeholder="· · · · · ·" maxlength="20"
+             onkeydown="if(event.key==='Enter') checkAccess()">
+    </div>
+    <div class="access-error" id="access-error"></div>
+    <button class="btn btn-primary btn-full" onclick="checkAccess()" style="margin-top:12px">Accéder au questionnaire →</button>
+    <p class="access-hint">Vous n'avez pas reçu de code ? Contactez l'administrateur.</p>
+    <div class="access-sep"></div>
+    <p style="font-size:.72rem;color:var(--text-dim);line-height:1.7">Fondé sur <em style="color:var(--gold)">"De la peur à la joie d'être soi"</em><br>Céline Bourbon · Éditions L'Harmattan</p>
+  </div>
+</div>
+
+<!-- ══ ÉCRAN BIENVENUE ══ -->
+<div id="screen-welcome" class="screen">
+  <div class="welcome-card">
+    <h2>Votre cartographie des masques</h2>
+    <p>Ce questionnaire d'auto-évaluation psychoéducative identifie vos stratégies de protection psychologique selon la Méthode V.A.L.E.U.R©.</p>
+    <p>Nous utilisons tous ces mécanismes de protection — ils sont universels et ont été utiles à un moment de notre vie. L'objectif est de mieux les comprendre pour gagner en liberté et en authenticité.</p>
+    <div class="info-grid">
+      <div class="info-chip"><div class="value">50</div><div class="label">Questions</div></div>
+      <div class="info-chip"><div class="value">7</div><div class="label">Masques</div></div>
+      <div class="info-chip"><div class="value">15–20 min</div><div class="label">Durée</div></div>
+    </div>
+    <div style="background:rgba(237,137,54,.08);border:1px solid rgba(237,137,54,.25);border-radius:var(--radius);padding:16px 20px;font-size:.85rem;color:#f6ad55;margin-top:16px">
+      <strong style="display:block;margin-bottom:4px">Information importante</strong>
+      Cet outil est conçu pour l'auto-exploration et la psychoéducation. Il n'a pas été empiriquement validé comme instrument diagnostique autonome.
+    </div>
+  </div>
+  <div class="welcome-card">
+    <h2>Consignes de passation</h2>
+    <p>· Choisissez un lieu calme, sans interruptions<br>· Répondez selon votre fonctionnement réel ces <strong>6 derniers mois</strong>, pas selon ce que vous voudriez faire<br>· Privilégiez votre ressenti spontané plutôt que l'analyse intellectuelle<br>· Suspendez tout jugement — toutes les réponses sont légitimes</p>
+    <p style="margin-top:12px"><strong>Échelle :</strong> 0 = Jamais · 1 = Rarement · 2 = Parfois · 3 = Souvent · 4 = Très souvent</p>
+  </div>
+  <button class="btn btn-primary btn-full" onclick="goToScreen('screen-demo')">Commencer →</button>
+</div>
+
+<!-- ══ ÉCRAN INFOS ══ -->
+<div id="screen-demo" class="screen">
+  <div class="progress-wrapper">
+    <div class="progress-info"><span>Vos informations</span><span>Étape 1 / 6</span></div>
+    <div class="progress-bar"><div class="progress-fill" style="width:16%"></div></div>
+    <div class="step-dots" id="step-dots-demo"></div>
+  </div>
+  <div class="form-card">
+    <h2>Vos informations</h2>
+    <p style="color:#fc8181;font-size:.82rem">★ Les champs marqués d'un astérisque sont obligatoires.</p>
+    <div class="form-section" style="margin-top:20px">
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Prénom <span class="required-star">*</span></label>
+          <input type="text" id="d-prenom" placeholder="Votre prénom">
+        </div>
+        <div class="form-field">
+          <label>Âge <span class="required-star">*</span></label>
+          <input type="number" id="d-age" placeholder="ex. 34" min="16" max="99">
+        </div>
+        <div class="form-field">
+          <label>Genre</label>
+          <select id="d-genre">
+            <option value="">– Sélectionner –</option>
+            <option>Féminin</option><option>Masculin</option>
+            <option>Autre</option><option>Préfère ne pas préciser</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Situation professionnelle</label>
+          <select id="d-pro">
+            <option value="">– Sélectionner –</option>
+            <option>Salarié(e)</option><option>Indépendant(e)</option>
+            <option>Sans emploi</option><option>Étudiant(e)</option><option>Retraité(e)</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Email <span class="required-star">*</span></label>
+          <input type="email" id="d-email" placeholder="votre@email.com">
+          <span class="field-hint">Pour recevoir votre rapport personnalisé</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="btn-group">
+    <button class="btn btn-secondary" onclick="goToScreen('screen-welcome')">← Retour</button>
+    <button class="btn btn-primary" onclick="startQuestionnaire()">Démarrer le questionnaire →</button>
+  </div>
+</div>
+
+<!-- ══ PAGES QUESTIONS (générées dynamiquement) ══ -->
+<div id="screen-questions-container"></div>
+
+<!-- FOOTER -->
+<div class="footer-disclaimer">
+  Outil psychoéducatif · Méthode V.A.L.E.U.R© · SHAI · TAS-20 · IUS-12 · ECR-R · LOC+NPI · FMPS · MSI<br>
+  <span style="color:rgba(255,255,255,0.15);font-size:.7rem">
+    © Céline Bourbon — Méthode V.A.L.E.U.R© — Tous droits réservés<br>
+    Toute reproduction sans autorisation écrite est interdite
+  </span>
+</div>
+
+</div><!-- .app -->
+<script>
+/* ════ CONFIG ════ */
+const CONFIG = {
+  ACCESS_CODE:         'VALEUR2025',
+  EMAILJS_PUBLIC_KEY:  'Qamyb35cCRJ5Pulqs',
+  EMAILJS_SERVICE_ID:  'Questionnaire Valeur',
+  EMAILJS_TEMPLATE_ID: 'template_inscription',
+};
+emailjs.init(CONFIG.EMAILJS_PUBLIC_KEY);
+
+/* ════ 50 QUESTIONS V2 ════ */
+const QUESTIONS = [
+  {n:1,  t:"Je surveille régulièrement les signaux de mon corps (rythme cardiaque, sensations) pour détecter un problème de santé."},
+  {n:2,  t:"Lorsqu'une conversation devient émotionnelle, je change naturellement de sujet ou je m'en détache."},
+  {n:3,  t:"Je me sens très mal à l'aise lorsqu'un événement prévu est modifié sans préavis."},
+  {n:4,  t:"J'accepte le point de vue d'autrui même si je ne le partage pas, pour éviter tout conflit."},
+  {n:5,  t:"Lorsque je vois quelqu'un faire une tâche de travers, j'ai une forte impulsion à reprendre le contrôle."},
+  {n:6,  t:"Je retravaille mes productions (projets, présentations) bien au-delà de ce qui est objectivement nécessaire."},
+  {n:7,  t:"J'ai l'impression de vivre ma vie en pilote automatique, comme si je me regardais de l'extérieur."},
+  {n:8,  t:"Quand j'observe une sensation physique inhabituelle, ma pensée va rapidement vers une maladie grave."},
+  {n:9,  t:"Je me sens plus à l'aise en m'occupant (travail, écrans) qu'en restant seul(e) avec mes émotions."},
+  {n:10, t:"Avant de décider, je dois réunir le maximum d'informations, même pour des décisions mineures."},
+  {n:11, t:"La pensée d'être seul(e) ou abandonné(e) me provoque une angoisse significative."},
+  {n:12, t:"J'ai tendance à diriger les groupes ou situations, même sans y avoir été invité(e)."},
+  {n:13, t:"Je reporte souvent le démarrage d'un projet car je crains de ne pas être à la hauteur."},
+  {n:14, t:"Il m'est difficile d'exprimer des préférences authentiques car je ne sais plus ce que je veux vraiment."},
+  {n:15, t:"Je consulte régulièrement des sources médicales (internet, médecins) pour vérifier mes symptômes."},
+  {n:16, t:"Il m'est difficile de décrire précisément ce que je ressens émotionnellement dans une situation donnée."},
+  {n:17, t:"Je prépare systématiquement des plans alternatifs (B, C, D) en cas d'imprévu."},
+  {n:18, t:"Je maintiens parfois des relations insatisfaisantes car la rupture me semblerait encore plus difficile."},
+  {n:19, t:"Lorsque quelqu'un prend une décision sans me consulter dans un domaine me concernant, je ressens une irritation marquée."},
+  {n:20, t:"Je minimise spontanément mes réussites en les attribuant à la chance ou aux autres plutôt qu'à moi."},
+  {n:21, t:"J'ai abandonné progressivement des passions ou centres d'intérêt qui me définissaient autrefois."},
+  {n:22, t:"La peur de développer une maladie grave (cancer, AVC) occupe une place significative dans mes pensées."},
+  {n:23, t:"Même lors d'événements difficiles (deuil, échec important), je reste souvent sans larmes ni affect visible."},
+  {n:24, t:"Les situations ambiguës ou sans issue claire me sont particulièrement difficiles à tolérer."},
+  {n:25, t:"Je ressens un besoin fort d'être rassuré(e) par mes proches sur leur affection pour moi."},
+  {n:26, t:"J'ai besoin de sentir que je suis indispensable dans mes relations professionnelles ou personnelles."},
+  {n:27, t:"J'ai du mal à me sentir légitime dans mon rôle professionnel, même quand mes résultats sont objectivement bons."},
+  {n:28, t:"En situation de silence ou de solitude, je ressens un vide intérieur difficile à définir."},
+  {n:29, t:"J'ai déjà consulté plusieurs médecins pour les mêmes symptômes, en espérant trouver une rassurance définitive."},
+  {n:30, t:"Je préfère analyser les situations de façon logique plutôt que d'explorer les émotions qu'elles génèrent."},
+  {n:31, t:"Je prévois et planifie les activités du quotidien de façon très détaillée pour éviter tout imprévu."},
+  {n:32, t:"Je me sens généralement bien dans ma peau et capable d'assumer les défis relationnels.", inv:true},
+  {n:33, t:"Quand je confie une tâche, j'ai régulièrement envie de vérifier ou corriger le travail de l'autre."},
+  {n:34, t:"Je sabote parfois inconsciemment une opportunité de réussite juste avant qu'elle se concrétise."},
+  {n:35, t:"Je refuse souvent des opportunités de changement (nouveau poste, déménagement) pour ne pas perturber ma stabilité."},
+  {n:36, t:"Je cherche fréquemment à être rassuré(e) par des professionnels de santé sur mon état physique."},
+  {n:37, t:"Je me sens davantage observateur(trice) de ma propre vie que réellement acteur(trice) de mes émotions."},
+  {n:38, t:"Je tolère bien de ne pas savoir comment les choses vont se dérouler et j'avance malgré l'incertitude.", inv:true},
+  {n:39, t:"J'analyse en permanence les signes d'acceptation ou de rejet dans les comportements de mon entourage."},
+  {n:40, t:"Je ressens de la colère ou une forte frustration lorsqu'une situation m'échappe ou ne se déroule pas comme prévu."},
+  {n:41, t:"Mon dialogue intérieur est souvent très critique envers moi-même lorsque je n'atteins pas mes propres standards."},
+  {n:42, t:"J'ai la sensation d'être une personne différente selon les périodes de ma vie, sans véritable fil conducteur."},
+  {n:43, t:"Si j'apprenais avoir une maladie grave, je pense que je ne pourrais pas y faire face émotionnellement."},
+  {n:44, t:"Je crois qu'une maladie grave ruinerait ma vie de façon permanente et irrémédiable."},
+  {n:45, t:"Je préfère me concentrer sur les événements extérieurs et les faits concrets plutôt que sur mes états intérieurs."},
+  {n:46, t:"Face à un problème, je préfère l'analyser rationnellement plutôt que d'explorer les émotions qu'il génère."},
+  {n:47, t:"J'ai l'impression que ce qui m'arrive dépend surtout des autres ou du hasard, et peu de moi-même."},
+  {n:48, t:"Je me sens maître(sse) de ce qui se passe dans ma vie et de mes choix importants.", inv:true},
+  {n:49, t:"Je serais incapable de décrire clairement qui j'étais il y a 5 ans et qui je serai dans 5 ans."},
+  {n:50, t:"L'idée de changer profondément qui je suis me provoque une crainte existentielle que j'évite d'explorer."}
+];
+const SCALE_LABELS = ["Jamais","Rarement","Parfois","Souvent","Très souvent"];
+const INV = [32, 38, 48];
+const PAGES_LABELS = [
+  "Partie 1 · Questions 1 à 10",
+  "Partie 2 · Questions 11 à 20",
+  "Partie 3 · Questions 21 à 30",
+  "Partie 4 · Questions 31 à 40",
+  "Partie 5 · Questions 41 à 50"
+];
+
+const MASK_DEF = {
+  rouge: {items:[1,8,15,22,29,36,43,44], max:32, label:"Rouge", color:"#e53e3e"},
+  orange:{items:[2,9,16,23,30,37,45,46], max:32, label:"Orange",color:"#ed8936"},
+  jaune: {items:[3,10,17,24,31,38],       max:24, label:"Jaune", color:"#ecc94b"},
+  vert:  {items:[4,11,18,25,32,39],        max:24, label:"Vert",  color:"#48bb78"},
+  bleu:  {items:[5,12,19,26,33,40,47,48], max:32, label:"Bleu",  color:"#4299e1"},
+  indigo:{items:[6,13,20,27,34,41],        max:24, label:"Indigo",color:"#667eea"},
+  violet:{items:[7,14,21,28,35,42,49,50], max:32, label:"Violet",color:"#9f7aea"}
+};
+
+/* ════ DÉFIS / DYADES / TRIADES ════ */
+const DYADE_DEFIS = {
+  "rouge+jaune":{name:"Anxiété amplifiée Santé + besoin de certitude",defis:["Quand un symptôme apparaît, noter les pensées catastrophes sans chercher d'info pendant 2h.","Planifier un examen médical, mais ne pas appeler immédiatement pour un résultat : respecter le délai normal.","Faire une check-liste santé max 3 points au lieu d'une liste exhaustive, et s'y limiter.","Tester une activité physique nouvelle en acceptant l'effort corporel et le fait de ne pas tout anticiper."]},
+  "rouge+orange":{name:"Somatisation dissociée",defis:["Quand une sensation physique anxieuse apparaît, écrire : corps / incertitude / émotion ressentie.","Parler à une personne de confiance d'une peur santé en disant aussi ce que vous ressentez.","Choisir de ne pas vérifier un symptôme pendant 24h, noter ce qui se passe intérieurement.","Faire un check-up médical programmé, traverser l'attente en partageant votre ressenti émotionnel."]},
+  "orange+vert":{name:"Distance Paradoxale",defis:["Envoyer un message honnête à une personne proche au lieu de disparaître quand vous vous sentez mal.","Lors d'un moment de proximité, rester présent(e) quelques secondes de plus avant de changer de sujet.","Proposer une rencontre à quelqu'un que vous appréciez, puis nommer un ressenti simple.","Partager un inconfort ou un besoin (même petit) au lieu d'ajuster en silence."]},
+  "jaune+bleu":{name:"Contrôle Total",defis:["Accepter qu'un proche organise une activité commune sans intervenir sur les détails.","Laisser quelqu'un faire une tâche à sa manière, et ne pas corriger.","Dans un projet, accepter qu'une partie reste ouverte sans plan détaillé.","Dire : Je vous laisse décider, et je respecterai votre choix."]},
+  "indigo+bleu":{name:"Perfection-Contrôle",defis:["Complimenter sincèrement le travail de quelqu'un qui a fait différemment de vous.","Livrer quelque chose à 80% de votre standard, sans le signaler.","Identifier une exigence imposée aux autres sans vous l'appliquer, et l'assouplir.","Reconnaître une réussite comme la vôtre, sans l'attribuer aux circonstances."]},
+  "vert+indigo":{name:"Auto-effacement silencieux",defis:["Dire merci sans minimiser quand on vous complimente.","Partager un petit succès personnel avec un proche, sans tout relativiser.","Accepter une opportunité même si vous craignez de ne pas être assez bien.","Prendre la parole dans un groupe pour exprimer un point de vue qui vous tient à coeur."]}
+};
+const TRIADE_DEFIS = {
+  "rouge+jaune+orange":{name:"Anxiété corporelle totale",defis:["Quand un souci arrive, écrire : corps / incertitude / émotion. Sans chercher de solution immédiate.","Parler à quelqu'un d'une peur santé en disant aussi ce que vous ressentez.","Ne pas vérifier un symptôme pendant 24h, en utilisant V.A.L.E.U.R© chaque fois que l'envie revient.","Traverser l'attente de résultats médicaux en partageant votre ressenti."]},
+  "jaune+bleu+indigo":{name:"Perfectionnisme de contrôle",defis:["Identifier une journée sans planification préalable — et l'honorer.","Confier une tâche et ne pas intervenir, même si le résultat est différent.","Livrer un travail à 80% de votre standard — une fois, consciemment.","Nommer un standard qui vous épuise, et décider de l'assouplir 7 jours."]},
+  "vert+orange+indigo":{name:"Dépression silencieuse relationnelle",defis:["Dire une vérité relationnelle petite mais réelle à une personne de confiance.","Observer sans changer un comportement de sur-adaptation cette semaine.","Identifier un succès de la semaine et l'écrire — sans l'attribuer à la chance.","Laisser quelqu'un prendre soin de vous sans immédiatement retourner la relation."]},
+  "rouge+bleu+jaune":{name:"Contrôle total du danger",defis:["Identifier les trois domaines où votre contrôle est le plus fort — et lâcher l'un pendant 48h.","Déléguer quelque chose d'important avec un cadre clair, et ne pas vérifier pendant 24h.","Pratiquer une activité physique douce chaque matin 7 jours — pour détendre le système nerveux.","Quand une pensée de contrôle apparaît : quel danger est-ce que j'essaie d'éviter ?"]}
+};
+const SOLO_DEFIS = {
+  rouge:["Quand un symptôme apparaît, noter les pensées catastrophes sans chercher d'info pendant 2h.","Repérer une sensation corporelle agréable et la noter chaque jour pendant une semaine.","Reporter de 24h une consultation médicale non urgente — observer ce qui se passe.","Faire de l'activité physique douce en se concentrant sur le plaisir, non sur les signaux d'alarme."],
+  orange:["Chaque soir cette semaine, noter une émotion ressentie dans la journée — même vague.","Regarder une scène touchante sans analyser — juste laisser le corps réagir.","Répondre honnêtement à 'comment tu vas ?' en prenant 10 secondes avant.","Tenir un journal d'émotions 7 jours : une ligne par jour. Pas d'analyse — juste nommer."],
+  jaune:["Laisser une journée sans planification préalable — observer ce qui se passe.","Accepter qu'un proche organise une activité sans vous consulter sur les détails.","Quand une pensée 'et si...' apparaît, la noter sans l'explorer — passer à autre chose.","Commencer quelque chose sans plan B, et avancer pas à pas."],
+  vert:["Dire non à une demande cette semaine — sans se justifier pendant dix minutes.","Quand quelqu'un vous demande ce que vous voulez, prendre 10 secondes et répondre réellement.","Laisser quelqu'un gérer son humeur sans vous en sentir responsable.","Exprimer un besoin authentique à une personne proche — directement, simplement."],
+  bleu:["Déléguer une petite tâche sans corriger derrière, en observant les tensions.","Laisser quelqu'un choisir pour vous et suivre sans réajuster.","Pendant une réunion, se retenir d'intervenir pour corriger un détail non critique.","Confier une partie d'un projet, puis tolérer que ce soit fait différemment."],
+  indigo:["Terminer une petite tâche à 80% du standard habituel, et la livrer telle quelle.","Lancer une action visible sans la relire plus d'une fois.","Dire à quelqu'un de confiance : j'ai fait X et j'en suis suffisamment satisfait(e).","Se lancer dans un projet qui intimide en acceptant que ce sera une première version."],
+  violet:["Introduire un mini changement dans une routine et observer la voix qui dit 'ce n'est pas moi'.","Dans un contexte établi, dire ou faire une petite chose qui correspond plus à votre vrai goût.","Reprendre une activité aimée 'avant' pour une courte durée, même si l'impression est que c'est dépassé.","Dire à quelqu'un de confiance : voilà ce que je suis en train de découvrir de moi en ce moment."]
+};
+
+/* ════ STATE ════ */
+let demographics = {prenom:'', age:'', genre:'', situation:'', email:''};
+let answers = {};
+let currentPageIndex = 0;
+const TOTAL_PAGES = 5;
+const ITEMS_PER_PAGE = 10;
+let scores = {};
+
+/* ════ NAVIGATION ════ */
+function goToScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function checkAccess() {
+  const val = (document.getElementById('access-input').value || '').trim().toUpperCase();
+  const errEl = document.getElementById('access-error');
+  const inputEl = document.getElementById('access-input');
+  if (val === CONFIG.ACCESS_CODE) {
+    errEl.textContent = '';
+    goToScreen('screen-welcome');
+  } else {
+    inputEl.classList.add('error');
+    errEl.textContent = 'Code incorrect. Veuillez contacter l\'administrateur.';
+    setTimeout(() => inputEl.classList.remove('error'), 400);
+  }
+}
+
+function startQuestionnaire() {
+  const prenom = document.getElementById('d-prenom').value.trim();
+  const age    = document.getElementById('d-age').value.trim();
+  const email  = document.getElementById('d-email').value.trim();
+  if (!prenom || !age || !email || !email.includes('@')) {
+    alert('Merci de renseigner les champs obligatoires (prénom, âge, email).');
+    return;
+  }
+  demographics = {
+    prenom, age, genre: document.getElementById('d-genre').value,
+    situation: document.getElementById('d-pro').value, email
+  };
+  buildAllPages();
+  showPage(0);
+}
+
+/* ════ BUILD PAGES ════ */
+function buildAllPages() {
+  const container = document.getElementById('screen-questions-container');
+  container.innerHTML = '';
+  for (let p = 0; p < TOTAL_PAGES; p++) {
+    const pageItems = QUESTIONS.slice(p * ITEMS_PER_PAGE, (p + 1) * ITEMS_PER_PAGE);
+    const div = document.createElement('div');
+    div.id = `qpage-${p}`;
+    div.className = 'screen';
+    div.innerHTML = buildPageHTML(p, pageItems);
+    container.appendChild(div);
+  }
+}
+
+function buildPageHTML(pageIdx, items) {
+  const pct = Math.round(((pageIdx) / TOTAL_PAGES) * 100);
+  const isLast = pageIdx === TOTAL_PAGES - 1;
+  let dots = '';
+  for (let i = 0; i < TOTAL_PAGES; i++) {
+    if (i < pageIdx) dots += '<span class="step-dot done"></span>';
+    else if (i === pageIdx) dots += '<span class="step-dot active"></span>';
+    else dots += '<span class="step-dot"></span>';
+  }
+
+  let itemsHTML = '';
+  items.forEach(q => {
+    itemsHTML += `
+    <div class="item-card" id="ic-${q.n}">
+      <div class="item-header">
+        <span class="item-id">Q${q.n}</span>
+        <p class="item-text">${q.t}</p>
+      </div>
+      <div class="likert">
+        ${[0,1,2,3,4].map(v => `
+        <div class="likert-option">
+          <input type="radio" name="q${q.n}" id="q${q.n}v${v}" value="${v}" onchange="recordAnswer(${q.n},${v})">
+          <label class="likert-btn" for="q${q.n}v${v}">${v}</label>
+          <span class="likert-label">${SCALE_LABELS[v]}</span>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  });
+
+  return `
+  <div class="progress-wrapper">
+    <div class="progress-info">
+      <span>${PAGES_LABELS[pageIdx]}</span>
+      <span>Étape ${pageIdx + 2} / ${TOTAL_PAGES + 1}</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+    <div class="step-dots">${dots}</div>
+  </div>
+  <div class="page-header">
+    <div class="page-badge">Questions ${pageIdx * 10 + 1}–${(pageIdx + 1) * 10} / 50</div>
+    <h2 class="page-title">Évaluez votre fonctionnement habituel</h2>
+    <p class="page-desc">Répondez selon ce que vous vivez réellement, pas selon ce que vous voudriez. 0 = Jamais · 4 = Très souvent</p>
+  </div>
+  <div class="items-container">${itemsHTML}</div>
+  <div id="msg-${pageIdx}" class="unanswered-msg hidden">Merci de répondre à toutes les questions avant de continuer.</div>
+  <div class="btn-group" style="margin-top:32px">
+    <button class="btn btn-secondary" onclick="prevPage(${pageIdx})">← Précédent</button>
+    <button class="btn btn-primary" onclick="${isLast ? 'submitQuestionnaire()' : `nextPage(${pageIdx})`}">
+      ${isLast ? 'Voir mes résultats →' : 'Suivant →'}
+    </button>
+  </div>`;
+}
+
+function showPage(idx) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const pg = document.getElementById(`qpage-${idx}`);
+  if (pg) { pg.classList.add('active'); window.scrollTo(0, 0); }
+  currentPageIndex = idx;
+  // Restore checked states
+  const items = QUESTIONS.slice(idx * ITEMS_PER_PAGE, (idx + 1) * ITEMS_PER_PAGE);
+  items.forEach(q => {
+    if (answers[q.n] !== undefined) {
+      const radio = document.getElementById(`q${q.n}v${answers[q.n]}`);
+      if (radio) { radio.checked = true; document.getElementById(`ic-${q.n}`)?.classList.add('answered'); }
+    }
+  });
+}
+
+function recordAnswer(num, val) {
+  answers[num] = val;
+  const card = document.getElementById(`ic-${num}`);
+  if (card) card.classList.add('answered');
+}
+
+function prevPage(idx) {
+  if (idx === 0) { goToScreen('screen-demo'); return; }
+  showPage(idx - 1);
+}
+
+function nextPage(idx) {
+  const items = QUESTIONS.slice(idx * ITEMS_PER_PAGE, (idx + 1) * ITEMS_PER_PAGE);
+  const unanswered = items.filter(q => answers[q.n] === undefined);
+  if (unanswered.length > 0) {
+    document.getElementById(`msg-${idx}`).classList.remove('hidden');
+    unanswered.forEach(q => {
+      const card = document.getElementById(`ic-${q.n}`);
+      if (card) { card.style.borderColor = 'rgba(229,62,62,.4)'; setTimeout(() => card.style.borderColor = '', 2000); }
+    });
+    return;
+  }
+  document.getElementById(`msg-${idx}`)?.classList.add('hidden');
+  showPage(idx + 1);
+}
+
+/* ════ CALCUL SCORES ════ */
+function computeScores() {
+  const sc = {};
+  Object.keys(MASK_DEF).forEach(k => {
+    const def = MASK_DEF[k];
+    let brut = 0;
+    def.items.forEach(n => {
+      const raw = answers[n] !== undefined ? answers[n] : 0;
+      brut += INV.includes(n) ? (4 - raw) : raw;
+    });
+    sc[k] = Math.round((brut / def.max) * 100);
+  });
+  return sc;
+}
+
+function detectProfile(sc) {
+  const sorted = Object.keys(sc).map(k => ({key: k, pct: sc[k]})).sort((a,b) => b.pct - a.pct);
+  const [m0, m1, m2] = sorted;
+  if (m0.pct >= 50 && m1.pct >= 50 && m2.pct >= 50 && (m0.pct - m2.pct) <= 15)
+    return {type:'triade', masks:[m0.key, m1.key, m2.key]};
+  if (m0.pct >= 60 && m1.pct >= 60 && (m0.pct - m1.pct) <= 10)
+    return {type:'dyade', masks:[m0.key, m1.key]};
+  return {type:'mono', masks:[m0.key]};
+}
+
+function levelText(p) {
+  if (p >= 70) return "Dominant";
+  if (p >= 60) return "Élevé";
+  if (p >= 50) return "Significatif";
+  if (p >= 30) return "Modéré";
+  return "Faible";
+}
+
+/* ════ SOUMISSION ════ */
+async function submitQuestionnaire() {
+  // Validate last page
+  const idx = TOTAL_PAGES - 1;
+  const items = QUESTIONS.slice(idx * ITEMS_PER_PAGE, (idx + 1) * ITEMS_PER_PAGE);
+  const unanswered = items.filter(q => answers[q.n] === undefined);
+  if (unanswered.length > 0) {
+    document.getElementById(`msg-${idx}`).classList.remove('hidden');
+    unanswered.forEach(q => {
+      const card = document.getElementById(`ic-${q.n}`);
+      if (card) { card.style.borderColor = 'rgba(229,62,62,.4)'; }
+    });
+    return;
+  }
+
+  // Show overlay
+  document.getElementById('sending-overlay').classList.remove('hidden');
+  document.getElementById('overlay-text').textContent = 'Analyse de vos résultats…';
+
+  scores = computeScores();
+  const profile = detectProfile(scores);
+
+  // Save to localStorage
+  try {
+    localStorage.setItem('valeur_scores',  JSON.stringify(scores));
+    localStorage.setItem('valeur_prenom',  demographics.prenom);
+    localStorage.setItem('valeur_email',   demographics.email);
+    localStorage.setItem('valeur_profile', JSON.stringify(profile));
+    localStorage.setItem('valeur_ts',      Date.now().toString());
+  } catch(e) {}
+
+  // Build email params
+  const params = buildEmailParams(scores, profile);
+  document.getElementById('overlay-text').textContent = 'Envoi du rapport à votre praticienne…';
+
+  try {
+    await emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, params);
+  } catch(e) { console.warn('EmailJS:', e); }
+
+  document.getElementById('overlay-text').textContent = 'Redirection vers vos résultats…';
+  setTimeout(() => { window.location.href = 'resultats.html'; }, 800);
+}
+
+function buildEmailParams(sc, profile) {
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('fr-FR',{weekday:'long',year:'numeric',month:'long',day:'numeric'}) + ' à ' + now.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+
+  let totalRaw = 0, totalMax = 0;
+  QUESTIONS.forEach(q => {
+    const r = answers[q.n] !== undefined ? answers[q.n] : 0;
+    totalRaw += q.inv ? (4 - r) : r;
+    totalMax += 4;
+  });
+  const sgPct = Math.round((totalRaw / totalMax) * 100);
+
+  const dominants = [], eleves = [];
+  Object.keys(sc).forEach(k => {
+    if (sc[k] >= 70) dominants.push(MASK_DEF[k].label + ' (' + sc[k] + '%)');
+    else if (sc[k] >= 60) eleves.push(MASK_DEF[k].label + ' (' + sc[k] + '%)');
+  });
+
+  let profileStr = '';
+  if (profile.type==='triade') profileStr = 'TRIADE : ' + profile.masks.map(m => MASK_DEF[m].label + ' ' + sc[m] + '%').join(' + ');
+  else if (profile.type==='dyade') profileStr = 'DYADE : ' + profile.masks.map(m => MASK_DEF[m].label + ' ' + sc[m] + '%').join(' + ');
+  else profileStr = 'MONOMASQUE : ' + MASK_DEF[profile.masks[0]].label + ' (' + sc[profile.masks[0]] + '%)';
+
+  // Défis
+  let defiLines = '';
+  if (profile.type === 'dyade') {
+    const k1 = profile.masks[0]+'+'+profile.masks[1], k2 = profile.masks[1]+'+'+profile.masks[0];
+    const di = DYADE_DEFIS[k1] || DYADE_DEFIS[k2] || {name:'Dyade', defis:SOLO_DEFIS[profile.masks[0]].slice(0,4)};
+    defiLines = 'TYPE : ' + di.name + '\n\n' + di.defis.map((d,i) => (i+1)+'. '+d).join('\n');
+  } else if (profile.type === 'triade') {
+    const perms = [
+      profile.masks.join('+'), [profile.masks[0],profile.masks[2],profile.masks[1]].join('+'),
+      [profile.masks[1],profile.masks[0],profile.masks[2]].join('+'), [profile.masks[1],profile.masks[2],profile.masks[0]].join('+'),
+      [profile.masks[2],profile.masks[0],profile.masks[1]].join('+'), [profile.masks[2],profile.masks[1],profile.masks[0]].join('+')
+    ];
+    const ti = perms.reduce((acc, p) => acc || TRIADE_DEFIS[p], null) || {name:'Triade',defis:SOLO_DEFIS[profile.masks[0]].slice(0,4)};
+    defiLines = 'TYPE : ' + ti.name + '\n\n' + ti.defis.map((d,i) => (i+1)+'. '+d).join('\n');
+    defiLines += '\n\n--- DÉFIS PAR MASQUE ---\n';
+    profile.masks.forEach(m => {
+      defiLines += '\nMasque ' + MASK_DEF[m].label + ' (' + sc[m] + '%) :\n';
+      SOLO_DEFIS[m].forEach((d,i) => defiLines += '  '+(i+1)+'. '+d+'\n');
+    });
+  } else {
+    const dom = profile.masks[0];
+    defiLines = 'MASQUE DOMINANT : ' + MASK_DEF[dom].label + ' (' + sc[dom] + '%)\n\n' + SOLO_DEFIS[dom].map((d,i) => (i+1)+'. '+d).join('\n');
+  }
+
+  // Items critiques
+  let critLines = '';
+  let critNum = 0;
+  QUESTIONS.forEach(q => {
+    const r = answers[q.n] !== undefined ? answers[q.n] : 0;
+    const isCrit = (!q.inv && r === 4) || (q.inv && r === 0);
+    if (isCrit) {
+      critNum++;
+      critLines += 'Q' + q.n + (q.inv ? ' [INV]' : ' [DIR]') + ' brut=' + r + ' => adj=' + (q.inv ? 4-r : r) + '/4\n   ' + q.t.substring(0, 90) + '...\n\n';
+    }
+  });
+  if (!critLines) critLines = 'Aucun item critique détecté.';
+
+  // Interprétations
+  let interp = 'PROFIL : ' + profileStr + '\n\n';
+  Object.keys(sc).sort((a,b) => sc[b]-sc[a]).forEach(k => {
+    if (sc[k] < 30) return;
+    interp += 'Masque ' + MASK_DEF[k].label + ' : ' + sc[k] + '% — ' + levelText(sc[k]) + '\n';
+  });
+
+  // Journal complet
+  let journal = 'QUESTIONNAIRE V.A.L.E.U.R© V2 — 50 ITEMS\n';
+  journal += 'Répondant : ' + demographics.prenom + ' <' + demographics.email + '>\nDate : ' + dateStr + '\nProfil : ' + profileStr + '\n';
+  journal += '================================================\n\n';
+  QUESTIONS.forEach(q => {
+    const r = answers[q.n] !== undefined ? answers[q.n] : 0;
+    const adj = q.inv ? (4-r) : r;
+    const isCrit = (!q.inv && r===4)||(q.inv&&r===0);
+    journal += 'Q' + q.n + (q.inv?' [INV]':'') + (isCrit?' ★':'') + ' — ' + q.t + '\n   Brut : ' + r + '/4   Ajusté : ' + adj + '/4   Libellé : ' + SCALE_LABELS[r] + '\n\n';
+  });
+
+  return {
+    prenom: demographics.prenom, email_repondant: demographics.email,
+    age: demographics.age, genre: demographics.genre || '—',
+    situation: demographics.situation || '—', attachement: '—',
+    date_passation: dateStr,
+    score_global: totalRaw, score_global_pct: sgPct,
+    masques_dominants: dominants.length ? dominants.join(', ') : 'Aucun',
+    masques_eleves:    eleves.length    ? eleves.join(', ')    : 'Aucun',
+    pct_rouge: sc.rouge,   score_rouge: sc.rouge+'%',   level_rouge: levelText(sc.rouge),
+    pct_orange: sc.orange, score_orange: sc.orange+'%', level_orange: levelText(sc.orange),
+    pct_jaune: sc.jaune,   score_jaune: sc.jaune+'%',   level_jaune: levelText(sc.jaune),
+    pct_vert: sc.vert,     score_vert: sc.vert+'%',     level_vert: levelText(sc.vert),
+    pct_bleu: sc.bleu,     score_bleu: sc.bleu+'%',     level_bleu: levelText(sc.bleu),
+    pct_indigo: sc.indigo, score_indigo: sc.indigo+'%', level_indigo: levelText(sc.indigo),
+    pct_violet: sc.violet, score_violet: sc.violet+'%', level_violet: levelText(sc.violet),
+    items_critiques: critLines, defis: defiLines, interpretations: interp, all_responses: journal,
+    scores_summary: Object.keys(sc).map(k => MASK_DEF[k].label + ': ' + sc[k] + '% (' + levelText(sc[k]) + ')').join(' | ')
+  };
+}
+</script>
+</body>
+</html>
