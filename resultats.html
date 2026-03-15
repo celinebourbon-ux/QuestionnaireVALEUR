@@ -441,7 +441,17 @@ const ETAPES=[
 
 /* ═══ LECTURE DONNÉES ═══ */
 function loadData(){try{const s=localStorage.getItem('valeur_scores');const p=localStorage.getItem('valeur_prenom');if(!s)return null;return{scores:JSON.parse(s),prenom:p||""}}catch(e){return null}}
-function detectProfile(sc){const sorted=Object.keys(sc).map(k=>({key:k,pct:sc[k]})).sort((a,b)=>b.pct-a.pct);const[m0,m1,m2]=sorted;if(m0.pct>=50&&m1.pct>=50&&m2.pct>=50&&(m0.pct-m2.pct)<=15)return{type:'triade',masks:[m0.key,m1.key,m2.key]};if(m0.pct>=60&&m1.pct>=60&&(m0.pct-m1.pct)<=10)return{type:'dyade',masks:[m0.key,m1.key]};return{type:'mono',masks:[m0.key]}}
+function detectProfile(sc){
+  const sorted=Object.keys(sc).map(k=>({key:k,pct:sc[k]})).sort((a,b)=>b.pct-a.pct);
+  const[m0,m1,m2]=sorted;
+  if(m0.pct>=50&&m1.pct>=50&&m2.pct>=50&&(m0.pct-m2.pct)<=15)
+    return{type:'triade',subtype:'triade',masks:[m0.key,m1.key,m2.key]};
+  if(m0.pct>=60&&m1.pct>=60&&(m0.pct-m1.pct)<=10)
+    return{type:'dyade',subtype:'dyade',masks:[m0.key,m1.key]};
+  if(m0.pct>=70&&m1.pct>=50&&m1.pct<70&&(m0.pct-m1.pct)>=10)
+    return{type:'mono',subtype:'dominant_secondaire',masks:[m0.key],secondary:m1.key,secondaryPct:m1.pct};
+  return{type:'mono',subtype:'dominant_seul',masks:[m0.key]};
+}
 
 /* ═══ RENDU ═══ */
 function render(){
@@ -466,7 +476,11 @@ function render(){
 function buildPage(dominant,meta,data,playlist,scores,prenom,profile){
   const dominant_lbl=meta.label;
   const prenomTxt=prenom?`<p style="font-family:var(--font-d);font-size:14px;color:var(--muted);margin-bottom:6px;letter-spacing:1px">Rapport personnalisé pour ${prenom}</p>`:"";
-  const comboBadge=profile.type==='dyade'?`Dyade : ${profile.masks.map(m=>getMeta(m).label).join(' + ')}`:profile.type==='triade'?`Triade : ${profile.masks.map(m=>getMeta(m).label).join(' + ')}`:data.combo_primary.name;
+  let comboBadge;
+  if(profile.type==='dyade') comboBadge='Dyade : '+profile.masks.map(m=>getMeta(m).label).join(' + ');
+  else if(profile.type==='triade') comboBadge='Triade : '+profile.masks.map(m=>getMeta(m).label).join(' + ');
+  else if(profile.subtype==='dominant_secondaire'&&profile.secondary) comboBadge='Dominant '+meta.label+' · Amplificateur '+getMeta(profile.secondary).label;
+  else comboBadge=data.combo_primary.name;
 
   let html='';
 
