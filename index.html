@@ -24,14 +24,14 @@
 <style>
 :root {
   --navy:#0d1117;--navy-mid:#161b24;--navy-light:#1f2836;
-  --border:rgba(255,255,255,0.08);--text:#e8eaf0;--text-muted:#8b92a5;--text-dim:#4a5568;
+  --border:rgba(255,255,255,0.12);--text:#F0EAE1;--text-muted:#B0C0D4;--text-dim:#7A90B0;
   --rouge:#e53e3e;--orange:#ed8936;--jaune:#ecc94b;--vert:#48bb78;
   --bleu:#4299e1;--indigo:#667eea;--violet:#9f7aea;
   --gold:#c9a84c;--radius:12px;--radius-lg:20px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{font-family:'Jost',sans-serif;background:var(--navy);color:var(--text);min-height:100vh;line-height:1.6;user-select:none;-webkit-user-select:none;}
+body{font-family:'Jost',sans-serif;background:var(--navy);color:var(--text);min-height:100vh;line-height:1.75;user-select:none;-webkit-user-select:none;font-weight:400;-webkit-font-smoothing:antialiased;}
 .app{max-width:860px;margin:0 auto;padding:0 20px 60px;}
 .screen{display:none;}
 .screen.active{display:block;animation:fadeIn 0.4s ease;}
@@ -54,25 +54,25 @@ body{font-family:'Jost',sans-serif;background:var(--navy);color:var(--text);min-
 
 /* ── CARDS ── */
 .welcome-card,.form-card{background:var(--navy-mid);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;margin-bottom:24px;}
-.welcome-card h2,.form-card h2{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:400;margin-bottom:16px;}
-.welcome-card p,.form-card p{color:var(--text-muted);margin-bottom:12px;font-size:.95rem;}
+.welcome-card h2,.form-card h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;margin-bottom:18px;color:#F0EAE1;line-height:1.2;}
+.welcome-card p,.form-card p{color:rgba(240,234,225,.82);margin-bottom:14px;font-size:1rem;line-height:1.8;}
 .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin:24px 0;}
 .info-chip{background:var(--navy-light);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;}
 .info-chip .value{font-size:1.4rem;font-weight:600;}
-.info-chip .label{font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;}
+.info-chip .label{font-size:.78rem;color:rgba(240,234,225,.65);text-transform:uppercase;letter-spacing:.1em;margin-top:2px;}
 
 /* ── BUTTONS ── */
 .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:var(--radius);border:none;cursor:pointer;font-family:'Jost',sans-serif;font-size:.9rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:all .2s;}
 .btn-primary{background:linear-gradient(135deg,#4a6cf7,#6c47ff);color:white;box-shadow:0 4px 20px rgba(108,71,255,.35);}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(108,71,255,.45);}
-.btn-secondary{background:var(--navy-light);color:var(--text-muted);border:1px solid var(--border);}
+.btn-secondary{background:#1a2540;color:rgba(240,234,225,.75);border:1px solid rgba(255,255,255,.18);}
 .btn-secondary:hover{color:var(--text);border-color:rgba(255,255,255,.15);}
 .btn-group{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;}
 .btn-full{width:100%;justify-content:center;}
 
 /* ── PROGRESS ── */
 .progress-wrapper{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);padding:16px 0;border-bottom:1px solid var(--border);margin-bottom:32px;}
-.progress-info{display:flex;justify-content:space-between;margin-bottom:8px;font-size:.8rem;color:var(--text-muted);}
+.progress-info{display:flex;justify-content:space-between;margin-bottom:8px;font-size:.875rem;color:rgba(240,234,225,.75);font-weight:500;}
 .progress-bar{height:3px;background:var(--navy-light);border-radius:99px;overflow:hidden;}
 .progress-fill{height:100%;border-radius:99px;transition:width .5s ease;background:linear-gradient(90deg,#4a6cf7,#6c47ff);}
 .step-dots{display:flex;justify-content:center;gap:8px;margin-top:10px;}
@@ -85,51 +85,51 @@ body{font-family:'Jost',sans-serif;background:var(--navy);color:var(--text);min-
 .form-section h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:12px;}
 .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
 .form-field{display:flex;flex-direction:column;gap:6px;}
-.form-field label{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);}
-.form-field input,.form-field select{background:var(--navy-light);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--text);font-family:'Jost',sans-serif;font-size:.9rem;transition:border-color .2s;user-select:text;-webkit-user-select:text;}
+.form-field label{font-size:.82rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(240,234,225,.8);font-weight:600;}
+.form-field input,.form-field select{background:#1a2540;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:14px 18px;color:#F0EAE1;font-family:'Jost',sans-serif;font-size:1rem;transition:border-color .2s;user-select:text;-webkit-user-select:text;}
 .form-field input:focus,.form-field select:focus{outline:none;border-color:rgba(102,126,234,.6);}
 .form-field select option{background:var(--navy-mid);}
 .required-star{color:var(--rouge);margin-left:2px;}
-.field-hint{font-size:.72rem;color:var(--text-dim);}
+.field-hint{font-size:.8rem;color:rgba(176,192,212,.75);margin-top:4px;}
 
 /* ── PAGE QUESTIONS ── */
 .page-header{padding:32px 0 24px;border-bottom:1px solid var(--border);margin-bottom:32px;}
-.page-badge{display:inline-flex;align-items:center;gap:10px;padding:6px 16px;border-radius:99px;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px;border:1px solid rgba(255,255,255,.15);color:var(--text-muted);}
+.page-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 18px;border-radius:99px;font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:14px;border:1px solid rgba(255,255,255,.22);color:rgba(240,234,225,.75);font-weight:600;}
 .page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,3.5vw,2rem);font-weight:300;line-height:1.2;margin-bottom:8px;color:var(--text);}
-.page-desc{font-size:.85rem;color:var(--text-muted);font-style:italic;}
+.page-desc{font-size:.95rem;color:rgba(240,234,225,.7);font-style:italic;line-height:1.7;margin-top:4px;}
 .items-container{display:flex;flex-direction:column;gap:16px;}
-.item-card{background:var(--navy-mid);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;transition:border-color .2s,transform .2s;}
-.item-card:hover{border-color:rgba(255,255,255,.14);transform:translateX(2px);}
-.item-card.answered{border-color:rgba(72,187,120,.25);}
+.item-card{background:#0F1A2C;border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:22px 26px;transition:border-color .25s,background .25s;}
+.item-card:hover{border-color:rgba(201,168,76,.35);background:#111D32;}
+.item-card.answered{border-color:rgba(72,187,120,.45);background:#0d1f18;}
 .item-header{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;}
-.item-id{flex-shrink:0;font-size:.7rem;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;background:var(--navy-light);border-radius:4px;margin-top:2px;}
-.item-text{font-family:'Cormorant Garamond',serif;font-size:1.05rem;line-height:1.6;color:var(--text);}
+.item-id{flex-shrink:0;font-size:.72rem;color:rgba(201,168,76,.8);letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:4px;margin-top:2px;font-weight:600;}
+.item-text{font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,2.5vw,1.25rem);line-height:1.75;color:#F0EAE1;font-weight:400;}
 
 /* ── LIKERT ── */
-.likert{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
-.likert-option{display:flex;flex-direction:column;align-items:center;gap:6px;}
+.likert{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:4px;}
+.likert-option{display:flex;flex-direction:column;align-items:center;gap:8px;}
 .likert-option input[type="radio"]{display:none;}
-.likert-btn{width:40px;height:40px;border-radius:50%;border:2px solid var(--border);background:var(--navy-light);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:600;color:var(--text-muted);transition:all .2s;user-select:none;}
-.likert-btn:hover{border-color:rgba(255,255,255,.3);color:var(--text);transform:scale(1.05);}
-.likert-option input:checked + .likert-btn{border-color:var(--gold);color:var(--navy);background:var(--gold);transform:scale(1.1);}
-.likert-label{font-size:.65rem;text-align:center;color:var(--text-dim);max-width:56px;line-height:1.2;}
-.unanswered-msg{background:rgba(229,62,62,.1);border:1px solid rgba(229,62,62,.3);border-radius:8px;padding:12px 16px;font-size:.85rem;color:#fc8181;margin-top:16px;}
+.likert-btn{width:48px;height:48px;border-radius:50%;border:2px solid rgba(255,255,255,.2);background:#1a2540;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;color:rgba(240,234,225,.65);transition:all .2s;user-select:none;font-family:'Cormorant Garamond',serif;}
+.likert-btn:hover{border-color:rgba(201,168,76,.6);color:#F0EAE1;transform:scale(1.08);background:#1f2e4a;}
+.likert-option input:checked + .likert-btn{border-color:var(--gold);color:#0a0f1a;background:var(--gold);transform:scale(1.12);box-shadow:0 0 16px rgba(201,168,76,.4);}
+.likert-label{font-size:.75rem;text-align:center;color:rgba(240,234,225,.6);max-width:64px;line-height:1.3;font-weight:400;}
+.unanswered-msg{background:rgba(229,62,62,.12);border:1px solid rgba(229,62,62,.4);border-radius:8px;padding:14px 18px;font-size:.9rem;color:#FCA5A5;margin-top:16px;font-weight:500;}
 
 /* ── ACCESS SCREEN ── */
 .access-card{background:var(--navy-mid);border:1px solid var(--border);border-radius:var(--radius-lg);padding:48px 40px;text-align:center;max-width:440px;margin:60px auto 0;}
-.access-eyebrow{font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text-dim);margin-bottom:20px;}
+.access-eyebrow{font-size:.78rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(240,234,225,.6);margin-bottom:20px;}
 .access-card h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;margin-bottom:12px;color:var(--text);}
-.access-card p{color:var(--text-muted);font-size:.9rem;margin-bottom:24px;line-height:1.7;}
+.access-card p{color:rgba(240,234,225,.72);font-size:.95rem;margin-bottom:24px;line-height:1.8;}
 .access-input-wrap{position:relative;margin-bottom:10px;}
 .access-input{width:100%;background:var(--navy-light);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;color:var(--text);font-family:'Cormorant Garamond',serif;font-size:1.3rem;letter-spacing:.3em;text-align:center;transition:border-color .2s;user-select:text;-webkit-user-select:text;}
 .access-input:focus{outline:none;border-color:rgba(102,126,234,.5);}
 .access-input.error{border-color:var(--rouge)!important;animation:shake .3s;}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 .access-error{color:#fc8181;font-size:.82rem;margin-top:6px;min-height:18px;}
-.access-hint{font-size:.75rem;color:var(--text-dim);margin-top:16px;line-height:1.6;}
+.access-hint{font-size:.8rem;color:rgba(240,234,225,.55);margin-top:16px;line-height:1.7;}
 .access-sep{width:40px;height:1px;background:var(--border);margin:24px auto;}
 .access-badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:24px;}
-.access-badge{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;background:var(--navy-light);border:1px solid var(--border);border-radius:4px;padding:3px 10px;color:var(--text-dim);}
+.access-badge{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:4px;padding:4px 12px;color:rgba(240,234,225,.6);}
 
 /* ── SENDING ── */
 .sending-overlay{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,.92);backdrop-filter:blur(8px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;}
@@ -139,9 +139,9 @@ body{font-family:'Jost',sans-serif;background:var(--navy);color:var(--text);min-
 
 /* ── MISC ── */
 .hidden{display:none!important;}
-.footer-disclaimer{text-align:center;padding:24px 0;border-top:1px solid var(--border);font-size:.75rem;color:var(--text-dim);letter-spacing:.04em;line-height:1.8;}
+.footer-disclaimer{text-align:center;padding:24px 0;border-top:1px solid rgba(255,255,255,.08);font-size:.78rem;color:rgba(122,144,176,.65);letter-spacing:.04em;line-height:1.8;}
 @media(max-width:600px){
-  .likert{gap:4px}.likert-btn{width:34px;height:34px;font-size:.8rem}.likert-label{display:none}
+  .likert{gap:6px}.likert-btn{width:42px;height:42px;font-size:1rem}.likert-label{font-size:.68rem;max-width:48px}
   .welcome-card,.form-card{padding:24px}
   .access-card{padding:32px 20px;margin-top:32px}
 }
@@ -283,6 +283,7 @@ const CONFIG = {
   EMAILJS_PUBLIC_KEY:  'Qamyb35cCRJ5Pulqs',
   EMAILJS_SERVICE_ID:  'Questionnaire Valeur',
   EMAILJS_TEMPLATE_ID: 'template_inscription',
+  EMAILJS_TEMPLATE_REPONDANT: 'template_repondant',
 };
 emailjs.init(CONFIG.EMAILJS_PUBLIC_KEY);
 
@@ -366,7 +367,98 @@ const DYADE_DEFIS = {
   "orange+vert":{name:"Distance Paradoxale",defis:["Envoyer un message honnête à une personne proche au lieu de disparaître quand vous vous sentez mal.","Lors d'un moment de proximité, rester présent(e) quelques secondes de plus avant de changer de sujet.","Proposer une rencontre à quelqu'un que vous appréciez, puis nommer un ressenti simple.","Partager un inconfort ou un besoin (même petit) au lieu d'ajuster en silence."]},
   "jaune+bleu":{name:"Contrôle Total",defis:["Accepter qu'un proche organise une activité commune sans intervenir sur les détails.","Laisser quelqu'un faire une tâche à sa manière, et ne pas corriger.","Dans un projet, accepter qu'une partie reste ouverte sans plan détaillé.","Dire : Je vous laisse décider, et je respecterai votre choix."]},
   "indigo+bleu":{name:"Perfection-Contrôle",defis:["Complimenter sincèrement le travail de quelqu'un qui a fait différemment de vous.","Livrer quelque chose à 80% de votre standard, sans le signaler.","Identifier une exigence imposée aux autres sans vous l'appliquer, et l'assouplir.","Reconnaître une réussite comme la vôtre, sans l'attribuer aux circonstances."]},
-  "vert+indigo":{name:"Auto-effacement silencieux",defis:["Dire merci sans minimiser quand on vous complimente.","Partager un petit succès personnel avec un proche, sans tout relativiser.","Accepter une opportunité même si vous craignez de ne pas être assez bien.","Prendre la parole dans un groupe pour exprimer un point de vue qui vous tient à coeur."]}
+  "vert+indigo":{name:"Auto-effacement silencieux",defis:["Dire merci sans minimiser quand on vous complimente.","Partager un petit succès personnel avec un proche, sans tout relativiser.","Accepter une opportunité même si vous craignez de ne pas être assez bien.","Prendre la parole dans un groupe pour exprimer un point de vue qui vous tient à coeur."]},
+
+  "rouge+vert":{name:"Vigilance relationnelle — corps et lien",defis:[
+    "Quand une inquiétude corporelle apparaît, vérifier si elle coïncide avec une tension relationnelle — noter les deux sans chercher à résoudre.",
+    "Choisir une personne de confiance et lui dire comment vous vous sentez physiquement ET émotionnellement, dans la même conversation.",
+    "Quand vous vous surprenez à surveiller votre corps, demandez-vous : 'Est-ce que quelque chose m'a perturbé dans une relation récemment ?'",
+    "Passer 48h sans consulter de sources médicales ET sans vérifier si une personne proche est 'encore là' — observer ce qui se passe."
+  ]},
+  "rouge+bleu":{name:"Contrôle total — corps et environnement",defis:[
+    "Déléguer une décision mineure à quelqu'un d'autre, puis traverser l'inconfort sans vérifier votre corps toutes les 10 minutes.",
+    "Identifier une journée où vous avez à la fois des symptômes physiques ET le besoin de tout contrôler — écrire le lien entre les deux.",
+    "Choisir de ne pas réorganiser une situation qui vous échappe ET de ne pas chercher de rassurance médicale le même jour.",
+    "Faire une activité physique en laissant quelqu'un d'autre choisir le lieu, le rythme, la durée — sans surveiller vos sensations corporelles."
+  ]},
+  "rouge+indigo":{name:"Perfectionnisme médical",defis:[
+    "Accepter qu'un résultat médical 'suffisamment bon' est suffisant — sans relire une seconde fois, sans chercher une deuxième opinion.",
+    "Quand un symptôme apparaît, se limiter à une seule recherche de 5 minutes — et s'arrêter même si ce n'est 'pas assez précis'.",
+    "Consulter un médecin et repartir sans poser toutes les questions préparées — tolérer l'information incomplète.",
+    "Écrire : 'Voici ce que je sais de ma santé, et c'est suffisant pour aujourd'hui' — et relire ce texte quand l'anxiété revient."
+  ]},
+  "rouge+violet":{name:"Corps comme seul ancrage identitaire",defis:[
+    "Passer une journée sans penser à votre santé — et noter ce qui émerge quand ce sujet n'occupe plus l'espace.",
+    "Identifier une passion ou un intérêt que vous aviez avant que les inquiétudes corporelles prennent de la place — y consacrer 30 minutes.",
+    "Écrire qui vous êtes en dehors de votre corps et de votre santé — sans mentionner de symptômes.",
+    "Partager avec quelqu'un quelque chose de vous qui n'a rien à voir avec votre santé physique."
+  ]},
+  "orange+jaune":{name:"Intellectualisation des menaces",defis:[
+    "Face à une situation incertaine, écrire d'abord ce que vous ressentez dans le corps — avant d'analyser logiquement.",
+    "Choisir de ne pas chercher de certitude sur un sujet pendant 24h — et noter l'émotion qui apparaît quand vous ne pouvez pas savoir.",
+    "Partager une incertitude à voix haute avec quelqu'un, sans l'analyser — juste la nommer comme inconfortable.",
+    "Tolérer une situation ambiguë pendant une journée en posant la question : 'Qu'est-ce que je ressentirais si j'avais le droit de ressentir quelque chose ?'"
+  ]},
+  "orange+bleu":{name:"Excellence dissociée",defis:[
+    "Finir une journée de travail sans évaluer si c'était 'assez bien' — observer si quelque chose arrive quand vous lâchez le bilan.",
+    "Déléguer une tâche sans vérifier le résultat — et noter ce que vous ressentez (même vaguement) quand vous ne contrôlez pas.",
+    "Recevoir un retour positif sur votre travail et le laisser exister 10 secondes avant de passer à autre chose.",
+    "Identifier un succès de la semaine et nommer l'émotion qui l'accompagne — même si c'est flou ou inconfortable."
+  ]},
+  "orange+indigo":{name:"Performance sans satisfaction",defis:[
+    "Terminer quelque chose et noter, avant tout bilan critique : 'Ce que j'ai ressenti en faisant ça.'",
+    "Partager une réussite avec quelqu'un et observer la sensation corporelle qui accompagne ce partage.",
+    "Autoriser une journée sans produire ni performer — et rester avec ce qui émerge sans l'analyser.",
+    "Écrire : 'Ce que cette réussite m'a coûté' et 'Ce qu'elle m'a donné' — sans hiérarchiser les deux."
+  ]},
+  "orange+violet":{name:"Déconnexion identitaire profonde",defis:[
+    "Passer 10 minutes par jour à noter une sensation physique et une émotion vague — sans les nommer précisément si c'est difficile.",
+    "Reprendre une activité qui vous plaisait 'avant' — sans évaluer si vous la ressentez vraiment ou non.",
+    "Identifier un rôle que vous jouez régulièrement et demander : 'Qu'est-ce que je ressentirais si je ne jouais pas ce rôle ?'",
+    "Partager avec quelqu'un quelque chose de flou sur vous-même : 'Je ne sais pas exactement ce que je veux, mais je commence à sentir que...'"
+  ]},
+  "jaune+vert":{name:"Surveillance affective anxieuse",defis:[
+    "Quand vous analysez le comportement de quelqu'un, noter d'abord ce que vous ressentez — avant d'interpréter.",
+    "Résister à l'envie de demander une confirmation affective à un proche pendant 48h — observer l'inconfort.",
+    "Laisser une conversation se terminer sans savoir si elle s'est 'bien passée' — tolérer l'ambiguïté relationnelle.",
+    "Écrire : 'Ce que j'ai besoin de savoir dans cette relation, et pourquoi l'incertitude m'est si difficile.'"
+  ]},
+  "jaune+indigo":{name:"Perfectionnisme procrastinant",defis:[
+    "Démarrer un projet en 10 minutes — sans plan complet, sans ressources supplémentaires, sans conditions idéales.",
+    "Livrer quelque chose à 80% de votre standard habituel avant d'avoir tout vérifié — une fois, consciemment.",
+    "Accepter qu'une décision 'suffisamment bonne' prise maintenant vaut mieux qu'une décision parfaite plus tard.",
+    "Identifier la pensée exacte qui vous empêche de commencer — l'écrire, puis agir malgré elle pendant 5 minutes."
+  ]},
+  "jaune+violet":{name:"Rigidité identitaire défensive",defis:[
+    "Introduire un mini changement dans votre journée sans le planifier à l'avance — et observer la résistance.",
+    "Identifier une routine que vous maintenez par habitude et non par plaisir — la modifier légèrement cette semaine.",
+    "Face à une opportunité de changement, écrire les deux peurs simultanées : 'Peur de ne pas savoir comment' et 'Peur de ne plus être moi'.",
+    "Faire quelque chose de nouveau sans savoir comment ça va se passer — et rester avec l'inconfort plutôt que de planifier la sortie."
+  ]},
+  "vert+bleu":{name:"Hypercontrôle relationnel",defis:[
+    "Laisser quelqu'un d'important pour vous prendre une décision qui vous concerne — sans intervenir ni vérifier après.",
+    "Résister à l'envie de vérifier si quelqu'un est content de vous pendant 24h — observer l'inconfort sans le combler.",
+    "Dans une relation, exprimer un besoin directement plutôt que de le gérer en prenant le contrôle de la situation.",
+    "Identifier une relation dans laquelle vous contrôlez pour ne pas être abandonné·e — nommer ce mécanisme à voix haute."
+  ]},
+  "vert+violet":{name:"Identité construite sur les autres",defis:[
+    "Passer une journée à noter ce que vous voulez, vous — indépendamment de ce que les autres attendent de vous.",
+    "Refuser une demande cette semaine — même petite — et observer si le lien tient malgré le refus.",
+    "Écrire qui vous êtes en dehors de vos relations : passions, envies, façons d'être qui ne dépendent d'aucun regard.",
+    "Faire quelque chose que vous aimez seul·e, sans le partager avec personne — et rester avec le plaisir sans le valider."
+  ]},
+  "bleu+violet":{name:"Rigidité du rôle de maître",defis:[
+    "Accepter d'être guidé·e par quelqu'un d'autre dans une activité — sans reprendre la direction à mi-chemin.",
+    "Identifier un rôle que vous occupez (chef, organisateur, expert) et passer une situation sans l'incarner.",
+    "Écrire qui vous seriez si vous n'aviez pas besoin de maîtriser — sans le défendre ni le corriger.",
+    "Dire à quelqu'un de confiance : 'Je ne sais pas comment faire ça' — et rester dans cette position sans résoudre immédiatement."
+  ]},
+  "indigo+violet":{name:"Identité fondée sur la performance",defis:[
+    "Passer une journée sans produire, sans accomplir, sans évaluer — et noter ce qu'il reste de vous.",
+    "Identifier un aspect de vous-même qui existe indépendamment de vos réussites ou de vos rôles.",
+    "Écrire : 'Si je n'avais rien accompli d'ici 5 ans, qui serais-je encore ?' — sans défendre la réponse.",
+    "Faire quelque chose qui vous plaît sans vous demander si vous le faites bien — juste pour le plaisir d'être là."
+  ]}
 };
 const TRIADE_DEFIS = {
   "rouge+jaune+orange":{name:"Anxiété corporelle totale",defis:["Quand un souci arrive, écrire : corps / incertitude / émotion. Sans chercher de solution immédiate.","Parler à quelqu'un d'une peur santé en disant aussi ce que vous ressentez.","Ne pas vérifier un symptôme pendant 24h, en utilisant V.A.L.E.U.R© chaque fois que l'envie revient.","Traverser l'attente de résultats médicaux en partageant votre ressenti."]},
@@ -555,11 +647,17 @@ function computeScores() {
 function detectProfile(sc) {
   const sorted = Object.keys(sc).map(k => ({key: k, pct: sc[k]})).sort((a,b) => b.pct - a.pct);
   const [m0, m1, m2] = sorted;
+  // Triade : 3 masques >= 50% avec ecart <= 15pts
   if (m0.pct >= 50 && m1.pct >= 50 && m2.pct >= 50 && (m0.pct - m2.pct) <= 15)
-    return {type:'triade', masks:[m0.key, m1.key, m2.key]};
+    return {type:'triade', subtype:'triade', masks:[m0.key, m1.key, m2.key]};
+  // Dyade : 2 masques >= 60% avec ecart <= 10pts
   if (m0.pct >= 60 && m1.pct >= 60 && (m0.pct - m1.pct) <= 10)
-    return {type:'dyade', masks:[m0.key, m1.key]};
-  return {type:'mono', masks:[m0.key]};
+    return {type:'dyade', subtype:'dyade', masks:[m0.key, m1.key]};
+  // Mono sous-cas : dominant >= 70% + secondaire 50-69% avec ecart >= 10pts
+  if (m0.pct >= 70 && m1.pct >= 50 && m1.pct < 70 && (m0.pct - m1.pct) >= 10)
+    return {type:'mono', subtype:'dominant_secondaire', masks:[m0.key], secondary: m1.key, secondaryPct: m1.pct};
+  // Mono pur : 1 masque dominant, les autres < 50%
+  return {type:'mono', subtype:'dominant_seul', masks:[m0.key]};
 }
 
 function levelText(p) {
@@ -607,10 +705,54 @@ async function submitQuestionnaire() {
 
   try {
     await emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, params);
-  } catch(e) { console.warn('EmailJS:', e); }
+  } catch(e) { console.warn('EmailJS praticien:', e); }
+
+  // Email répondant (template simplifié)
+  const paramsRepondant = buildRepondantParams(sc, profile, params.date_passation);
+  try {
+    await emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_REPONDANT, paramsRepondant);
+  } catch(e) { console.warn('EmailJS repondant:', e); }
 
   document.getElementById('overlay-text').textContent = 'Redirection vers vos résultats…';
   setTimeout(() => { window.location.href = 'resultats.html'; }, 800);
+}
+
+function buildRepondantParams(sc, profile, dateStr) {
+  const dom = profile.masks[0];
+  const domLabel = MASK_DEF[dom].label;
+  const domScore = sc[dom];
+  let typeStr = '';
+  if (profile.type==='triade') typeStr = 'Triade : ' + profile.masks.map(m => MASK_DEF[m].label).join(' + ');
+  else if (profile.type==='dyade') typeStr = 'Dyade : ' + profile.masks.map(m => MASK_DEF[m].label).join(' + ');
+  else if (profile.subtype==='dominant_secondaire') typeStr = 'Masque dominant ' + domLabel + ' avec amplificateur ' + MASK_DEF[profile.secondary].label;
+  else typeStr = 'Masque dominant : ' + domLabel;
+
+  const peurs = {
+    rouge:"la maladie et la mort", orange:"la souffrance émotionnelle",
+    jaune:"l'inconnu et l'incertitude", vert:"le rejet et l'abandon",
+    bleu:"l'impuissance et la perte de maîtrise", indigo:"l'échec et le sentiment d'imposture",
+    violet:"la perte de soi et du changement"
+  };
+
+  const descr = {
+    rouge:"Hypervigilance · Corps et santé", orange:"Évitement émotionnel · Alexithymie",
+    jaune:"Intolérance à l'incertitude · Besoin de contrôle", vert:"Peur de l'abandon et de l'exclusion",
+    bleu:"Peur de l'impuissance · Besoin de maîtrise", indigo:"Perfectionnisme · Syndrome de l'imposteur",
+    violet:"Angoisse existentielle · Faux-self"
+  };
+
+  return {
+    prenom: demographics.prenom,
+    to_email: demographics.email,
+    date_passation: dateStr,
+    masque_dominant: domLabel,
+    score_dominant: domScore + '%',
+    type_profil: typeStr,
+    peur_centrale: peurs[dom] || domLabel,
+    descriptor: descr[dom] || '',
+    lien_resultats: window.location.origin + window.location.pathname.replace('index.html','') + 'resultats.html',
+    scores_resume: Object.keys(sc).sort((a,b)=>sc[b]-sc[a]).map(k => MASK_DEF[k].label + ' : ' + sc[k] + '% (' + levelText(sc[k]) + ')').join('\n')
+  };
 }
 
 function buildEmailParams(sc, profile) {
@@ -634,7 +776,9 @@ function buildEmailParams(sc, profile) {
   let profileStr = '';
   if (profile.type==='triade') profileStr = 'TRIADE : ' + profile.masks.map(m => MASK_DEF[m].label + ' ' + sc[m] + '%').join(' + ');
   else if (profile.type==='dyade') profileStr = 'DYADE : ' + profile.masks.map(m => MASK_DEF[m].label + ' ' + sc[m] + '%').join(' + ');
-  else profileStr = 'MONOMASQUE : ' + MASK_DEF[profile.masks[0]].label + ' (' + sc[profile.masks[0]] + '%)';
+  else if (profile.subtype==='dominant_secondaire')
+    profileStr = 'MONO DOMINANT + SECONDAIRE : ' + MASK_DEF[profile.masks[0]].label + ' (' + sc[profile.masks[0]] + '%) + amplificateur ' + MASK_DEF[profile.secondary].label + ' (' + sc[profile.secondary] + '%)';
+  else profileStr = 'MONOMASQUE SEUL : ' + MASK_DEF[profile.masks[0]].label + ' (' + sc[profile.masks[0]] + '%)';
 
   // Défis
   let defiLines = '';
@@ -658,6 +802,12 @@ function buildEmailParams(sc, profile) {
   } else {
     const dom = profile.masks[0];
     defiLines = 'MASQUE DOMINANT : ' + MASK_DEF[dom].label + ' (' + sc[dom] + '%)\n\n' + SOLO_DEFIS[dom].map((d,i) => (i+1)+'. '+d).join('\n');
+    if (profile.subtype === 'dominant_secondaire' && profile.secondary) {
+      const sec = profile.secondary;
+      defiLines += '\n\n--- MASQUE AMPLIFICATEUR : ' + MASK_DEF[sec].label + ' (' + sc[sec] + '%) ---\n';
+      defiLines += 'Défis complémentaires (exposer la dynamique amplifiée) :\n';
+      SOLO_DEFIS[sec].slice(0,2).forEach((d,i) => { defiLines += '  '+(i+1)+'. '+d+'\n'; });
+    }
   }
 
   // Items critiques
@@ -674,7 +824,10 @@ function buildEmailParams(sc, profile) {
   if (!critLines) critLines = 'Aucun item critique détecté.';
 
   // Interprétations
-  let interp = 'PROFIL : ' + profileStr + '\n\n';
+  let subTypeNote = '';
+  if (profile.subtype==='dominant_secondaire') subTypeNote = '\n⚠ Profil Dominant + Amplificateur : le Masque ' + MASK_DEF[profile.secondary].label + ' agit comme amplificateur significatif. Les défis doivent intégrer les deux dynamiques.\n';
+  else if (profile.subtype==='dominant_seul') subTypeNote = '\nProfil monomasque pur : un seul masque clairement dominant, les autres restent en retrait.\n';
+  let interp = 'PROFIL : ' + profileStr + subTypeNote + '\n';
   Object.keys(sc).sort((a,b) => sc[b]-sc[a]).forEach(k => {
     if (sc[k] < 30) return;
     interp += 'Masque ' + MASK_DEF[k].label + ' : ' + sc[k] + '% — ' + levelText(sc[k]) + '\n';
