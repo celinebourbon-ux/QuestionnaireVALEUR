@@ -670,27 +670,27 @@ function levelText(p) {
 
 /* ════ SOUMISSION ════ */
 async function submitQuestionnaire() {
-  // Validate last page
   const idx = TOTAL_PAGES - 1;
   const items = QUESTIONS.slice(idx * ITEMS_PER_PAGE, (idx + 1) * ITEMS_PER_PAGE);
   const unanswered = items.filter(q => answers[q.n] === undefined);
   if (unanswered.length > 0) {
-    document.getElementById(`msg-${idx}`).classList.remove('hidden');
-    unanswered.forEach(q => {
-      const card = document.getElementById(`ic-${q.n}`);
-      if (card) { card.style.borderColor = 'rgba(229,62,62,.4)'; }
+    document.getElementById('msg-' + idx).classList.remove('hidden');
+    unanswered.forEach(function(q) {
+      const card = document.getElementById('ic-' + q.n);
+      if (card) card.style.borderColor = 'rgba(229,62,62,.4)';
     });
     return;
   }
 
-  // Show overlay
-  document.getElementById('sending-overlay').classList.remove('hidden');
-  document.getElementById('overlay-text').textContent = 'Analyse de vos résultats…';
+  const overlay = document.getElementById('sending-overlay');
+  const overlayText = document.getElementById('overlay-text');
+  overlay.classList.remove('hidden');
+  overlayText.textContent = 'Analyse de vos résultats…';
 
   scores = computeScores();
   const profile = detectProfile(scores);
 
-  // Save to localStorage
+  // Sauvegarde localStorage — non bloquante
   try {
     localStorage.setItem('valeur_scores',  JSON.stringify(scores));
     localStorage.setItem('valeur_prenom',  demographics.prenom);
@@ -699,23 +699,49 @@ async function submitQuestionnaire() {
     localStorage.setItem('valeur_ts',      Date.now().toString());
   } catch(e) {}
 
-  // Build email params
+  // ── ÉTAPE 1 : votre rapport praticien — priorité absolue ──────────────
+  // Envoyé EN PREMIER, dans son propre bloc, avant tout le reste.
+  // Si cet envoi échoue, on le retente une fois (retry).
+  overlayText.textContent = 'Envoi du rapport…';
   const params = buildEmailParams(scores, profile);
-  document.getElementById('overlay-text').textContent = 'Envoi du rapport…';
 
+  let praticienOk = false;
+  for (let tentative = 1; tentative <= 2; tentative++) {
+    try {
+      await emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, params);
+      praticienOk = true;
+      break;
+    } catch(e) {
+      console.warn('EmailJS praticien tentative ' + tentative + ':', e.text || e);
+      if (tentative === 1) await new Promise(function(r){ setTimeout(r, 2000); });
+    }
+  }
+
+  // Rapport sauvegardé en localStorage de secours si les 2 tentatives échouent
+  if (!praticienOk) {
+    try {
+      localStorage.setItem('valeur_rapport_secours', JSON.stringify({
+        prenom: demographics.prenom,
+        email: demographics.email,
+        scores: scores,
+        profile: JSON.stringify(profile),
+        ts: Date.now()
+      }));
+      console.warn('Rapport sauvegardé en localStorage — à récupérer manuellement');
+    } catch(e2) {}
+  }
+
+  // ── ÉTAPE 2 : email répondant — optionnel, ne bloque rien ─────────────
   try {
-    await emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, params);
-  } catch(e) { console.warn('EmailJS praticien:', e); }
+    const paramsR = buildRepondantParams(scores, profile, params.date_passation);
+    await emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_REPONDANT, paramsR);
+  } catch(e) {
+    console.warn('EmailJS répondant (non bloquant):', e.text || e);
+  }
 
-  // Email repondant — correction sc -> scores
-  try {
-    const paramsRepondant = buildRepondantParams(scores, profile, params.date_passation);
-    await emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_REPONDANT, paramsRepondant);
-  } catch(e) { console.warn('EmailJS repondant:', e); }
-
-  // Redirection garantie dans tous les cas
-  document.getElementById('overlay-text').textContent = 'Redirection vers vos resultats…';
-  setTimeout(() => { window.location.href = 'resultats.html'; }, 800);
+  // ── ÉTAPE 3 : redirection — toujours ──────────────────────────────────
+  overlayText.textContent = 'Redirection vers vos résultats…';
+  setTimeout(function() { window.location.href = 'resultats.html'; }, 800);
 }
 
 function buildRepondantParams(sc, profile, dateStr) {
