@@ -540,7 +540,7 @@ function buildPage(dominant,meta,data,playlist,scores,prenom,profile){
     +'<h2 class="card-title">Votre Configuration en Profondeur</h2>'
     +'<p class="combo-intro-text">Vos masques ne s\'additionnent pas — <strong>ils s\'amplifient mutuellement.</strong> Identifier leur interaction révèle des dynamiques que chaque masque seul ne suffit pas à expliquer. C\'est là que réside la vraie source de votre anxiété.</p>';
 
-  /* Combos fixes (toujours affichés) */
+  /* ── COMBOS FIXES — dynamiques typiques du masque dominant ── */
   html+='<div class="combo-card">'
     +'<div class="combo-masks">'+data.combo_primary.masks.map(function(m){var mm=getMeta(m.key);return'<div class="co" style="background:'+mm.color+';box-shadow:0 0 10px '+mm.glow+'">'+m.label+'</div>'}).join('<span class="cx">+</span>')+'<span class="cx">=</span></div>'
     +'<h3 class="combo-name">'+data.combo_primary.name+'</h3>'
@@ -555,7 +555,28 @@ function buildPage(dominant,meta,data,playlist,scores,prenom,profile){
     +'<p class="combo-desc">'+data.combo_sec.desc+'</p>'
     +'</div>';
 
-  /* ── SECTION DYNAMIQUE DYADE / TRIADE ── */
+  /* ── COMBO DYNAMIQUE — dyade détectée dans les scores réels ── */
+  if(profile.subtype==='dominant_secondaire'&&profile.secondary){
+    var detectedDy=gd(dominant,profile.secondary);
+    if(detectedDy){
+      var sm2=getMeta(profile.secondary);
+      html+='<div class="combo-card" style="border-left-color:var(--gold);background:rgba(201,168,76,.04)">'
+        +'<div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:14px">Votre dynamique détectée dans vos scores</div>'
+        +'<div class="combo-masks">'
+        +'<div class="co" style="background:'+meta.color+';box-shadow:0 0 10px '+meta.glow+'">'+meta.label+'</div>'
+        +'<span class="cx">+</span>'
+        +'<div class="co" style="background:'+sm2.color+';box-shadow:0 0 10px '+sm2.glow+'">'+sm2.label+'</div>'
+        +'<span class="cx">=</span>'
+        +'</div>'
+        +'<h3 class="combo-name">'+detectedDy.n+'</h3>'
+        +'<p class="combo-desc">'+detectedDy.b1+'</p>'
+        +'<p class="combo-desc" style="margin-top:10px;opacity:.8">'+detectedDy.b2+'</p>'
+        +'<p class="combo-desc" style="margin-top:10px;font-style:italic;color:var(--gold)">'+detectedDy.b6+'</p>'
+        +'</div>';
+    }
+  }
+
+/* ── SECTION DYNAMIQUE DYADE / TRIADE ── */
   if(profile.type==='dyade'){
     var dy=gd(profile.masks[0],profile.masks[1]);
     if(dy){
