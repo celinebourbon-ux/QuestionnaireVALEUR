@@ -647,25 +647,41 @@ function computeScores() {
 function detectProfile(sc) {
   const sorted = Object.keys(sc).map(k => ({key: k, pct: sc[k]})).sort((a,b) => b.pct - a.pct);
   const [m0, m1, m2] = sorted;
-  // Triade : 3 masques >= 50% avec ecart <= 15pts
-  if (m0.pct >= 50 && m1.pct >= 50 && m2.pct >= 50 && (m0.pct - m2.pct) <= 15)
+  // Étape 1 — masque >= 80% : mono dominant
+  if (m0.pct >= 80) {
+    const prof = {type:'mono', subtype:'dominant', masks:[m0.key]};
+    if (m1 && m1.pct >= 65) { prof.secondary = m1.key; prof.secondaryPct = m1.pct; prof.subtype = 'dominant_secondaire'; }
+    return prof;
+  }
+  // Étape 2 — dyade : 2 masques >= 65%, écart <= 10pts
+  if (m0.pct >= 65 && m1 && m1.pct >= 65 && (m0.pct - m1.pct) <= 10) {
+    const third = m2 ? m2.pct : 0;
+    if (third < 60) {
+      const prof2 = {type:'dyade', subtype:'dyade', masks:[m0.key, m1.key]};
+      if (third >= 55) { prof2.tertiary = sorted[2].key; prof2.tertiaryPct = sorted[2].pct; prof2.subtype = 'dyade_tertiaire'; }
+      return prof2;
+    }
+    // 3ème >= 60% → passer à étape 3
+  }
+  // Étape 3 — triade : 3 masques >= 60%, écart <= 15pts
+  if (m0.pct >= 60 && m1 && m1.pct >= 60 && m2 && m2.pct >= 60 && (m0.pct - m2.pct) <= 15)
     return {type:'triade', subtype:'triade', masks:[m0.key, m1.key, m2.key]};
-  // Dyade : 2 masques >= 60% avec ecart <= 10pts
-  if (m0.pct >= 60 && m1.pct >= 60 && (m0.pct - m1.pct) <= 10)
-    return {type:'dyade', subtype:'dyade', masks:[m0.key, m1.key]};
-  // Mono sous-cas : dominant >= 70% + secondaire 50-69% avec ecart >= 10pts
-  if (m0.pct >= 70 && m1.pct >= 50 && m1.pct < 70 && (m0.pct - m1.pct) >= 10)
-    return {type:'mono', subtype:'dominant_secondaire', masks:[m0.key], secondary: m1.key, secondaryPct: m1.pct};
-  // Mono pur : 1 masque dominant, les autres < 50%
-  return {type:'mono', subtype:'dominant_seul', masks:[m0.key]};
+  // Étape 4 — pan-masques : >= 6 masques >= 65%, écart <= 20pts
+  const high65 = sorted.filter(m => m.pct >= 65);
+  if (high65.length >= 6 && (high65[0].pct - high65[high65.length-1].pct) <= 20)
+    return {type:'pan', subtype:'pan', masks: high65.map(m => m.key)};
+  // Étape 5 — profil résiduel
+  const sig = sorted.filter(m => m.pct >= 50);
+  if (sig.length > 0) return {type:'residuel', subtype:'residuel', masks: sig.map(m => m.key), dominant: m0.key};
+  return {type:'mono', subtype:'dominant', masks:[m0.key]};
 }
 
 function levelText(p) {
-  if (p >= 70) return "Dominant";
-  if (p >= 60) return "Élevé";
+  if (p >= 80) return "Dominant";
+  if (p >= 65) return "Élevé";
   if (p >= 50) return "Significatif";
   if (p >= 30) return "Modéré";
-  return "Faible";
+  return "Non significatif";
 }
 
 /* ════ SOUMISSION ════ */
@@ -704,6 +720,13 @@ async function submitQuestionnaire() {
   // Si cet envoi échoue, on le retente une fois (retry).
   overlayText.textContent = 'Envoi du rapport…';
   const params = buildEmailParams(scores, profile);
+  // Encoder les données pour lien praticienne → accès constellation répondant
+  try {
+    var _payload = { scores: scores, prenom: demographics.prenom };
+    var _encoded = btoa(unescape(encodeURIComponent(JSON.stringify(_payload))));
+    var _base = window.location.href.replace(/index\.html.*$/, '').replace(/\?.*$/, '');
+    params['lien_resultats_praticien'] = _base + 'resultats.html?data=' + _encoded;
+  } catch(_e) { params['lien_resultats_praticien'] = 'resultats.html'; }
 
   let praticienOk = false;
   for (let tentative = 1; tentative <= 2; tentative++) {
@@ -887,7 +910,8 @@ function buildEmailParams(sc, profile) {
     pct_indigo: sc.indigo, score_indigo: sc.indigo+'%', level_indigo: levelText(sc.indigo),
     pct_violet: sc.violet, score_violet: sc.violet+'%', level_violet: levelText(sc.violet),
     items_critiques: critLines, defis: defiLines, interpretations: interp, all_responses: journal.length > 4800 ? journal.substring(0, 4800) + '\n[suite tronquee - 50 items complets dans scores_summary]' : journal,
-    scores_summary: Object.keys(sc).map(k => MASK_DEF[k].label + ': ' + sc[k] + '% (' + levelText(sc[k]) + ')').join(' | ')
+    scores_summary: Object.keys(sc).map(k => MASK_DEF[k].label + ': ' + sc[k] + '% (' + levelText(sc[k]) + ')').join(' | '),
+    lien_resultats_praticien: ''
   };
 }
 </script>
