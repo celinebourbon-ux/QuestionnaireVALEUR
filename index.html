@@ -196,9 +196,9 @@ body{font-family:'Jost',sans-serif;background:var(--navy);color:var(--text);min-
     <p>Ce questionnaire d'auto-évaluation psychoéducative identifie vos stratégies de protection psychologique selon la Méthode V.A.L.E.U.R©.</p>
     <p>Nous utilisons tous ces mécanismes de protection — ils sont universels et ont été utiles à un moment de notre vie. L'objectif est de mieux les comprendre pour gagner en liberté et en authenticité.</p>
     <div class="info-grid">
-      <div class="info-chip"><div class="value">50</div><div class="label">Questions</div></div>
+      <div class="info-chip"><div class="value">57</div><div class="label">Questions</div></div>
       <div class="info-chip"><div class="value">7</div><div class="label">Masques</div></div>
-      <div class="info-chip"><div class="value">15–20 min</div><div class="label">Durée</div></div>
+      <div class="info-chip"><div class="value">~20 min</div><div class="label">Durée</div></div>
     </div>
     <div style="background:rgba(237,137,54,.08);border:1px solid rgba(237,137,54,.25);border-radius:var(--radius);padding:16px 20px;font-size:.85rem;color:#f6ad55;margin-top:16px">
       <strong style="display:block;margin-bottom:4px">Information importante</strong>
@@ -340,6 +340,73 @@ const QUESTIONS = [
   {n:49, t:"Je serais incapable de décrire clairement qui j'étais il y a 5 ans et qui je serai dans 5 ans."},
   {n:50, t:"L'idée de changer profondément qui je suis me provoque une crainte existentielle que j'évite d'explorer."}
 ];
+/* ════ 57 ITEMS SÉQUENCÉS (50 masques + 7 SPA intercalés) ════ */
+const ALL_ITEMS = [
+  // ── PAGE 1 (Q1–Q10 de la séquence) ──
+  {n:1,  t:"Je surveille régulièrement les signaux de mon corps (rythme cardiaque, sensations) pour détecter un problème de santé."},
+  {n:2,  t:"Lorsqu'une conversation devient émotionnelle, je change naturellement de sujet ou je m'en détache."},
+  {n:3,  t:"Je me sens très mal à l'aise lorsqu'un événement prévu est modifié sans préavis."},
+  {n:4,  t:"J'accepte le point de vue d'autrui même si je ne le partage pas, pour éviter tout conflit."},
+  {n:5,  t:"Lorsque je vois quelqu'un faire une tâche de travers, j'ai une forte impulsion à reprendre le contrôle."},
+  {spa:true, spaId:"spa1", t:"Je fais des choses de façon automatique, sans vraiment prêter attention à ce que je suis en train de faire."},
+  {n:6,  t:"Je retravaille mes productions (projets, présentations) bien au-delà de ce qui est objectivement nécessaire."},
+  {n:7,  t:"J'ai l'impression de vivre ma vie en pilote automatique, comme si je me regardais de l'extérieur."},
+  {n:8,  t:"Quand j'observe une sensation physique inhabituelle, ma pensée va rapidement vers une maladie grave."},
+  {n:9,  t:"Je me sens plus à l'aise en m'occupant (travail, écrans) qu'en restant seul(e) avec mes émotions."},
+  // ── PAGE 2 (Q11–Q20 de la séquence) ──
+  {n:10, t:"Avant de décider, je dois réunir le maximum d'informations, même pour des décisions mineures."},
+  {n:11, t:"La pensée d'être seul(e) ou abandonné(e) me provoque une angoisse significative."},
+  {spa:true, spaId:"spa4", t:"Je mange, marche ou me déplace sans remarquer ce que je vois, entends ou ressens physiquement."},
+  {n:12, t:"J'ai tendance à diriger les groupes ou situations, même sans y avoir été invité(e)."},
+  {n:13, t:"Je reporte souvent le démarrage d'un projet car je crains de ne pas être à la hauteur."},
+  {n:14, t:"Il m'est difficile d'exprimer des préférences authentiques car je ne sais plus ce que je veux vraiment."},
+  {n:15, t:"Je consulte régulièrement des sources médicales (internet, médecins) pour vérifier mes symptômes."},
+  {n:16, t:"Il m'est difficile de décrire précisément ce que je ressens émotionnellement dans une situation donnée."},
+  {n:17, t:"Je prépare systématiquement des plans alternatifs (B, C, D) en cas d'imprévu."},
+  {spa:true, spaId:"spa2", t:"Je me retrouve à ressentir une émotion — colère, tristesse, inquiétude — sans avoir remarqué qu'elle montait."},
+  // ── PAGE 3 (Q21–Q30 de la séquence) ──
+  {n:18, t:"Je maintiens parfois des relations insatisfaisantes car la rupture me semblerait encore plus difficile."},
+  {n:19, t:"Lorsque quelqu'un prend une décision sans me consulter dans un domaine me concernant, je ressens une irritation marquée."},
+  {n:20, t:"Je minimise spontanément mes réussites en les attribuant à la chance ou aux autres plutôt qu'à moi."},
+  {n:21, t:"J'ai abandonné progressivement des passions ou centres d'intérêt qui me définissaient autrefois."},
+  {n:22, t:"La peur de développer une maladie grave (cancer, AVC) occupe une place significative dans mes pensées."},
+  {n:23, t:"Même lors d'événements difficiles (deuil, échec important), je reste souvent sans larmes ni affect visible."},
+  {spa:true, spaId:"spa5", t:"Pendant une conversation, je pense à autre chose — ce que je vais répondre, ce que j'ai à faire — plutôt qu'à ce que l'autre dit vraiment."},
+  {n:24, t:"Les situations ambiguës ou sans issue claire me sont particulièrement difficiles à tolérer."},
+  {n:25, t:"Je ressens un besoin fort d'être rassuré(e) par mes proches sur leur affection pour moi."},
+  {n:26, t:"J'ai besoin de sentir que je suis indispensable dans mes relations professionnelles ou personnelles."},
+  // ── PAGE 4 (Q31–Q40 de la séquence) ──
+  {n:27, t:"J'ai du mal à me sentir légitime dans mon rôle professionnel, même quand mes résultats sont objectivement bons."},
+  {n:28, t:"En situation de silence ou de solitude, je ressens un vide intérieur difficile à définir."},
+  {n:29, t:"J'ai déjà consulté plusieurs médecins pour les mêmes symptômes, en espérant trouver une rassurance définitive."},
+  {spa:true, spaId:"spa3", t:"Je fonctionne en mode tâche en pensant déjà à ce qui vient ensuite, pendant que je fais ce que je fais maintenant."},
+  {n:30, t:"Je préfère analyser les situations de façon logique plutôt que d'explorer les émotions qu'elles génèrent."},
+  {n:31, t:"Je prévois et planifie les activités du quotidien de façon très détaillée pour éviter tout imprévu."},
+  {n:32, t:"Je me sens généralement bien dans ma peau et capable d'assumer les défis relationnels.", inv:true},
+  {n:33, t:"Quand je confie une tâche, j'ai régulièrement envie de vérifier ou corriger le travail de l'autre."},
+  {n:34, t:"Je sabote parfois inconsciemment une opportunité de réussite juste avant qu'elle se concrétise."},
+  {n:35, t:"Je refuse souvent des opportunités de changement (nouveau poste, déménagement) pour ne pas perturber ma stabilité."},
+  // ── PAGE 5 (Q41–Q50 de la séquence) ──
+  {spa:true, spaId:"spa6", t:"Je réalise après coup que j'ai agi, parlé ou réagi d'une façon qui ne me ressemblait pas vraiment, sans l'avoir remarqué sur le moment."},
+  {n:36, t:"Je cherche fréquemment à être rassuré(e) par des professionnels de santé sur mon état physique."},
+  {n:37, t:"Je me sens davantage observateur(trice) de ma propre vie que réellement acteur(trice) de mes émotions."},
+  {n:38, t:"Je tolère bien de ne pas savoir comment les choses vont se dérouler et j'avance malgré l'incertitude.", inv:true},
+  {n:39, t:"J'analyse en permanence les signes d'acceptation ou de rejet dans les comportements de mon entourage."},
+  {n:40, t:"Je ressens de la colère ou une forte frustration lorsqu'une situation m'échappe ou ne se déroule pas comme prévu."},
+  {n:41, t:"Mon dialogue intérieur est souvent très critique envers moi-même lorsque je n'atteins pas mes propres standards."},
+  {spa:true, spaId:"spa7", t:"Je traverse des moments entiers de ma journée sans me souvenir vraiment de ce que j'ai ressenti, pensé ou vécu."},
+  {n:42, t:"J'ai la sensation d'être une personne différente selon les périodes de ma vie, sans véritable fil conducteur."},
+  {n:43, t:"Si j'apprenais avoir une maladie grave, je pense que je ne pourrais pas y faire face émotionnellement."},
+  // ── PAGE 6 (Q51–Q57 de la séquence) ──
+  {n:44, t:"Je crois qu'une maladie grave ruinerait ma vie de façon permanente et irrémédiable."},
+  {n:45, t:"Je préfère me concentrer sur les événements extérieurs et les faits concrets plutôt que sur mes états intérieurs."},
+  {n:46, t:"Face à un problème, je préfère l'analyser rationnellement plutôt que d'explorer les émotions qu'il génère."},
+  {n:47, t:"J'ai l'impression que ce qui m'arrive dépend surtout des autres ou du hasard, et peu de moi-même."},
+  {n:48, t:"Je me sens maître(sse) de ce qui se passe dans ma vie et de mes choix importants.", inv:true},
+  {n:49, t:"Je serais incapable de décrire clairement qui j'étais il y a 5 ans et qui je serai dans 5 ans."},
+  {n:50, t:"L'idée de changer profondément qui je suis me provoque une crainte existentielle que j'évite d'explorer."}
+];
+
 const SCALE_LABELS = ["Jamais","Rarement","Parfois","Souvent","Très souvent"];
 const INV = [32, 38, 48];
 const PAGES_LABELS = [
@@ -347,7 +414,8 @@ const PAGES_LABELS = [
   "Partie 2 · Questions 11 à 20",
   "Partie 3 · Questions 21 à 30",
   "Partie 4 · Questions 31 à 40",
-  "Partie 5 · Questions 41 à 50"
+  "Partie 5 · Questions 41 à 50",
+  "Partie 6 · Questions 51 à 57"
 ];
 
 const MASK_DEF = {
@@ -480,7 +548,7 @@ const SOLO_DEFIS = {
 let demographics = {prenom:'', age:'', genre:'', situation:'', email:''};
 let answers = {};
 let currentPageIndex = 0;
-const TOTAL_PAGES = 5;
+const TOTAL_PAGES = 6;
 const ITEMS_PER_PAGE = 10;
 let scores = {};
 
@@ -526,7 +594,7 @@ function buildAllPages() {
   const container = document.getElementById('screen-questions-container');
   container.innerHTML = '';
   for (let p = 0; p < TOTAL_PAGES; p++) {
-    const pageItems = QUESTIONS.slice(p * ITEMS_PER_PAGE, (p + 1) * ITEMS_PER_PAGE);
+    const pageItems = ALL_ITEMS.slice(p * ITEMS_PER_PAGE, (p + 1) * ITEMS_PER_PAGE);
     const div = document.createElement('div');
     div.id = `qpage-${p}`;
     div.className = 'screen';
@@ -545,19 +613,22 @@ function buildPageHTML(pageIdx, items) {
     else dots += '<span class="step-dot"></span>';
   }
 
+  const seqBase = pageIdx * ITEMS_PER_PAGE;
   let itemsHTML = '';
-  items.forEach(q => {
+  items.forEach((q, li) => {
+    const seq = seqBase + li + 1;
+    const key = q.spa ? q.spaId : String(q.n);
     itemsHTML += `
-    <div class="item-card" id="ic-${q.n}">
+    <div class="item-card" id="ic-${key}">
       <div class="item-header">
-        <span class="item-id">Q${q.n}</span>
+        <span class="item-id">Q${seq}</span>
         <p class="item-text">${q.t}</p>
       </div>
       <div class="likert">
         ${[0,1,2,3,4].map(v => `
         <div class="likert-option">
-          <input type="radio" name="q${q.n}" id="q${q.n}v${v}" value="${v}" onchange="recordAnswer(${q.n},${v})">
-          <label class="likert-btn" for="q${q.n}v${v}">${v}</label>
+          <input type="radio" name="q${key}" id="q${key}v${v}" value="${v}" onchange="recordAnswer('${key}',${v})">
+          <label class="likert-btn" for="q${key}v${v}">${v}</label>
           <span class="likert-label">${SCALE_LABELS[v]}</span>
         </div>`).join('')}
       </div>
@@ -574,7 +645,7 @@ function buildPageHTML(pageIdx, items) {
     <div class="step-dots">${dots}</div>
   </div>
   <div class="page-header">
-    <div class="page-badge">Questions ${pageIdx * 10 + 1}–${(pageIdx + 1) * 10} / 50</div>
+    <div class="page-badge">Questions ${seqBase + 1}–${Math.min(seqBase + ITEMS_PER_PAGE, ALL_ITEMS.length)} / ${ALL_ITEMS.length}</div>
     <h2 class="page-title">Évaluez votre fonctionnement habituel</h2>
     <p class="page-desc">Répondez selon ce que vous vivez réellement, pas selon ce que vous voudriez. 0 = Jamais · 4 = Très souvent</p>
   </div>
@@ -594,11 +665,13 @@ function showPage(idx) {
   if (pg) { pg.classList.add('active'); window.scrollTo(0, 0); }
   currentPageIndex = idx;
   // Restore checked states
-  const items = QUESTIONS.slice(idx * ITEMS_PER_PAGE, (idx + 1) * ITEMS_PER_PAGE);
+  const items = ALL_ITEMS.slice(idx * ITEMS_PER_PAGE, (idx + 1) * ITEMS_PER_PAGE);
   items.forEach(q => {
-    if (answers[q.n] !== undefined) {
-      const radio = document.getElementById(`q${q.n}v${answers[q.n]}`);
-      if (radio) { radio.checked = true; document.getElementById(`ic-${q.n}`)?.classList.add('answered'); }
+    const key = q.spa ? q.spaId : String(q.n);
+    const val = answers[key];
+    if (val !== undefined) {
+      const radio = document.getElementById(`q${key}v${val}`);
+      if (radio) { radio.checked = true; document.getElementById(`ic-${key}`)?.classList.add('answered'); }
     }
   });
 }
@@ -615,12 +688,13 @@ function prevPage(idx) {
 }
 
 function nextPage(idx) {
-  const items = QUESTIONS.slice(idx * ITEMS_PER_PAGE, (idx + 1) * ITEMS_PER_PAGE);
-  const unanswered = items.filter(q => answers[q.n] === undefined);
+  const items = ALL_ITEMS.slice(idx * ITEMS_PER_PAGE, (idx + 1) * ITEMS_PER_PAGE);
+  const unanswered = items.filter(q => answers[q.spa ? q.spaId : String(q.n)] === undefined);
   if (unanswered.length > 0) {
     document.getElementById(`msg-${idx}`).classList.remove('hidden');
     unanswered.forEach(q => {
-      const card = document.getElementById(`ic-${q.n}`);
+      const key = q.spa ? q.spaId : String(q.n);
+      const card = document.getElementById(`ic-${key}`);
       if (card) { card.style.borderColor = 'rgba(229,62,62,.4)'; setTimeout(() => card.style.borderColor = '', 2000); }
     });
     return;
@@ -696,15 +770,35 @@ function levelText(p) {
   return "Non significatif";
 }
 
+
+/* ════ CALCUL SCORE SPA ════ */
+function computeSPA() {
+  const SPA_IDS = ['spa1','spa2','spa3','spa4','spa5','spa6','spa7'];
+  let brut = 0, answered = 0;
+  SPA_IDS.forEach(id => {
+    const raw = answers[id];
+    if (raw !== undefined) { brut += (4 - raw); answered++; }
+  });
+  if (answered === 0) return null;
+  const pct = Math.round((brut / 28) * 100);
+  let level = '';
+  if      (pct <= 24) level = 'Très faible';
+  else if (pct <= 44) level = 'Faible';
+  else if (pct <= 64) level = 'Modéré';
+  else if (pct <= 79) level = 'Élevé';
+  else                level = 'Très élevé';
+  return { raw: brut, pct, level };
+}
 /* ════ SOUMISSION ════ */
 async function submitQuestionnaire() {
   const idx = TOTAL_PAGES - 1;
-  const items = QUESTIONS.slice(idx * ITEMS_PER_PAGE, (idx + 1) * ITEMS_PER_PAGE);
-  const unanswered = items.filter(q => answers[q.n] === undefined);
+  const items = ALL_ITEMS.slice(idx * ITEMS_PER_PAGE, (idx + 1) * ITEMS_PER_PAGE);
+  const unanswered = items.filter(q => answers[q.spa ? q.spaId : String(q.n)] === undefined);
   if (unanswered.length > 0) {
     document.getElementById('msg-' + idx).classList.remove('hidden');
     unanswered.forEach(function(q) {
-      const card = document.getElementById('ic-' + q.n);
+      const key = q.spa ? q.spaId : String(q.n);
+      const card = document.getElementById('ic-' + key);
       if (card) card.style.borderColor = 'rgba(229,62,62,.4)';
     });
     return;
@@ -717,6 +811,7 @@ async function submitQuestionnaire() {
 
   scores = computeScores();
   const profile = detectProfile(scores);
+  const spaSc  = computeSPA();
 
   // Sauvegarde localStorage — non bloquante
   try {
@@ -724,6 +819,7 @@ async function submitQuestionnaire() {
     localStorage.setItem('valeur_prenom',  demographics.prenom);
     localStorage.setItem('valeur_email',   demographics.email);
     localStorage.setItem('valeur_profile', JSON.stringify(profile));
+    localStorage.setItem('valeur_spa',     JSON.stringify(spaSc));
     localStorage.setItem('valeur_ts',      Date.now().toString());
   } catch(e) {}
 
@@ -731,7 +827,7 @@ async function submitQuestionnaire() {
   // Envoyé EN PREMIER, dans son propre bloc, avant tout le reste.
   // Si cet envoi échoue, on le retente une fois (retry).
   overlayText.textContent = 'Envoi du rapport…';
-  const params = buildEmailParams(scores, profile);
+  const params = buildEmailParams(scores, profile, spaSc);
   // Encoder les données pour lien praticienne → accès constellation répondant
   try {
     var _payload = { scores: scores, prenom: demographics.prenom };
@@ -817,7 +913,7 @@ function buildRepondantParams(sc, profile, dateStr) {
   };
 }
 
-function buildEmailParams(sc, profile) {
+function buildEmailParams(sc, profile, spaSc) {
   const now = new Date();
   const dateStr = now.toLocaleDateString('fr-FR',{weekday:'long',year:'numeric',month:'long',day:'numeric'}) + ' à ' + now.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
 
@@ -896,7 +992,7 @@ function buildEmailParams(sc, profile) {
   });
 
   // Journal complet
-  let journal = 'QUESTIONNAIRE V.A.L.E.U.R© V2 — 50 ITEMS\n';
+  let journal = 'QUESTIONNAIRE V.A.L.E.U.R© V2 — 57 ITEMS (50 masques + 7 SPA)\n';
   journal += 'Répondant : ' + demographics.prenom + ' <' + demographics.email + '>\nDate : ' + dateStr + '\nProfil : ' + profileStr + '\n';
   journal += '================================================\n\n';
   QUESTIONS.forEach(q => {
@@ -905,6 +1001,18 @@ function buildEmailParams(sc, profile) {
     const isCrit = (!q.inv && r===4)||(q.inv&&r===0);
     journal += 'Q' + q.n + (q.inv?' [INV]':'') + (isCrit?' ★':'') + ' — ' + q.t + '\n   Brut : ' + r + '/4   Ajusté : ' + adj + '/4   Libellé : ' + SCALE_LABELS[r] + '\n\n';
   });
+
+  // Journal SPA
+  if (spaSc) {
+    journal += '\n================================================\nSCORE DE PRÉSENCE AUTHENTIQUE (SPA)\n================================================\n';
+    journal += 'Score brut : ' + spaSc.raw + '/28 → ' + spaSc.pct + '/100 — Niveau : ' + spaSc.level + '\n';
+    const SPA_LABELS = {spa1:'Pilote auto. — activité',spa2:'Pilote auto. — émotion',spa3:'Pilote auto. — pensée',spa4:'Pilote auto. — sensation',spa5:'Pilote auto. — relation',spa6:'Pilote auto. — identité',spa7:'Pilote auto. — continuité'};
+    ['spa1','spa2','spa3','spa4','spa5','spa6','spa7'].forEach(id => {
+      const r = answers[id] !== undefined ? answers[id] : 0;
+      const adj = 4 - r;
+      journal += id.toUpperCase() + ' [' + (SPA_LABELS[id]||id) + '] — brut=' + r + ' adj=' + adj + '\n';
+    });
+  }
 
   return {
     prenom: demographics.prenom, email_repondant: demographics.email,
@@ -922,7 +1030,9 @@ function buildEmailParams(sc, profile) {
     pct_indigo: sc.indigo, score_indigo: sc.indigo+'%', level_indigo: levelText(sc.indigo),
     pct_violet: sc.violet, score_violet: sc.violet+'%', level_violet: levelText(sc.violet),
     items_critiques: critLines, defis: defiLines, interpretations: interp, all_responses: journal.length > 4800 ? journal.substring(0, 4800) + '\n[suite tronquee - 50 items complets dans scores_summary]' : journal,
-    scores_summary: Object.keys(sc).map(k => MASK_DEF[k].label + ': ' + sc[k] + '% (' + levelText(sc[k]) + ')').join(' | '),
+    score_spa: spaSc ? spaSc.pct + '%' : 'N/A',
+    niveau_spa: spaSc ? spaSc.level : '—',
+    scores_summary: Object.keys(sc).map(k => MASK_DEF[k].label + ': ' + sc[k] + '% (' + levelText(sc[k]) + ')').join(' | ') + (spaSc ? ' | SPA: ' + spaSc.pct + '% (' + spaSc.level + ')' : ''),
     lien_resultats_praticien: ''
   };
 }
