@@ -645,37 +645,49 @@ function computeScores() {
 }
 
 function detectProfile(sc) {
-  const sorted = Object.keys(sc).map(k => ({key: k, pct: sc[k]})).sort((a,b) => b.pct - a.pct);
-  const [m0, m1, m2] = sorted;
-  // Étape 1 — masque >= 80% : mono dominant
+  const sorted = Object.keys(sc).map(k => ({key:k, pct:sc[k]})).sort((a,b) => b.pct - a.pct);
+  const m0 = sorted[0], m1 = sorted[1], m2 = sorted[2];
+
+  /* ─ Étape 1 — PAN-MASQUES : >= 6 masques >= 65% ET écart <= 20pts */
+  const high65 = sorted.filter(m => m.pct >= 65);
+  if (high65.length >= 6 && (high65[0].pct - high65[high65.length-1].pct) <= 20) {
+    return {type:'pan', subtype:'pan', masks:high65.map(m => m.key)};
+  }
+
+  /* ─ Étape 2 — MONO DOMINANT : 1 masque >= 80% */
   if (m0.pct >= 80) {
     const prof = {type:'mono', subtype:'dominant', masks:[m0.key]};
-    if (m1 && m1.pct >= 65) { prof.secondary = m1.key; prof.secondaryPct = m1.pct; prof.subtype = 'dominant_secondaire'; }
+    if (m1 && m1.pct >= 65) {
+      prof.subtype = 'dominant_secondaire';
+      prof.secondary = m1.key;
+      prof.secondaryPct = m1.pct;
+    }
     return prof;
   }
-  // Étape 2 — dyade : 2 masques >= 65%, écart <= 10pts
-  if (m0.pct >= 65 && m1 && m1.pct >= 65 && (m0.pct - m1.pct) <= 10) {
-    const third = m2 ? m2.pct : 0;
-    if (third < 60) {
-      const prof2 = {type:'dyade', subtype:'dyade', masks:[m0.key, m1.key]};
-      if (third >= 55) { prof2.tertiary = sorted[2].key; prof2.tertiaryPct = sorted[2].pct; prof2.subtype = 'dyade_tertiaire'; }
-      return prof2;
-    }
-    // 3ème >= 60% → passer à étape 3
-  }
-  // Étape 3 — triade : 3 masques >= 60%, écart <= 15pts
-  if (m0.pct >= 60 && m1 && m1.pct >= 60 && m2 && m2.pct >= 60 && (m0.pct - m2.pct) <= 15)
-    return {type:'triade', subtype:'triade', masks:[m0.key, m1.key, m2.key]};
-  // Étape 4 — pan-masques : >= 6 masques >= 65%, écart <= 20pts
-  const high65 = sorted.filter(m => m.pct >= 65);
-  if (high65.length >= 6 && (high65[0].pct - high65[high65.length-1].pct) <= 20)
-    return {type:'pan', subtype:'pan', masks: high65.map(m => m.key)};
-  // Étape 5 — profil résiduel
-  const sig = sorted.filter(m => m.pct >= 50);
-  if (sig.length > 0) return {type:'residuel', subtype:'residuel', masks: sig.map(m => m.key), dominant: m0.key};
-  return {type:'mono', subtype:'dominant', masks:[m0.key]};
-}
 
+  /* ─ Étape 3 — TRIADE : 3 masques >= 60% ET écart <= 15pts ET aucun >= 80% */
+  if (m0.pct >= 60 && m1 && m1.pct >= 60 && m2 && m2.pct >= 60 &&
+      (m0.pct - m2.pct) <= 15) {
+    return {type:'triade', subtype:'triade', masks:[m0.key, m1.key, m2.key]};
+  }
+
+  /* ─ Étape 4 — DYADE : 2 masques >= 65% ET écart <= 10pts */
+  if (m0.pct >= 65 && m1 && m1.pct >= 65 && (m0.pct - m1.pct) <= 10) {
+    const prof = {type:'dyade', subtype:'dyade', masks:[m0.key, m1.key]};
+    if (m2) {
+      if (m2.pct >= 55 && m2.pct <= 59) {
+        prof.subtype = 'dyade_tertiaire';
+        prof.tertiary = m2.key;
+        prof.tertiaryPct = m2.pct;
+      }
+    }
+    return prof;
+  }
+
+  /* ─ Étape 5 — RÉSIDUEL : masques 50–64% significatifs mais isolés */
+  const significatifs = sorted.filter(m => m.pct >= 50);
+  return {type:'residuel', subtype:'residuel', masks:significatifs.map(m => m.key)};
+}
 function levelText(p) {
   if (p >= 80) return "Dominant";
   if (p >= 65) return "Élevé";
