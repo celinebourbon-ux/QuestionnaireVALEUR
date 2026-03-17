@@ -207,35 +207,43 @@ function lc(p){return p>=80?'#E53E3E':p>=65?'#ED8936':p>=50?'#D69E2E':p>=30?'#9B
 function detectProfile(sc){
   var sorted=Object.keys(sc).map(function(k){return{key:k,pct:sc[k]}}).sort(function(a,b){return b.pct-a.pct});
   var m0=sorted[0],m1=sorted[1],m2=sorted[2];
-  /* Étape 1 — masque dominant >= 80% */
-  if(m0.pct>=80){
-    var prof={type:'mono',subtype:'dominant',masks:[m0.key]};
-    if(m1&&m1.pct>=65)prof.secondary=m1.key,prof.secondaryPct=m1.pct,prof.subtype='dominant_secondaire';
-    return prof;
-  }
-  /* Étape 2 — dyade: 2 masques >= 65%, écart <= 10pts */
-  if(m0.pct>=65&&m1&&m1.pct>=65&&(m0.pct-m1.pct)<=10){
-    var third=sorted[2]?sorted[2].pct:0;
-    if(third<60){
-      var prof2={type:'dyade',subtype:'dyade',masks:[m0.key,m1.key]};
-      if(third>=55)prof2.tertiary=sorted[2].key,prof2.tertiaryPct=sorted[2].pct,prof2.subtype='dyade_tertiaire';
-      return prof2;
-    }
-    /* 3ème >= 60% → passer à étape 3 */
-  }
-  /* Étape 3 — triade: 3 masques >= 60%, écart <= 15pts */
-  if(m0.pct>=60&&m1&&m1.pct>=60&&m2&&m2.pct>=60&&(m0.pct-m2.pct)<=15){
-    return{type:'triade',subtype:'triade',masks:[m0.key,m1.key,m2.key]};
-  }
-  /* Étape 4 — pan-masques: >= 6 masques >= 65%, écart <= 20pts */
+
+  /* ─ Étape 1 — PAN-MASQUES : >= 6 masques >= 65% ET écart <= 20pts */
   var high65=sorted.filter(function(m){return m.pct>=65});
   if(high65.length>=6&&(high65[0].pct-high65[high65.length-1].pct)<=20){
     return{type:'pan',subtype:'pan',masks:high65.map(function(m){return m.key})};
   }
-  /* Étape 5 — profil résiduel: masques 50-64% significatifs isolés */
+
+  /* ─ Étape 2 — MONO DOMINANT : 1 masque >= 80% */
+  if(m0.pct>=80){
+    var prof={type:'mono',subtype:'dominant',masks:[m0.key]};
+    if(m1&&m1.pct>=65){
+      prof.subtype='dominant_secondaire';
+      prof.secondary=m1.key;
+      prof.secondaryPct=m1.pct;
+    }
+    return prof;
+  }
+
+  /* ─ Étape 3 — TRIADE : 3 masques >= 60% ET écart <= 15pts ET aucun >= 80% */
+  if(m0.pct>=60&&m1&&m1.pct>=60&&m2&&m2.pct>=60&&(m0.pct-m2.pct)<=15){
+    return{type:'triade',subtype:'triade',masks:[m0.key,m1.key,m2.key]};
+  }
+
+  /* ─ Étape 4 — DYADE : 2 masques >= 65% ET écart <= 10pts */
+  if(m0.pct>=65&&m1&&m1.pct>=65&&(m0.pct-m1.pct)<=10){
+    var d={type:'dyade',subtype:'dyade',masks:[m0.key,m1.key]};
+    if(m2&&m2.pct>=55&&m2.pct<=59){
+      d.subtype='dyade_tertiaire';
+      d.tertiary=m2.key;
+      d.tertiaryPct=m2.pct;
+    }
+    return d;
+  }
+
+  /* ─ Étape 5 — RÉSIDUEL */
   var sig=sorted.filter(function(m){return m.pct>=50});
-  if(sig.length>0)return{type:'residuel',subtype:'residuel',masks:sig.map(function(m){return m.key}),dominant:m0.key};
-  return{type:'mono',subtype:'dominant',masks:[m0.key]};
+  return{type:'residuel',subtype:'residuel',masks:sig.map(function(m){return m.key})};
 }
 
 /* ═══ PENSÉES AUTOMATIQUES PAR MASQUE ═══ */
