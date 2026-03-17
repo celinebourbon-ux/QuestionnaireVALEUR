@@ -864,7 +864,7 @@ async function submitQuestionnaire() {
 
   // ── ÉTAPE 2 : email répondant — optionnel, ne bloque rien ─────────────
   try {
-    const paramsR = buildRepondantParams(scores, profile, params.date_passation);
+    const paramsR = buildRepondantParams(scores, profile, params.date_passation, spaSc);
     await emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_REPONDANT, paramsR);
   } catch(e) {
     console.warn('EmailJS répondant (non bloquant):', e.text || e);
@@ -875,7 +875,7 @@ async function submitQuestionnaire() {
   setTimeout(function() { window.location.href = 'resultats.html'; }, 800);
 }
 
-function buildRepondantParams(sc, profile, dateStr) {
+function buildRepondantParams(sc, profile, dateStr, spaSc) {
   const dom = profile.masks[0];
   const domLabel = MASK_DEF[dom].label;
   const domScore = sc[dom];
@@ -909,7 +909,9 @@ function buildRepondantParams(sc, profile, dateStr) {
     peur_centrale: peurs[dom] || domLabel,
     descriptor: descr[dom] || '',
     lien_resultats: window.location.origin + window.location.pathname.replace('index.html','') + 'resultats.html',
-    scores_resume: Object.keys(sc).sort((a,b)=>sc[b]-sc[a]).map(k => MASK_DEF[k].label + ' : ' + sc[k] + '% (' + levelText(sc[k]) + ')').join('\n')
+    scores_resume: Object.keys(sc).sort((a,b)=>sc[b]-sc[a]).map(k => MASK_DEF[k].label + ' : ' + sc[k] + '% (' + levelText(sc[k]) + ')').join('\n'),
+    score_spa: spaSc ? spaSc.pct + '%' : 'N/A',
+    niveau_spa: spaSc ? spaSc.level : '—'
   };
 }
 
