@@ -13,6 +13,11 @@ const html = fs.readFileSync('resultats.html', 'utf8');
 const scripts = [...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)]
   .map(m => m[1]).join('\n');
 
+// ── Charger index.html pour extraire computeSPA ───────────────────────────
+const htmlIndex = fs.readFileSync('index.html', 'utf8');
+const scriptsIndex = [...htmlIndex.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)]
+  .map(m => m[1]).join('\n');
+
 // Simuler les APIs navigateur absentes dans Node
 const browserStubs = `
   const window = { location: { href: 'http://localhost/resultats.html', search: '' } };
@@ -32,6 +37,7 @@ const browserStubs = `
   const IntersectionObserver = class { observe(){} };
   const navigator = { userAgent: '' };
   const history = { pushState: ()=>{} };
+  const emailjs = { init: ()=>{}, send: ()=>Promise.resolve() };
 `;
 
 const ctx = { console, setTimeout:()=>{}, clearTimeout:()=>{}, require };
@@ -40,6 +46,23 @@ try {
   vm.runInContext(browserStubs + scripts, ctx);
 } catch(e) {
   // Certaines erreurs d'init (DOM manquant) sont normales
+}
+
+// Contexte séparé pour index.html (computeSPA)
+const ctxIndex = { console, setTimeout:()=>{}, clearTimeout:()=>{}, require };
+vm.createContext(ctxIndex);
+try {
+  vm.runInContext(browserStubs + scriptsIndex, ctxIndex);
+} catch(e) {}
+
+// Helper pour modifier answers dans le contexte VM de index.html
+function setSPAAnswers(vals) {
+  const ids = ['spa1','spa2','spa3','spa4','spa5','spa6','spa7'];
+  const assigns = ids.map((id,i) => `answers["${id}"]=${vals[i]}`).join(';');
+  vm.runInContext('Object.keys(answers).filter(k=>k.startsWith("spa")).forEach(k=>delete answers[k]);' + assigns, ctxIndex);
+}
+function runSPA() {
+  return vm.runInContext('computeSPA()', ctxIndex);
 }
 
 // ── Utilitaires de test ───────────────────────────────────────────────────
@@ -95,6 +118,7 @@ const detectProfile  = ctx.detectProfile;
 const gd             = ctx.gd;
 const gt             = ctx.gt;
 const buildPage      = ctx.buildPage;
+const computeSPA     = ctxIndex.computeSPA;
 
 // ─────────────────────────────────────────────────────────────────────────
 // PARTIE 1 — lv(p) : niveaux
@@ -467,6 +491,65 @@ for (const conj of CONJUGAISON) {
 if (conjOk) {
   process.stdout.write(`  ✓ Aucune conjugaison incorrecte détectée\n`);
   passed++;
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────
+// PARTIE 7 — computeSPA() : calcul Score de Présence Authentique
+// ─────────────────────────────────────────────────────────────────────────
+section('PARTIE 7 — computeSPA() : Score de Présence Authentique');
+
+if (typeof computeSPA !== 'function') {
+  console.log('  ⚠ computeSPA() non trouvée dans index.html');
+} else {
+  // Cas 1 — Tous à 0 (jamais en pilote auto) → score corrigé=4 chacun → brut=28 → 100%
+  setSPAAnswers([0,0,0,0,0,0,0]);
+  let r = runSPA();
+  test('SPA — tous=0 → 100%',     r.pct,   100);
+  test('SPA — tous=0 → Très élevé', r.level, 'Très élevé');
+
+  // Cas 2 — Tous à 4 (toujours en pilote auto) → corrigé=0 → brut=0 → 0%
+  setSPAAnswers([4,4,4,4,4,4,4]);
+  r = runSPA();
+  test('SPA — tous=4 → 0%',       r.pct,   0);
+  test('SPA — tous=4 → Très faible', r.level, 'Très faible');
+
+  // Cas 3 — Exemple du document spec : [3,2,4,1,3,2,3] → brut=10 → 36%
+  setSPAAnswers([3,2,4,1,3,2,3]);
+  r = runSPA();
+  test('SPA — [3,2,4,1,3,2,3] → brut=10', r.raw, 10);
+  test('SPA — [3,2,4,1,3,2,3] → 36%',     r.pct, 36);
+  test('SPA — [3,2,4,1,3,2,3] → Faible',  r.level, 'Faible');
+
+  // Cas 4 — Score modéré : tous à 2 → corrigé=2 × 7 = 14 → 50%
+  setSPAAnswers([2,2,2,2,2,2,2]);
+  r = runSPA();
+  test('SPA — tous=2 → 50%',      r.pct,   50);
+  test('SPA — tous=2 → Modéré',   r.level, 'Modéré');
+
+  // Cas 5 — Seuil exact 65% : brut=18 → 18/28×100=64% → Modéré
+  // brut=19 → 19/28×100=68% → Élevé
+  setSPAAnswers([4,4,4,0,0,0,0]); // corrigés: 0,0,0,4,4,4,4 = 16 → 57%
+  r = runSPA();
+  test('SPA — brut=16 → 57% → Modéré', r.level, 'Modéré');
+
+  // Cas 6 — SPA null si aucune réponse
+  ctxIndex.answers = {};
+  r = runSPA();
+  test('SPA — sans réponses → null', r, null);
+
+  // Cas 7 — Indépendance : items masques n'affectent pas SPA
+  // Mettre des réponses masques et vérifier que computeSPA ne lit que spa1-spa7
+  ctxIndex.answers = { 1:4, 2:4, 3:4, 4:4, 5:4 }; // items masques seulement
+  r = runSPA();
+  test('SPA — items masques ignorés → null (pas de spa1-spa7)', r, null);
+
+  // Cas 8 — Inversion correcte item par item
+  setSPAAnswers([1,0,2,3,4,1,2]);
+  // corrigés: 3,4,2,1,0,3,2 → brut=15 → 15/28*100=54%
+  r = runSPA();
+  test('SPA — brut=15 → 54%',     r.pct, 54);
+  test('SPA — brut=15 → Modéré',  r.level, 'Modéré');
 }
 
 // ─────────────────────────────────────────────────────────────────────────
