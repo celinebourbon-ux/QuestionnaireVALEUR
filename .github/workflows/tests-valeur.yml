@@ -1,0 +1,27 @@
+name: Tests V.A.L.E.U.R©
+
+on:
+  push:
+    paths:
+      - 'resultats.html'
+      - 'index.html'
+      - 'tests_resultats.js'
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Lancer les tests V.A.L.E.U.R©
+        run: node tests_resultats.js
+
+      - name: Résumé
+        if: always()
+        run: echo "Tests terminés — voir les logs ci-dessus"
