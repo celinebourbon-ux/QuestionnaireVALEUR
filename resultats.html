@@ -457,13 +457,16 @@ function loadData(){
   try{
     var s=localStorage.getItem('valeur_scores');
     var p=localStorage.getItem('valeur_prenom');
-    if(s)return{scores:JSON.parse(s),prenom:p||'',fromUrl:false};
+    var spaRaw=localStorage.getItem('valeur_spa');
+    var spaData=null;
+    if(spaRaw){try{spaData=JSON.parse(spaRaw);}catch(e){}}
+    if(s)return{scores:JSON.parse(s),prenom:p||'',fromUrl:false,spa:spaData};
   }catch(e){}
   return null;
 }
 
 /* ═══ CONSTRUCTION PAGE ═══ */
-function buildPage(dominant,meta,data,playlist,scores,prenom,profile){
+function buildPage(dominant,meta,data,playlist,scores,prenom,profile,spa){
   var r=parseInt(meta.color.slice(1,3),16),g=parseInt(meta.color.slice(3,5),16),b=parseInt(meta.color.slice(5,7),16);
   var dominant_lbl=meta.label;
   var prenomTxt=prenom?'<p style="font-family:var(--font-d);font-size:var(--fs-base);color:var(--muted);margin-bottom:6px;letter-spacing:1px">Rapport personnalisé pour '+prenom+'</p>':'';
@@ -490,15 +493,106 @@ function buildPage(dominant,meta,data,playlist,scores,prenom,profile){
 
   /* ── HERO ── */
   html+='<div class="hero fu">'
-    +'<div class="hero-tag"><span class="pulse"></span>Masque Dominant · Résultats V.A.L.E.U.R©</div>'
+    +'<div class="hero-tag"><span class="pulse"></span>Vos résultats · Méthode V.A.L.E.U.R©</div>'
     +prenomTxt
-    +'<p class="hero-eyebrow">Votre configuration principale</p>'
+    +'<p class="hero-eyebrow">Ce qui vous empêche d’être pleinement vous-même</p>'
     +'<h1 class="hero-name">Masque <em>'+dominant_lbl+'</em></h1>'
     +'<p class="hero-descriptor">'+data.descriptor+'</p>'
     +'<div class="mirror-text">'+data.mirror+'</div>'
     +'</div>';
 
+  /* ── DASHBOARD DOUBLE AXE (après hero) ── */
+  var domPct=scores[dominant]||0;
+  var spaVal=spa?spa.pct:null;
+  var spaLvl=spa?spa.level:'—';
+
+  /* Phrase-clé selon le delta masque/SPA */
+  var axisSentence='';
+  if(spa){
+    if(domPct>=70&&spa.pct<=44)axisSentence='Votre masque est tr\u00e8s actif, votre pr\u00e9sence \u00e0 vous-m\u00eame encore limit\u00e9e. C\'est le point de d\u00e9part le plus courant — et le parcours V.A.L.E.U.R\u00a9 est construit exactement pour \u00e7a.';
+    else if(domPct>=70&&spa.pct>=65)axisSentence='Vous portez un masque puissant — ET vous avez d\u00e9j\u00e0 une vraie pr\u00e9sence \u00e0 vous-m\u00eame. Cette combinaison acc\u00e9l\u00e8re tout.';
+    else if(domPct<=50&&spa.pct>=65)axisSentence='Peu de d\u00e9fenses actives, bonne pr\u00e9sence \u00e0 soi — profil de vitalit\u00e9 psychologique \u00e9lev\u00e9e.';
+    else axisSentence='Le parcours V.A.L.E.U.R\u00a9 vise un objectif pr\u00e9cis\u00a0: r\u00e9duire l\'emprise du masque, amplifier votre pr\u00e9sence authentique.';
+  }else{
+    axisSentence='Repassez le questionnaire mis \u00e0 jour pour obtenir votre Score de Pr\u00e9sence Authentique.';
+  }
+
+  html+='<div class="fu" style="max-width:660px;margin:0 auto 36px;border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden">'
+
+    /* ── Bandeau titre ── */
+    +'<div style="background:rgba(255,255,255,.03);padding:14px 22px;border-bottom:1px solid rgba(255,255,255,.06)">'
+    +'<p style="font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:2px">Ce que V.A.L.E.U.R\u00a9 mesure et cible</p>'
+    +'<p style="font-family:var(--font-d);font-size:15px;color:var(--text);font-weight:400;line-height:1.5">'
+    +'Le <strong style="color:var(--MC)">probl\u00e8me</strong>\u00a0: l\'emprise de vos masques vous \u00e9loigne de vous-m\u00eame. '
+    +'L\'\u00ab\u00a0objectif\u00a0\u00bb\u00a0: amplifier votre pr\u00e9sence authentique jusqu\'\u00e0 retrouver qui vous \u00eates vraiment.</p>'
+    +'</div>'
+
+    /* ── Double axe ── */
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:0">'
+
+    /* Axe 1 — Masque */
+    +'<div style="padding:20px 22px;border-right:1px solid rgba(255,255,255,.06)">'
+    +'<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'
+    +'<span style="width:8px;height:8px;border-radius:50%;background:'+meta.color+';display:inline-block;flex-shrink:0"></span>'
+    +'<span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600">Emprise Masque '+dominant_lbl+'</span>'
+    +'</div>'
+    +'<div style="font-family:var(--font-d);font-size:34px;font-weight:300;color:'+meta.color+';line-height:1;margin-bottom:8px">'+domPct+'%</div>'
+    +'<div style="height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-bottom:8px">'
+    +'<div style="height:100%;width:'+domPct+'%;background:'+meta.color+';border-radius:2px"></div>'
+    +'</div>'
+    +'<p style="font-size:11px;color:var(--muted);line-height:1.5">\u2193 \u00e0 r\u00e9duire — c\'est ce qui vous emp\u00eache d\'\u00eatre vous-m\u00eame</p>'
+    +'</div>'
+
+    /* Axe 2 — SPA */
+    +(spa
+      ?'<div style="padding:20px 22px">'
+        +'<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'
+        +'<span style="width:8px;height:8px;border-radius:50%;background:var(--gold);display:inline-block;flex-shrink:0"></span>'
+        +'<span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,.8);font-weight:600">Pr\u00e9sence Authentique</span>'
+        +'</div>'
+        +'<div style="font-family:var(--font-d);font-size:34px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:8px">'+spa.pct+'%</div>'
+        +'<div style="height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-bottom:8px">'
+        +'<div style="height:100%;width:'+spa.pct+'%;background:linear-gradient(90deg,#C9A84C,#F0D080);border-radius:2px"></div>'
+        +'</div>'
+        +'<p style="font-size:11px;color:rgba(201,168,76,.65);line-height:1.5">\u2191 \u00e0 amplifier — c\'est l\'objectif du parcours</p>'
+        +'</div>'
+      :'<div style="padding:20px 22px;display:flex;flex-direction:column;justify-content:center">'
+        +'<span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,.5);font-weight:600;margin-bottom:8px">Pr\u00e9sence Authentique</span>'
+        +'<span style="font-size:12px;color:var(--muted);line-height:1.6">Non disponible — repassez le questionnaire mis \u00e0 jour.</span>'
+        +'</div>'
+    )
+    +'</div>'
+
+    /* ── Phrase de synthèse ── */
+    +'<div style="padding:14px 22px;background:rgba(255,255,255,.02);border-top:1px solid rgba(255,255,255,.05)">'
+    +'<p style="font-size:12px;color:rgba(240,234,225,.65);line-height:1.7;text-align:center">'+axisSentence+'</p>'
+    +'</div>'
+
+    /* ── 4 piliers ── */
+    +'<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid rgba(255,255,255,.05)">'
+    +'<div style="padding:12px 18px;border-right:1px solid rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.04)">'
+    +'<span style="font-size:10px;color:var(--gold);font-weight:700;letter-spacing:1px">01</span>'
+    +'<p style="font-size:11px;color:rgba(240,234,225,.7);margin-top:3px;line-height:1.5">Diagnostic scientifique des 7 peurs fondamentales</p>'
+    +'</div>'
+    +'<div style="padding:12px 18px;border-bottom:1px solid rgba(255,255,255,.04)">'
+    +'<span style="font-size:10px;color:var(--gold);font-weight:700;letter-spacing:1px">02</span>'
+    +'<p style="font-size:11px;color:rgba(240,234,225,.7);margin-top:3px;line-height:1.5">Mesure de votre pr\u00e9sence \u00e0 vous-m\u00eame (SPA)</p>'
+    +'</div>'
+    +'<div style="padding:12px 18px;border-right:1px solid rgba(255,255,255,.04)">'
+    +'<span style="font-size:10px;color:var(--gold);font-weight:700;letter-spacing:1px">03</span>'
+    +'<p style="font-size:11px;color:rgba(240,234,225,.7);margin-top:3px;line-height:1.5">Protocole de travail en 6 \u00e9tapes dans un ordre pr\u00e9cis</p>'
+    +'</div>'
+    +'<div style="padding:12px 18px">'
+    +'<span style="font-size:10px;color:var(--gold);font-weight:700;letter-spacing:1px">04</span>'
+    +'<p style="font-size:11px;color:rgba(240,234,225,.7);margin-top:3px;line-height:1.5">Suivi de progression mesurable dans le temps</p>'
+    +'</div>'
+    +'</div>'
+
+    +'</div>';
+
   /* ── BLOC NEUROSCIENCES ── */
+  /* ── BLOC NEUROSCIENCES ── */
+
   html+='<div class="playlist-card fu">'
     +'<span class="playlist-eyebrow">Ce que vos réponses ont révélé</span>'
     +'<h2 class="playlist-title">Ce questionnaire a cartographié<br><em>vos circuits de protection.</em></h2>'
@@ -682,7 +776,10 @@ function buildPage(dominant,meta,data,playlist,scores,prenom,profile){
     +'<div class="ba-col aft"><div class="ba-lbl">Après le parcours</div><ul class="ba-list">'+data.after.map(function(a){return'<li>'+a+'</li>'}).join('')+'</ul></div>'
     +'</div></div>';
 
-  /* ── CTA ── */
+
+
+
+    /* ── CTA ── */
   html+='<div class="cta-card fu">'
     +'<p class="cta-pre">« L\'emprise de ce masque n\'est pas une fatalité.<br>Elle s\'est construite progressivement — elle se déconstruit progressivement. »</p>'
     +'<h2 class="cta-h">Commencer votre<br><em>transformation</em></h2>'
@@ -780,12 +877,12 @@ function setupScrollReveal(){
 /* ═══ RENDER ═══ */
 function render(){
   var d=loadData();
-  var scores,prenom,profile;
+  var scores,prenom,profile,spa;
   if(!d){
     scores={rouge:35,orange:52,jaune:44,vert:82,bleu:28,indigo:48,violet:35};
-    prenom='';profile=detectProfile(scores);
+    prenom='';profile=detectProfile(scores);spa={raw:14,pct:50,level:'Modéré'};
   }else{
-    scores=d.scores;prenom=d.prenom;profile=detectProfile(scores);
+    scores=d.scores;prenom=d.prenom;profile=detectProfile(scores);spa=d.spa||null;
   }
   var dominant=profile.masks[0];
   var meta=getMeta(dominant);
@@ -799,7 +896,7 @@ function render(){
   document.title='V.A.L.E.U.R© — Résultats · Masque '+meta.label;
   var data=CONTENT[dominant]||CONTENT.rouge;
   var playlist=PLAYLIST[dominant]||PLAYLIST.rouge;
-  document.getElementById('page-wrap').innerHTML=buildPage(dominant,meta,data,playlist,scores,prenom,profile);
+  document.getElementById('page-wrap').innerHTML=buildPage(dominant,meta,data,playlist,scores,prenom,profile,spa);
   setTimeout(function(){buildConstellation(dominant,meta,scores,profile);animateBars(scores);setupScrollReveal()},60);
   setTimeout(function(){var ld=document.getElementById('page-loader');if(ld){ld.classList.add('out');setTimeout(function(){ld.style.display='none'},700)}},400);
 }
