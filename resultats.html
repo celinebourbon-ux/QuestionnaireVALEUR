@@ -36,13 +36,16 @@ body{background:var(--navy);color:var(--text);font-family:var(--font-b);font-wei
 .tb-logo{font-family:var(--font-d);font-size:var(--fs-base);font-weight:600;letter-spacing:2.5px;color:var(--gold)}
 .tb-right{font-size:var(--fs-xs);color:var(--muted);letter-spacing:.8px}
 .wrap{max-width:800px;margin:0 auto;padding:0 20px 100px}
-.hero{padding:112px 0 40px;text-align:center}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--MC2);border:1px solid color-mix(in srgb,var(--MC) 30%,transparent);border-radius:40px;padding:6px 18px;margin-bottom:28px;font-size:var(--fs-xs);letter-spacing:2.5px;text-transform:uppercase;color:var(--MC);font-weight:500}
+.hero{padding:112px 0 48px;text-align:center}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--MC2);border:1px solid color-mix(in srgb,var(--MC) 30%,transparent);border-radius:40px;padding:6px 18px;margin-bottom:36px;font-size:var(--fs-xs);letter-spacing:2.5px;text-transform:uppercase;color:var(--MC);font-weight:500}
 .hero-tag .pulse{width:6px;height:6px;border-radius:50%;background:var(--MC);animation:pulse-dot 2s infinite}
-.hero-eyebrow{font-family:var(--font-d);font-size:var(--fs-sm);letter-spacing:4px;text-transform:uppercase;color:var(--muted);font-weight:400;margin-bottom:12px}
-.hero-name{font-family:var(--font-d);font-size:var(--fs-hero);font-weight:300;line-height:.95;color:var(--text);margin-bottom:8px}
+/* Message central 1 — ce qui empêche */
+.hero-eyebrow{font-family:var(--font-d);font-size:clamp(20px,4vw,32px);font-weight:300;font-style:italic;color:var(--text);margin-bottom:32px;line-height:1.3;opacity:.9}
+/* Masque name — immense */
+.hero-name{font-family:var(--font-d);font-size:var(--fs-hero);font-weight:300;line-height:.92;color:var(--text);margin-bottom:16px}
 .hero-name em{color:var(--MC);font-style:italic}
-.hero-descriptor{font-family:var(--font-d);font-size:var(--fs-md);color:rgba(240,234,225,.55);font-weight:300;font-style:italic;margin-bottom:40px}
+/* Peur centrale — or, grande, incontournable */
+.hero-descriptor{font-family:var(--font-d);font-size:clamp(22px,4.5vw,34px);color:var(--gold);font-weight:400;font-style:italic;margin-bottom:44px;letter-spacing:.01em;line-height:1.2}
 .mirror-text{max-width:620px;margin:0 auto;background:linear-gradient(135deg,var(--MC2) 0%,transparent 100%);border-left:2px solid var(--MC);border-radius:0 var(--r-s) var(--r-s) 0;padding:26px 30px;text-align:left;font-size:var(--fs-md);line-height:1.95;color:rgba(240,234,225,.85)}
 .mirror-text strong{color:var(--text);font-weight:500}
 .mirror-text em{color:var(--MC)}
@@ -100,17 +103,17 @@ body{background:var(--navy);color:var(--text);font-family:var(--font-b);font-wei
 .cout-item{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:var(--fs-base);color:rgba(240,234,225,.82);line-height:1.65}
 .cout-item:last-child{border-bottom:none}
 .cout-arr{color:var(--MC);flex-shrink:0;font-size:var(--fs-sm);margin-top:3px}
-.combo-intro-text{font-size:var(--fs-base);color:rgba(240,234,225,.8);line-height:1.8;margin-bottom:28px}
-.combo-card{background:var(--navy3);border-radius:var(--r-s);padding:28px 30px;margin-bottom:20px;border-left:4px solid var(--MC)}
+.combo-intro-text{font-family:var(--font-d);font-size:var(--fs-md);font-weight:300;color:rgba(240,234,225,.8);line-height:1.85;margin-bottom:28px}
+.combo-card{background:var(--navy3);border-radius:var(--r-s);padding:28px 30px;margin-bottom:16px;border-left:3px solid var(--MC)}
 .combo-card.sec{border-left-color:var(--gold);opacity:.88}
 .combo-masks{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
 .co{height:32px;padding:0 16px;border-radius:20px;display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-b);font-size:var(--fs-sm);font-weight:700;color:#fff;letter-spacing:.8px;text-transform:uppercase;white-space:nowrap}
 .cx{color:var(--muted);font-size:var(--fs-base);font-weight:300;margin:0 2px}
 .combo-name{font-family:var(--font-d);font-size:var(--fs-lg);font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.15}
-.combo-tag{font-size:var(--fs-base);color:var(--gold-l);font-style:italic;margin-bottom:14px;font-family:var(--font-d)}
-.combo-desc{font-size:var(--fs-base);color:rgba(240,234,225,.82);line-height:1.8;margin-bottom:16px}
+.combo-tag{font-family:var(--font-d);font-size:var(--fs-lg);font-weight:300;color:var(--gold);font-style:italic;margin-bottom:14px;line-height:1.3}
+.combo-desc{font-family:var(--font-d);font-size:var(--fs-md);font-weight:300;color:rgba(240,234,225,.82);line-height:1.85;margin-bottom:16px}
 .combo-beh{display:flex;flex-direction:column;gap:7px}
-.cb-item{display:flex;align-items:flex-start;gap:8px;font-size:var(--fs-base);color:rgba(240,234,225,.82);line-height:1.65}
+.cb-item{display:flex;align-items:baseline;gap:10px;font-family:var(--font-d);font-size:var(--fs-md);font-weight:300;color:rgba(240,234,225,.82);line-height:1.65}
 .cb-d{width:5px;height:5px;border-radius:50%;background:var(--MC);flex-shrink:0;margin-top:7px}
 /* DYADE / TRIADE SECTION */
 .config-section{background:var(--navy3);border:1px solid color-mix(in srgb,var(--MC) 18%,transparent);border-radius:var(--r);padding:44px 36px;margin:28px 0}
@@ -185,7 +188,7 @@ document.addEventListener('keydown',function(e){if(e.target.tagName==='INPUT'||e
 <div class="aurora"><div class="orb o1" id="orb1"></div><div class="orb o2" id="orb2"></div><div class="orb o3"></div></div>
 <header class="top-bar"><span class="tb-logo">V.A.L.E.U.R©</span><span class="tb-right">© 2026 Céline Bourbon · Psychologue · Tous droits réservés</span></header>
 <div class="wrap" id="page-wrap"></div>
-<footer><div class="ft-logo">V.A.L.E.U.R©</div><p class="ft-copy">© 2026 Céline Bourbon, Psychologue. Méthode V.A.L.E.U.R© — Tous droits réservés.<br>Ce rapport est strictement personnel et confidentiel. Toute reproduction est interdite.<br>Fondé sur : <em>De la peur à la joie d'être soi</em> — Éditions L'Harmattan.</p></footer>
+<footer><div class="ft-logo">V.A.L.E.U.R©</div><p class="ft-copy">© 2026 Céline Bourbon, Psychologue. Méthode V.A.L.E.U.R© — Tous droits réservés.<br>Ce rapport est strictement personnel et confidentiel. Toute reproduction est interdite.<br>Fondé sur : <em>De la peur à la joie d\'être soi</em> — Éditions L'Harmattan.</p></footer>
 <script>
 
 const MASQUES_META=[
@@ -249,25 +252,25 @@ function detectProfile(sc){
 /* ═══ PENSÉES AUTOMATIQUES PAR MASQUE ═══ */
 const PLAYLIST={
   rouge:{peur:"la maladie et la mort",
-    bridge:"Ce que vos réponses dessinent : une <strong>attention quasi permanente aux signaux de votre corps</strong>. Votre système nerveux a appris, à un moment de votre histoire, que surveiller était le seul moyen d'être en sécurité. Cette vigilance s'est automatisée — elle s'active désormais même dans des situations où il n'y a rien à craindre.",
-    thoughts:["Et si ce signal corporel cachait quelque chose de grave ?","Je dois vérifier — si ça se trouve, c'est sérieux.","Et si je faisais un malaise sans signe avant-coureur ?","Le médecin a dit que ça allait, mais peut-être qu'il a raté quelque chose…"]},
+    bridge:"Ce que vos réponses dessinent : une <strong>attention quasi permanente aux signaux de votre corps</strong>. Votre système nerveux a appris, à un moment de votre histoire, que surveiller était le seul moyen d\'être en sécurité. Cette vigilance s\'est automatisée — elle s\'active désormais même dans des situations où il n\'y a rien à craindre.",
+    thoughts:["Et si ce signal corporel cachait quelque chose de grave ?","Je dois vérifier — si ça se trouve, c\'est sérieux.","Et si je faisais un malaise sans signe avant-coureur ?","Le médecin a dit que ça allait, mais peut-être qu\'il a raté quelque chose…"]},
   orange:{peur:"la souffrance émotionnelle",
-    bridge:"Ce que vos réponses dessinent : un <strong>accès difficile à ce que vous ressentez</strong>. Votre système nerveux a appris qu'éloigner les émotions était le seul moyen de rester fonctionnel·le. C'est une protection réelle — mais elle a un coût : elle coupe aussi de la joie, de l'intimité, du sentiment d'être pleinement là.",
-    thoughts:["Ce n'est pas si important. Autant ne pas y penser.","Je ne sais pas vraiment ce que je ressens.","Mieux vaut rester occupé — quand je m'arrête, c'est inconfortable.","Les émotions, ça ne mène à rien de concret."]},
-  jaune:{peur:"l'inconnu et l'incertitude",
-    bridge:"Ce que vos réponses dessinent : un <strong>besoin intense de prévoir et de contrôler l'avenir</strong>. Votre système nerveux a appris qu'anticiper était le seul moyen d'éviter d'être pris au dépourvu. Votre cerveau planifie, vérifie, recalcule — mais la certitude absolue qu'il cherche n'existe pas. D'où l'épuisement.",
-    thoughts:["Et si ça se passait mal ? Il faut que j'anticipe.","Et si je me trompais dans ma décision ?","Je ne peux pas décider tant que je ne suis pas sûr·e.","Si l'imprévu arrive, tout peut partir en vrille."]},
-  vert:{peur:"le rejet et l'abandon",
+    bridge:"Ce que vos réponses dessinent : un <strong>accès difficile à ce que vous ressentez</strong>. Votre système nerveux a appris qu\'éloigner les émotions était le seul moyen de rester fonctionnel·le. C'est une protection réelle — mais elle a un coût : elle coupe aussi de la joie, de l\'intimité, du sentiment d\'être pleinement là.",
+    thoughts:["Ce n\'est pas si important. Autant ne pas y penser.","Je ne sais pas vraiment ce que je ressens.","Mieux vaut rester occupé — quand je m\'arrête, c\'est inconfortable.","Les émotions, ça ne mène à rien de concret."]},
+  jaune:{peur:"l\'inconnu et l\'incertitude",
+    bridge:"Ce que vos réponses dessinent : un <strong>besoin intense de prévoir et de contrôler l\'avenir</strong>. Votre système nerveux a appris qu\'anticiper était le seul moyen d\'éviter d\'être pris au dépourvu. Votre cerveau planifie, vérifie, recalcule — mais la certitude absolue qu\'il cherche n\'existe pas. D'où l\'épuisement.",
+    thoughts:["Et si ça se passait mal ? Il faut que j\'anticipe.","Et si je me trompais dans ma décision ?","Je ne peux pas décider tant que je ne suis pas sûr·e.","Si l\'imprévu arrive, tout peut partir en vrille."]},
+  vert:{peur:"le rejet et l\'abandon",
     bridge:"Ce que vos réponses dessinent : une <strong>sensibilité extrême aux signaux relationnels</strong>. Votre système nerveux a appris à surveiller en permanence les humeurs, les silences, les tonalités des autres — pour éviter la rupture. Ce radar fonctionne même avec des personnes bienveillantes, même quand rien ne menace le lien.",
-    thoughts:["Qu'est-ce qu'ils pensent de moi ?","J'ai sûrement dit quelque chose qui a mal passé.","Et s'ils finissaient par se lasser de moi ?","Mieux vaut m'adapter — si je prends trop de place, ils vont partir."]},
-  bleu:{peur:"l'impuissance et la perte de maîtrise",
-    bridge:"Ce que vos réponses dessinent : un <strong>besoin de maîtriser les situations et les personnes</strong> autour de vous. Votre système nerveux a appris que lâcher prise exposait à l'échec ou à l'effondrement. Ce réflexe de contrôle s'active même là où vous pourriez, en réalité, vous permettre de vous reposer.",
+    thoughts:["Qu\'est-ce qu\'ils pensent de moi ?","J'ai sûrement dit quelque chose qui a mal passé.","Et s\'ils finissaient par se lasser de moi ?","Mieux vaut m\'adapter — si je prends trop de place, ils vont partir."]},
+  bleu:{peur:"l\'impuissance et la perte de maîtrise",
+    bridge:"Ce que vos réponses dessinent : un <strong>besoin de maîtriser les situations et les personnes</strong> autour de vous. Votre système nerveux a appris que lâcher prise exposait à l\'échec ou à l\'effondrement. Ce réflexe de contrôle s\'active même là où vous pourriez, en réalité, vous permettre de vous reposer.",
     thoughts:["Si je ne contrôle pas ça, ça va partir en vrille.","Les autres ne font jamais comme il faut.","Je dois vérifier, reprendre, corriger — sinon ça rate.","Je ne peux pas me permettre de ne pas être indispensable."]},
-  indigo:{peur:"l'échec et le sentiment d'imposture",
-    bridge:"Ce que vos réponses dessinent : une <strong>voix intérieure particulièrement exigeante</strong> qui évalue, remet en question, anticipe le jugement des autres. Votre système nerveux a appris que cette exigence envers vous-même vous protégerait de l'échec et du regard. Elle vous pousse — mais elle vous épuise davantage qu'elle ne vous protège.",
-    thoughts:["Ce n'est pas assez bien. Je dois retravailler ça.","On va finir par voir que je ne mérite pas ma place.","C'était la chance — pas ma compétence réelle.","Je ne peux pas commencer tant que je ne suis pas prêt·e."]},
+  indigo:{peur:"l\'échec et le sentiment d\'imposture",
+    bridge:"Ce que vos réponses dessinent : une <strong>voix intérieure particulièrement exigeante</strong> qui évalue, remet en question, anticipe le jugement des autres. Votre système nerveux a appris que cette exigence envers vous-même vous protégerait de l\'échec et du regard. Elle vous pousse — mais elle vous épuise davantage qu\'elle ne vous protège.",
+    thoughts:["Ce n\'est pas assez bien. Je dois retravailler ça.","On va finir par voir que je ne mérite pas ma place.","C'était la chance — pas ma compétence réelle.","Je ne peux pas commencer tant que je ne suis pas prêt·e."]},
   violet:{peur:"la perte de soi et du changement",
-    bridge:"Ce que vos réponses dessinent : une <strong>résistance profonde au changement et à l'inconnu de soi</strong>. Votre système nerveux a appris que maintenir des rôles stables et des routines connues était la meilleure façon de rester entier·e. Ce mécanisme vous stabilise — mais il peut aussi vous maintenir dans une vie qui ne vous ressemble plus.",
+    bridge:"Ce que vos réponses dessinent : une <strong>résistance profonde au changement et à l\'inconnu de soi</strong>. Votre système nerveux a appris que maintenir des rôles stables et des routines connues était la meilleure façon de rester entier·e. Ce mécanisme vous stabilise — mais il peut aussi vous maintenir dans une vie qui ne vous ressemble plus.",
     thoughts:["Je suis coincé·e dans cette vie.","Je ne sais plus vraiment qui je suis.","Si je change, je vais me perdre — ou perdre les autres.","Mieux vaut maintenir ce que je connais, même si ça me pèse."]}
 };
 
@@ -382,10 +385,10 @@ const CONTENT={
 
 const ETAPES=[
   {l:'V',name:'VOIR',       desc:"Reconnaître la pensée du masque au moment où elle se répète — Ah, voilà mon film qui se relance.",            color:'#4A90D9',bg:'rgba(74,144,217,.12)'},
-  {l:'A',name:'ACCUEILLIR', desc:"Cesser de se battre contre la pensée ou l'émotion. La regarder sans se confondre avec elle.",               color:'#E53E3E',bg:'rgba(229,62,62,.12)'},
+  {l:'A',name:'ACCUEILLIR', desc:"Cesser de se battre contre la pensée ou l\'émotion. La regarder sans se confondre avec elle.",               color:'#E53E3E',bg:'rgba(229,62,62,.12)'},
   {l:'L',name:'LOCALISER',  desc:"Revenir au corps, là où la peur se manifeste — gorge, ventre, poitrine — au lieu de rester dans la tête.", color:'#ED8936',bg:'rgba(237,137,54,.12)'},
   {l:'E',name:'EXPLORER',   desc:"Clarifier le conflit entre ce que veut le masque (sécurité à tout prix) et ce qui compte vraiment.",       color:'#D69E2E',bg:'rgba(214,158,46,.12)'},
-  {l:'U',name:'UNIFIER',    desc:"Trouver une manière d'embrasser à la fois le besoin de sécurité et le désir de vivre plus librement.",    color:'#38A169',bg:'rgba(56,161,105,.12)'},
+  {l:'U',name:'UNIFIER',    desc:"Trouver une manière d\'embrasser à la fois le besoin de sécurité et le désir de vivre plus librement.",    color:'#38A169',bg:'rgba(56,161,105,.12)'},
   {l:'R',name:'RENFORCER',  desc:"Poser une petite action différente, alignée avec qui vous voulez devenir — et la répéter.",                color:'#C9A84C',bg:'rgba(201,168,76,.12)'}
 ];
 
@@ -397,7 +400,7 @@ sd('rouge+orange',{n:'Le corps parle à la place des émotions',b1:'Votre profil
 sd('rouge+bleu',{n:'Tenir le corps, tenir le monde',b1:'Votre profil révèle deux formes de maîtrise : la surveillance du corps, et le contrôle de l\'environnement. Comme si votre système intérieur avait décidé que pour être vraiment en sécurité, il fallait tenir les deux — le dedans et le dehors.',b2:'Ce qui les relie : une même peur fondamentale de perdre le contrôle. Et la conviction que surveiller activement est le seul moyen d\'éviter que quelque chose tourne mal.',b3:'Concrètement : une difficulté à déléguer et à se reposer simultanément, une tension qui s\'installe quand le corps envoie des signaux au moment où quelque chose échappe à votre contrôle.',b4:'Ce double mécanisme limite la légèreté d\'être : la capacité à lâcher quelque chose sans que tout s\'effondre.',b5:'Le masque rouge recouvre la confiance dans le corps comme lieu sûr. Le masque bleu recouvre une force qui n\'a pas besoin de tout tenir pour exister. Ensemble, ces deux potentiels masqués dessinent une personne qui peut vraiment se reposer.',b6:'Ce que vous pouvez voir, vous pouvez le changer.'});
 sd('rouge+indigo',{n:'La perfection comme rempart',b1:'Votre profil révèle un double mécanisme courant chez les personnes qui ont appris que la fragilité pouvait coûter cher : surveiller le corps pour qu\'il ne faille pas, et se hisser à des standards élevés pour être inattaquable.',b2:'Ces deux mécanismes partagent la même conviction : si je suis parfait·e et en bonne santé, rien de grave ne peut m\'arriver.',b3:'Concrètement : des exigences très strictes envers vous-même sur le plan physique, une tendance à vous juger durement si votre corps ou votre performance "flanche", une difficulté à accepter les limitess normales.',b4:'Ce que ce double mécanisme limite, c\'est la tendresse envers vous-même — cette capacité à se dire : "Là, j\'ai juste besoin de repos, pas d\'effort."',b5:'Le masque rouge recouvre une confiance dans le corps exactement comme il est. Le masque indigo recouvre une valeur inconditionnelle, indépendante de la performance. Ensemble, ces deux potentiels masqués dessinent une relation à vous-même fondée sur la douceur.',b6:'Ce que vous pouvez voir, vous pouvez le changer.'});
 sd('rouge+violet',{n:'Je suis là tant que je suis fragile',b1:'Votre profil révèle quelque chose de subtil : une partie de vous a construit son identité autour des questions de santé. Ce n\'est pas une faiblesse — c\'est une stratégie de survie très intelligente.',b2:'Ce qui relie ces deux mécanismes, c\'est le besoin fondamental d\'avoir une identité stable et reconnue dans un monde qui pouvait sembler menaçant.',b3:'Concrètement : des préoccupations de santé très présentes dans votre façon de vous définir, une certaine difficulté à imaginer qui vous seriez sans elles.',b4:'Ce double mécanisme limite la découverte de qui vous êtes au-delà de la fragilité — un espace peut-être moins connu, mais immense.',b5:'Le masque rouge recouvre une joie d\'être vivant·e, pleinement. Le masque violet recouvre une identité riche, multiple et vivante — qui n\'a pas besoin de la fragilité pour exister.',b6:'Le travail V.A.L.E.U.R© vous invite à explorer : qui êtes-vous quand vous allez bien ? Ce que vous pouvez voir, vous pouvez le changer.'});
-sd("rouge+vert",{n:"Le lien comme refuge",b1:"Votre profil révèle deux façons de protéger quelque chose d'essentiel : la sécurité de votre corps, et la sécurité de vos liens.",b2:"Ce qui les relie : une même sensibilité à la menace et à la solitude. Votre système intérieur a appris que les deux pouvaient surgir sans prévenir.",b3:"Concrètement : avoir besoin d'être accompagné·e dans les moments d'inquiétude sur votre santé, ou ressentir que les incertitudes physiques sont plus supportables quand vous ne les traverses pas seul·e.",b4:"L'énergie que cela demande est réelle : deux vigilances actives simultanément, même quand tout va bien objectivement.",b5:"Le masque rouge recouvre une confiance dans le corps comme allié. Le masque vert recouvre une capacité à recevoir l'amour sans en avoir besoin pour survivre.",b6:"Ce que vous pouvez voir, vous pouvez le changer."});
+sd("rouge+vert",{n:"Le lien comme refuge",b1:"Votre profil révèle deux façons de protéger quelque chose d\'essentiel : la sécurité de votre corps, et la sécurité de vos liens.",b2:"Ce qui les relie : une même sensibilité à la menace et à la solitude. Votre système intérieur a appris que les deux pouvaient surgir sans prévenir.",b3:"Concrètement : avoir besoin d\'être accompagné·e dans les moments d\'inquiétude sur votre santé, ou ressentir que les incertitudes physiques sont plus supportables quand vous ne les traverses pas seul·e.",b4:"L'énergie que cela demande est réelle : deux vigilances actives simultanément, même quand tout va bien objectivement.",b5:"Le masque rouge recouvre une confiance dans le corps comme allié. Le masque vert recouvre une capacité à recevoir l\'amour sans en avoir besoin pour survivre.",b6:"Ce que vous pouvez voir, vous pouvez le changer."});
 sd('orange+vert',{n:'Proche de loin',b1:'Votre profil révèle l\'une des tensions relationnelles les plus subtiles : avoir profondément besoin de connexion, et en même temps tenir les émotions à distance pour ne pas être exposé·e.',b2:'Ce qui les relie : une même peur de ce que l\'intimité pourrait coûter. Se rapprocher vraiment, c\'est risquer d\'être vu·e, touché·e, blessé·e.',b3:'Concrètement : vous cherchez à être là pour les autres — et en même temps, quelque chose se ferme quand on s\'approche vraiment. Les autres peuvent parfois percevoir une distance qu\'ils ne comprennent pas.',b4:'Ce que ce double mécanisme limite, c\'est la vraie intimité — non pas sa surface, mais sa profondeur.',b5:'Le masque orange recouvre une profondeur émotionnelle qui peut devenir votre plus grande force relationnelle. Le masque vert recouvre la capacité à être aimé·e pour ce que vous êtes.',b6:'Ce chemin commence souvent par un tout petit geste : laisser entrer quelque chose qui touche vraiment. Ce que vous pouvez voir, vous pouvez le changer.'});
 sd('orange+jaune',{n:'La structure comme protection',b1:'Votre profil révèle deux mécanismes qui font équipe depuis longtemps : ne pas trop ressentir, et tout prévoir. Ensemble, ils forment un système de protection très efficace contre l\'imprévu et la souffrance.',b2:'La peur sous-jacente : être pris par surprise par quelque chose qu\'on ne pourrait pas contrôler ni encaisser émotionnellement.',b3:'Concrètement : une vie très structurée, un certain malaise face aux imprévus, et des décisions qui s\'appuient sur la logique plutôt que sur ce que vous ressentez vraiment.',b4:'Ce que ce double mécanisme limite, c\'est la légèreté : la capacité à improviser, à être surpris·e agréablement, à laisser une émotion passer sans l\'analyser.',b5:'Le masque orange recouvre une profondeur émotionnelle rare. Le masque jaune recouvre la confiance dans le mouvement de la vie. Ces deux potentiels masqués réunis : une personne capable de ressentir ET d\'agir avec souplesse.',b6:'Ce chemin commence par autoriser, tout doucement, un peu de vivant à entrer dans l\'ordre. Ce que vous pouvez voir, vous pouvez le changer.'});
 sd('orange+bleu',{n:'Au sommet, et seul·e',b1:'Votre profil révèle quelque chose que peu de gens avouent : vous pouvez accomplir des choses remarquables et ne rien ressentir. L\'excellence est là. Mais le plaisir, lui, reste hors d\'atteinte.',b2:'Ces deux mécanismes partagent une même conviction : il ne faut pas se laisser aller à ressentir — car ressentir, c\'est s\'exposer, et s\'exposer, c\'est risquer de perdre la maîtrise.',b3:'Concrètement : une capacité à performer, diriger, convaincre, avec une sensation intérieure de vide que les succès ne comblent pas vraiment. Et peut-être une question discrète : "À quoi ça sert ?"',b4:'Ce double mécanisme limite le sens : la capacité à trouver vos actions vraiment nourrissantes.',b5:'Le masque orange recouvre une immense capacité à être touché·e par la vie. Le masque bleu recouvre un leadership nourri de l\'intérieur. Quand ces deux potentiels masqués s\'éveillent, la réussite cesse d\'être une course et devient une expression.',b6:'Ce chemin commence par oser se demander : qu\'est-ce qui me touche vraiment ? Ce que vous pouvez voir, vous pouvez le changer.'});
@@ -520,11 +523,14 @@ function buildPage(dominant,meta,data,playlist,scores,prenom,profile,spa){
   html+='<div class="fu" style="max-width:660px;margin:0 auto 36px;border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden">'
 
     /* ── Bandeau titre ── */
-    +'<div style="background:rgba(255,255,255,.03);padding:14px 22px;border-bottom:1px solid rgba(255,255,255,.06)">'
-    +'<p style="font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:2px">Ce que V.A.L.E.U.R\u00a9 mesure et cible</p>'
-    +'<p style="font-family:var(--font-d);font-size:15px;color:var(--text);font-weight:400;line-height:1.5">'
-    +'Le <strong style="color:var(--MC)">probl\u00e8me</strong>\u00a0: l\'emprise de vos masques vous \u00e9loigne de vous-m\u00eame. '
-    +'L\'\u00ab\u00a0objectif\u00a0\u00bb\u00a0: amplifier votre pr\u00e9sence authentique jusqu\'\u00e0 retrouver qui vous \u00eates vraiment.</p>'
+    +'<div style="padding:22px 24px 20px;border-bottom:1px solid rgba(255,255,255,.07)">'
+    +'<p style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:16px">Ce que V.A.L.E.U.R\u00a9 mesure et cible</p>'
+    +'<div style="display:flex;flex-direction:column;gap:8px">'
+    +'<p style="font-family:var(--font-d);font-size:clamp(16px,2.6vw,21px);font-weight:300;line-height:1.5;color:rgba(240,234,225,.9)">'
+    +'<span style="color:var(--MC);font-weight:600">Le probl\u00e8me</span>\u00a0: l\'emprise de vos masques vous \u00e9loigne de vous-m\u00eame.</p>'
+    +'<p style="font-family:var(--font-d);font-size:clamp(16px,2.6vw,21px);font-weight:300;line-height:1.5;color:rgba(240,234,225,.9)">'
+    +'<span style="color:var(--gold);font-weight:600">L\'objectif</span>\u00a0: amplifier votre pr\u00e9sence authentique jusqu\'\u00e0 retrouver qui vous \u00eates vraiment.</p>'
+    +'</div>'
     +'</div>'
 
     /* ── Double axe ── */
@@ -534,9 +540,9 @@ function buildPage(dominant,meta,data,playlist,scores,prenom,profile,spa){
     +'<div style="padding:20px 22px;border-right:1px solid rgba(255,255,255,.06)">'
     +'<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'
     +'<span style="width:8px;height:8px;border-radius:50%;background:'+meta.color+';display:inline-block;flex-shrink:0"></span>'
-    +'<span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600">Emprise Masque '+dominant_lbl+'</span>'
+    +'<span style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:'+meta.color+';font-weight:600;opacity:.9">Emprise · Masque '+dominant_lbl+'</span>'
     +'</div>'
-    +'<div style="font-family:var(--font-d);font-size:34px;font-weight:300;color:'+meta.color+';line-height:1;margin-bottom:8px">'+domPct+'%</div>'
+    +'<div style="font-family:var(--font-d);font-size:clamp(38px,7vw,52px);font-weight:300;color:'+meta.color+';line-height:1;margin-bottom:10px">'+domPct+'%</div>'
     +'<div style="height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-bottom:8px">'
     +'<div style="height:100%;width:'+domPct+'%;background:'+meta.color+';border-radius:2px"></div>'
     +'</div>'
@@ -550,7 +556,7 @@ function buildPage(dominant,meta,data,playlist,scores,prenom,profile,spa){
         +'<span style="width:8px;height:8px;border-radius:50%;background:var(--gold);display:inline-block;flex-shrink:0"></span>'
         +'<span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,.8);font-weight:600">Pr\u00e9sence Authentique</span>'
         +'</div>'
-        +'<div style="font-family:var(--font-d);font-size:34px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:8px">'+spa.pct+'%</div>'
+        +'<div style="font-family:var(--font-d);font-size:clamp(38px,7vw,52px);font-weight:300;color:var(--gold);line-height:1;margin-bottom:10px">'+spa.pct+'%</div>'
         +'<div style="height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-bottom:8px">'
         +'<div style="height:100%;width:'+spa.pct+'%;background:linear-gradient(90deg,#C9A84C,#F0D080);border-radius:2px"></div>'
         +'</div>'
@@ -564,8 +570,8 @@ function buildPage(dominant,meta,data,playlist,scores,prenom,profile,spa){
     +'</div>'
 
     /* ── Phrase de synthèse ── */
-    +'<div style="padding:14px 22px;background:rgba(255,255,255,.02);border-top:1px solid rgba(255,255,255,.05)">'
-    +'<p style="font-size:12px;color:rgba(240,234,225,.65);line-height:1.7;text-align:center">'+axisSentence+'</p>'
+    +'<div style="padding:16px 24px;background:rgba(255,255,255,.025);border-top:1px solid rgba(255,255,255,.06)">'
+    +'<p style="font-family:var(--font-d);font-size:clamp(14px,2.2vw,17px);color:rgba(240,234,225,.78);line-height:1.7;text-align:center;font-style:italic">'+axisSentence+'</p>'
     +'</div>'
 
     /* ── 4 piliers ── */
@@ -627,17 +633,15 @@ function buildPage(dominant,meta,data,playlist,scores,prenom,profile,spa){
     +'</div></div></div></div></div>';
 
   /* ── PORTRAIT ── */
-  html+='<div class="portrait fu">'
-    +'<span class="card-label">Ce que vous vivez vraiment</span>'
-    +'<h2 class="card-title" style="margin-bottom:28px">Une journée type avec votre Masque '+dominant_lbl+' actif</h2>'
-    +'<span class="port-scene">'+data.scene1_title+'</span>'
-    +'<p class="port-text">'+data.scene1+'</p>'
-    +'<div class="inner-voice"><span class="iv-label">Voix intérieure · Masque '+dominant_lbl+' actif</span>'
-    +'<p class="iv-quote">'+data.voice+'</p></div>'
-    +(data.scene2?'<span class="port-scene" style="margin-top:22px;display:block">'+data.scene2_title+'</span><p class="port-text">'+data.scene2+'</p>':'')
-    +'<div class="couts"><p class="couts-head">Ce que ça vous coûte — en silence</p>'
-    +data.couts.map(function(c){return'<div class="cout-item"><span class="cout-arr">→</span>'+c+'</div>'}).join('')
-    +'</div></div>';
+  html+='<div class="fu" style="border:1px solid rgba(255,255,255,.07);border-radius:var(--r);padding:28px 30px;margin:28px 0">'
+    +'<p style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--MC);font-weight:600;margin-bottom:20px">Ce que vous vivez vraiment</p>'
+    +'<div style="display:flex;flex-direction:column;gap:0">'
+    +data.couts.map(function(ct){return'<div style="display:flex;align-items:baseline;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.05)">'
+      +'<span style="font-family:var(--font-d);font-size:var(--fs-lg);color:var(--MC);line-height:1;flex-shrink:0;opacity:.5">·</span>'
+      +'<p style="font-family:var(--font-d);font-size:var(--fs-md);font-weight:300;color:rgba(240,234,225,.82);line-height:1.6">'+ct+'</p>'
+      +'</div>';}).join('')
+    +'</div>'
+    +'</div>';
 
   /* ── CONFIGURATION EN PROFONDEUR ── */
   html+='<div class="card fu">'
@@ -693,7 +697,7 @@ function buildPage(dominant,meta,data,playlist,scores,prenom,profile,spa){
         +'<div class="co" style="background:'+m1m.color+'">'+m1m.label+'</div>'
         +'<span class="cx">+</span>'
         +'<div class="co" style="background:'+m2m.color+'">'+m2m.label+'</div>'
-        +'<span style="font-family:var(--font-d);font-size:var(--fs-base);color:var(--text);font-weight:600;margin-left:6px">'+dy.n+'</span>'
+        +'<span style="font-family:var(--font-d);font-size:var(--fs-md);color:var(--text);font-weight:600;margin-left:6px">'+dy.n+'</span>'
         +(profile.subtype==='dyade_tertiaire'?'<span class="sec-actif-badge">+ '+getMeta(profile.tertiary).label+' actif secondaire ('+profile.tertiaryPct+'%)</span>':'')
         +'</div>'
         +'<div class="config-bloc"><span class="config-bloc-label">Portrait de votre configuration</span><p class="config-bloc-text">'+dy.b1+'</p></div>'
@@ -713,7 +717,7 @@ function buildPage(dominant,meta,data,playlist,scores,prenom,profile,spa){
         +'<div class="config-section">'
         +'<div style="display:flex;align-items:center;gap:10px;margin-bottom:24px;flex-wrap:wrap">'
         +mts.map(function(m){return'<div class="co" style="background:'+m.color+'">'+m.label+'</div>'}).join('<span class="cx">+</span>')
-        +'<span style="font-family:var(--font-d);font-size:var(--fs-base);color:var(--text);font-weight:600;margin-left:6px">'+tr.n+'</span>'
+        +'<span style="font-family:var(--font-d);font-size:var(--fs-md);color:var(--text);font-weight:600;margin-left:6px">'+tr.n+'</span>'
         +'</div>'
         +'<div class="config-bloc"><span class="config-bloc-label">Portrait global</span><p class="config-bloc-text">'+tr.b1+'</p></div>'
         +'<div class="config-bloc"><span class="config-bloc-label">Ce qui les unit</span><p class="config-bloc-text">'+tr.b2+'</p></div>'
@@ -732,7 +736,7 @@ function buildPage(dominant,meta,data,playlist,scores,prenom,profile,spa){
         +'<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px">'
         +sigMasks.map(function(k){var m=getMeta(k);return'<div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:6px 14px"><div style="width:8px;height:8px;border-radius:50%;background:'+m.color+'"></div><span style="font-size:var(--fs-sm);color:rgba(240,234,225,.82)">'+m.label+' — '+scores[k]+'%</span></div>'}).join('')
         +'</div>'
-        +'<p style="font-size:var(--fs-base);color:rgba(240,234,225,.72);line-height:1.8">Ces masques sont présents et actifs dans votre fonctionnement quotidien, sans former une configuration dominante unique. Chacun mérite attention. Le Parcours V.A.L.E.U.R© vous guidera dans leur exploration.</p>'
+        +'<p style="font-family:var(--font-d);font-size:var(--fs-md);font-weight:300;color:rgba(240,234,225,.72);line-height:1.85">Ces masques sont présents et actifs dans votre fonctionnement quotidien, sans former une configuration dominante unique. Chacun mérite attention. Le Parcours V.A.L.E.U.R© vous guidera dans leur exploration.</p>'
         +'</div>';
     }
   }
@@ -750,42 +754,56 @@ function buildPage(dominant,meta,data,playlist,scores,prenom,profile,spa){
     +'<div class="tl-item"><div class="tl-node"></div><div class="tl-era">Aujourd\'hui</div><div class="tl-text">Ce programme fonctionne en arrière-plan — même dans des environnements sûrs. <strong>Votre cerveau n\'a pas encore appris à faire la différence entre l\'ancien danger et la situation actuelle.</strong> Ce n\'est pas de la faiblesse. C\'est de la biologie — et la biologie peut se transformer.</div></div>'
     +'</div></div>';
 
-  /* ── VALEUR 6 ÉTAPES + AVANT/APRÈS ── */
-  html+='<div class="valeur-card fu">'
-    +'<span class="card-label">Ce que la méthode V.A.L.E.U.R© vous permet de changer</span>'
-    +'<h2 class="card-title">Un chemin en six étapes</h2>'
-    +'<p class="valeur-intro">La méthode V.A.L.E.U.R© est une méthode propriétaire créée par Céline Bourbon, psychologue, et fondée sur son livre <em>De la peur à la joie d\'être soi</em> (Éditions L\'Harmattan). Ce n\'est pas un programme générique — c\'est un chemin en six étapes construites dans un ordre précis, parce que <strong>chaque étape prépare la suivante.</strong></p>'
-    +'<div class="steps-grid">'
-    +ETAPES.map(function(e){
-      var isHL=e.l===data.step_key;
-      return'<div class="step-row'+(isHL?' hl':'') +'">'
-        +'<div class="step-circ" style="background:'+e.bg+';border-color:'+e.color+';color:'+e.color+'">'+e.l+'</div>'
-        +'<div class="step-body">'
-        +'<div class="step-name" style="color:'+e.color+'">'+e.name+(isHL?' ✦':'')+'</div>'
-        +'<div class="step-desc">'+e.desc+'</div>'
-        +(isHL?'<div class="step-note">'+data.step_note+'</div>':'')
-        +'</div></div>';
-    }).join('')
+
+  /* ── VALEUR — EXCLUSIF, PAS VENDU ── */
+  html+='<div class="valeur-card fu" style="border:1px solid rgba(201,168,76,.2);background:linear-gradient(160deg,rgba(201,168,76,.03) 0%,transparent 60%)">'
+
+    +'<div style="display:flex;align-items:center;gap:10px;margin-bottom:28px">'
+    +'<div style="height:1px;flex:1;background:linear-gradient(90deg,rgba(201,168,76,.4),transparent)"></div>'
+    +'<span style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700">V.A.L.E.U.R\u00a9</span>'
+    +'<div style="height:1px;flex:1;background:linear-gradient(270deg,rgba(201,168,76,.4),transparent)"></div>'
     +'</div>'
-    +'<p style="font-size:var(--fs-xs);letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700;margin:40px 0 20px;display:flex;align-items:center;gap:10px">'
-    +'<span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(201,168,76,.4),transparent);display:inline-block"></span>'
-    +'Ce qui change concrètement'
-    +'<span style="flex:1;height:1px;background:linear-gradient(270deg,rgba(201,168,76,.4),transparent);display:inline-block"></span></p>'
+
+    +'<p style="font-family:var(--font-d);font-size:var(--fs-xl);font-weight:300;color:var(--text);line-height:1.1;margin-bottom:12px">'
+    +'Ce que vous venez de lire<br><em style="color:var(--gold)">n\u2019est pas une analyse.</em></p>'
+    +'<p style="font-family:var(--font-d);font-size:var(--fs-md);font-weight:300;font-style:italic;color:rgba(240,234,225,.65);line-height:1.6;margin-bottom:32px">'
+    +'C\u2019est un miroir. Ce que vous avez reconnu dans ces pages, c\u2019est vous \u2014 la part de vous que le Masque '+dominant_lbl+' recouvre depuis longtemps.</p>'
+
+    +'<p style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700;margin:0 0 18px;display:flex;align-items:center;gap:10px">'
+    +'<span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(201,168,76,.4),transparent)"></span>'
+    +'Ce qui devient possible'
+    +'<span style="flex:1;height:1px;background:linear-gradient(270deg,rgba(201,168,76,.4),transparent)"></span></p>'
     +'<div class="ba-grid">'
-    +'<div class="ba-col bef"><div class="ba-lbl">Masque '+dominant_lbl+' actif</div><ul class="ba-list">'+data.before.map(function(b){return'<li>'+b+'</li>'}).join('')+'</ul></div>'
-    +'<div class="ba-col aft"><div class="ba-lbl">Après le parcours</div><ul class="ba-list">'+data.after.map(function(a){return'<li>'+a+'</li>'}).join('')+'</ul></div>'
-    +'</div></div>';
+    +'<div class="ba-col bef"><div class="ba-lbl">Aujourd\u2019hui</div><ul class="ba-list">'+data.before.map(function(b){return'<li>'+b+'</li>';}).join('')+'</ul></div>'
+    +'<div class="ba-col aft"><div class="ba-lbl">Lib\u00e9r\u00e9\u00b7e du masque</div><ul class="ba-list">'+data.after.map(function(a){return'<li>'+a+'</li>';}).join('')+'</ul></div>'
+    +'</div>'
 
+    +'<div style="margin-top:28px;text-align:center">'
+    +'<a onclick="window.open(atob(\'aHR0cHM6Ly9jZWxpbmVib3VyYm9uLXV4LmdpdGh1Yi5pby9NLXRob2RlLVYuQS5MLkUuVS5SLVByLXNlbnRhdGlvbi8=\'),\'_blank\');return false;" href="#" style="display:inline-flex;align-items:center;gap:10px;padding:12px 28px;border-radius:99px;border:1px solid rgba(201,168,76,.35);color:rgba(201,168,76,.85);text-decoration:none;font-family:var(--font-b);font-size:13px;font-weight:400;transition:all .2s">'
+    +'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>'
+    +'D\u00e9couvrir la M\u00e9thode V.A.L.E.U.R\u00a9 en d\u00e9tail'
+    +'</a>'
+    +'</div>'
 
-
-
+    +'</div>';
     /* ── CTA ── */
-  html+='<div class="cta-card fu">'
-    +'<p class="cta-pre">« L\'emprise de ce masque n\'est pas une fatalité.<br>Elle s\'est construite progressivement — elle se déconstruit progressivement. »</p>'
-    +'<h2 class="cta-h">Commencer votre<br><em>transformation</em></h2>'
-    +'<p class="cta-body">Le Parcours V.A.L.E.U.R© est conçu précisément pour votre configuration. À votre rythme. Avec un accompagnement fondé sur une méthode éprouvée.</p>'
-    +'<a href="https://celinebourbon-ux.github.io/HomePageAppliValeur/" class="btn-go" style="background:linear-gradient(135deg,'+meta.color+','+meta.color+'bb)">Accéder au Parcours V.A.L.E.U.R© →</a>'
-    +'<p class="btn-note">Méthode V.A.L.E.U.R© · Céline Bourbon, Psychologue<br><em>De la peur à la joie d\'être soi</em> — Éditions L\'Harmattan</p>'
+  html+='<div class="cta-card fu" style="border-color:rgba(201,168,76,.3);background:linear-gradient(160deg,rgba(201,168,76,.06) 0%,var(--MC2) 100%)">'
+    +'<p class="cta-pre" style="color:var(--gold);font-style:normal;font-family:var(--font-d);font-size:var(--fs-lg);font-weight:300;line-height:1.3;margin-bottom:12px">'
+    +'\u00ab\u00a0Ce que vous pouvez voir,<br>vous pouvez le changer.\u00a0\u00bb'
+    +'</p>'
+    +'<h2 class="cta-h" style="color:var(--text)">Votre nature profonde est encore l\u00e0.<br><em style="color:var(--gold)">Le parcours vous aide \u00e0 la retrouver.</em></h2>'
+    +'<p class="cta-body">La M\u00e9thode V.A.L.E.U.R\u00a9 est calibr\u00e9e sur votre Masque '+dominant_lbl+'. Un objectif\u00a0: r\u00e9duire l\u2019emprise du masque, amplifier votre pr\u00e9sence authentique. \u00c0 votre rythme, avec un accompagnement sur mesure.</p>'
+    +'<button onclick="window.open(atob(\'aHR0cHM6Ly93d3cucHN5aC5mcg==\'),\'_blank\')" class="btn-go" style="background:linear-gradient(135deg,var(--gold),#9A7A28);color:#0a0f1a;font-weight:600;border:none;cursor:pointer">\u00catre accompagn\u00e9\u00b7e avec la M\u00e9thode V.A.L.E.U.R\u00a9 \u2192</button>'
+    +'<p class="btn-note" style="color:rgba(201,168,76,.4)">M\u00e9thode V.A.L.E.U.R\u00a9 \u00b7 <em>De la peur \u00e0 la joie d\u2019\u00eatre soi</em> \u2014 \u00c9ditions L\u2019Harmattan</p>'
+    +'</div>';
+  /* ── LOOP VIRAL ── */
+  html+='<div class="fu" style="margin:24px 0;text-align:center;padding:26px;border:1px solid rgba(255,255,255,.05);border-radius:var(--r-s);background:rgba(255,255,255,.01)">'
+    +'<p style="font-family:var(--font-d);font-size:var(--fs-lg);font-weight:300;color:var(--text);margin-bottom:6px">Vous reconnaissez quelqu\u2019un ?</p>'
+    +'<p style="font-size:var(--fs-sm);color:var(--muted);margin-bottom:18px">Chaque personne que vous connaissez porte un masque. Invitez-la \u00e0 d\u00e9couvrir le sien.</p>'
+    +'<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">'
+    +'<a href="https://wa.me/?text='+encodeURIComponent('J\u2019ai pass\u00e9 ce test \u2014 il ne dit pas qui je suis, il a r\u00e9v\u00e9l\u00e9 ce qui m\u2019emp\u00eache de l\u2019\u00eatre. Je pense que tu te reconnaîtrais dedans\u00a0: https://celinebourbon-ux.github.io/QuestionnaireVALEUR/')+'" target="_blank" style="display:inline-flex;align-items:center;gap:7px;padding:11px 22px;border-radius:99px;background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.25);color:#25d366;font-size:12px;font-weight:500;text-decoration:none;font-family:var(--font-b)">Partager sur WhatsApp</a>'
+    +'<button onclick="navigator.clipboard&&navigator.clipboard.writeText(\'https://celinebourbon-ux.github.io/QuestionnaireVALEUR/\')" style="padding:11px 22px;border-radius:99px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);color:var(--muted);font-size:12px;font-weight:500;cursor:pointer;font-family:var(--font-b)">Copier le lien</button>'
+    +'</div>'
     +'</div>';
 
   return html;
