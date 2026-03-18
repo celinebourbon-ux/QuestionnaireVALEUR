@@ -787,15 +787,16 @@ function buildPage(dominant,meta,data,playlist,scores,prenom,profile,spa){
 
     +'</div>';
     /* ── CTA ── */
-  html+='<div class="cta-card fu" style="border-color:rgba(201,168,76,.3);background:linear-gradient(160deg,rgba(201,168,76,.06) 0%,var(--MC2) 100%)">'
-    +'<p class="cta-pre" style="color:var(--gold);font-style:normal;font-family:var(--font-d);font-size:var(--fs-lg);font-weight:300;line-height:1.3;margin-bottom:12px">'
-    +'\u00ab\u00a0Ce que vous pouvez voir,<br>vous pouvez le changer.\u00a0\u00bb'
-    +'</p>'
-    +'<h2 class="cta-h" style="color:var(--text)">Votre nature profonde est encore l\u00e0.<br><em style="color:var(--gold)">Le parcours vous aide \u00e0 la retrouver.</em></h2>'
-    +'<p class="cta-body">La M\u00e9thode V.A.L.E.U.R\u00a9 est calibr\u00e9e sur votre Masque '+dominant_lbl+'. Un objectif\u00a0: r\u00e9duire l\u2019emprise du masque, amplifier votre pr\u00e9sence authentique. \u00c0 votre rythme, avec un accompagnement sur mesure.</p>'
-    +'<button onclick="window.open(atob(\'aHR0cHM6Ly93d3cucHN5aC5mcg==\'),\'_blank\')" class="btn-go" style="background:linear-gradient(135deg,var(--gold),#9A7A28);color:#0a0f1a;font-weight:600;border:none;cursor:pointer">\u00catre accompagn\u00e9\u00b7e avec la M\u00e9thode V.A.L.E.U.R\u00a9 \u2192</button>'
-    +'<p class="btn-note" style="color:rgba(201,168,76,.4)">M\u00e9thode V.A.L.E.U.R\u00a9 \u00b7 <em>De la peur \u00e0 la joie d\u2019\u00eatre soi</em> \u2014 \u00c9ditions L\u2019Harmattan</p>'
-    +'</div>';
+    html+='<div class="cta-card fu" style="border-color:rgba(201,168,76,.2);background:linear-gradient(160deg,rgba(201,168,76,.03) 0%,var(--MC2) 100%);text-align:center">';
+  html+='<p style="font-family:var(--font-d);font-size:var(--fs-md);font-weight:300;font-style:italic;color:var(--text);line-height:1.4;margin-bottom:8px">Ce que vous venez de lire n’est pas une analyse.</p>';
+  html+='<p style="font-family:var(--font-d);font-size:var(--fs-md);font-weight:300;font-style:italic;color:rgba(201,168,76,.8);line-height:1.4;margin-bottom:28px">C’est un point de départ.</p>';
+  html+='<button onclick="window.open(atob(\'aHR0cHM6Ly9jZWxpbmVib3VyYm9uLXV4LmdpdGh1Yi5pby9NZXRob2RlLVZBTEVVUi1QcmVzZW50YXRpb25Qb3N0UXVlc3Rpb25uYWlyZS8=\'),\'_blank\')" class="btn-go" style="background:linear-gradient(135deg,var(--gold),#9A7A28);color:#0a0f1a;font-weight:600;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px">';
+  html+='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+  html+='Découvrir la Méthode V.A.L.E.U.R©';
+  html+='</button>';
+  html+='<p class="btn-note" style="color:rgba(201,168,76,.35);margin-top:18px">Méthode V.A.L.E.U.R© · <em>De la peur à la joie d’être soi</em> — Éditions L’Harmattan</p>';
+  html+='</div>';
+
   /* ── LOOP VIRAL ── */
   html+='<div class="fu" style="margin:24px 0;text-align:center;padding:26px;border:1px solid rgba(255,255,255,.05);border-radius:var(--r-s);background:rgba(255,255,255,.01)">'
     +'<p style="font-family:var(--font-d);font-size:var(--fs-lg);font-weight:300;color:var(--text);margin-bottom:6px">Vous reconnaissez quelqu\u2019un ?</p>'
