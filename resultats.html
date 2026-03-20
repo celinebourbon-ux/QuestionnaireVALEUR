@@ -224,6 +224,36 @@ footer{border-top:1px solid rgba(255,255,255,.04);padding:30px 20px;text-align:c
 .print-btn{position:fixed;bottom:28px;right:24px;z-index:200;display:flex;align-items:center;gap:8px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);color:var(--gold);font-family:var(--font-b);font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:12px 22px;border-radius:2px;cursor:pointer;transition:all .25s;backdrop-filter:blur(10px)}
 .print-btn:hover{background:rgba(201,168,76,.22);border-color:var(--gold)}
 @media print{.aurora,.top-bar,.print-btn{display:none!important}body{background:#fff!important;color:#1A1814!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.wrap{max-width:none;padding:0 16px}.card,.portrait,.constell-card,.playlist-card,.spa-card,.config-section,.cta-card{break-inside:avoid;page-break-inside:avoid}.hero{padding:20px 0 30px}.card,.portrait,.constell-card,.playlist-card,.spa-card{border:1px solid rgba(0,0,0,.1)!important;margin:12px 0;padding:20px!important}.cta-card .btn-gold,.cta-card .btn-ghost-gold{display:none}}
+/* ─── PAYWALL ─── */
+.paywall-wall{position:relative;margin:0 0 20px;border-radius:var(--r);overflow:hidden}
+.paywall-blur-inner{filter:blur(7px);pointer-events:none;user-select:none;opacity:.55}
+.paywall-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(6,12,24,0) 0%,rgba(6,12,24,.92) 55%,rgba(6,12,24,1) 100%);z-index:2}
+.paywall-section{margin:20px 0}
+.paywall-box{background:linear-gradient(160deg,rgba(201,168,76,.06) 0%,rgba(6,12,24,1) 100%);border:1px solid rgba(201,168,76,.22);border-radius:var(--r);padding:36px 30px;text-align:center;position:relative;overflow:hidden}
+.paywall-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.paywall-title{font-family:var(--font-d);font-size:clamp(22px,4vw,32px);font-weight:600;color:var(--text);line-height:1.2;margin-bottom:8px}
+.paywall-title em{color:var(--MC);font-style:italic}
+.paywall-sub{font-size:14px;color:var(--muted);line-height:1.75;max-width:480px;margin:0 auto 28px}
+.pack-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:0 0 6px}
+.pack-card{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);padding:22px 18px;text-align:left;cursor:pointer;transition:border-color .3s,transform .3s}
+.pack-card:hover{border-color:rgba(201,168,76,.35);transform:translateY(-3px)}
+.pack-card.featured{border-color:rgba(201,168,76,.32);background:rgba(201,168,76,.04)}
+.pack-badge{display:inline-block;background:var(--gold);color:#06090F;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:2px;margin-bottom:10px}
+.pack-num{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;display:block}
+.pack-name{font-family:var(--font-d);font-size:18px;color:var(--text);margin-bottom:6px;line-height:1.25}
+.pack-price{font-family:var(--font-d);font-size:30px;color:var(--gold);font-weight:300;margin-bottom:10px}
+.pack-items{list-style:none;margin-bottom:16px}
+.pack-items li{font-size:11px;color:var(--muted);padding:4px 0 4px 14px;position:relative;line-height:1.5;border-bottom:1px solid rgba(255,255,255,.03)}
+.pack-items li:last-child{border-bottom:none}
+.pack-items li::before{content:'✦';position:absolute;left:0;color:var(--gold);opacity:.5;font-size:8px;top:7px}
+.pack-btn{width:100%;padding:13px;font-family:var(--font-b);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:all .3s}
+.pack-btn.gold{background:linear-gradient(135deg,#C9A84C,#F0D080);color:#06090F}
+.pack-btn.gold:hover{transform:translateY(-1px);box-shadow:0 5px 20px rgba(201,168,76,.35)}
+.pack-btn.ghost{background:transparent;border:1px solid rgba(201,168,76,.3);color:var(--gold)}
+.pack-btn.ghost:hover{background:rgba(201,168,76,.08)}
+/* Unlocked CTA */
+.unlocked-cta{text-align:center;margin:20px 0}
+.unlocked-btns{display:flex;flex-direction:column;align-items:center;gap:10px}
 </style>
 </head>
 <body>
@@ -531,10 +561,136 @@ function loadData(){
     var p=localStorage.getItem('valeur_prenom');
     var spaRaw=localStorage.getItem('valeur_spa');
     var spaData=null;
-    if(spaRaw){try{spaData=JSON.parse(spaRaw);}catch(e){}}
+    if(spaRaw){try{spaData=JSON.parse(spaRaw);}catch(e){}
+}
     if(s)return{scores:JSON.parse(s),prenom:p||'',fromUrl:false,spa:spaData};
   }catch(e){}
   return null;
+}
+
+/* ═══ ACCÈS / PAYWALL ═══ */
+function isUnlocked(){
+  try{
+    var p=new URLSearchParams(window.location.search);
+    if(p.get('admin')==='soleil2026') return true;
+    var access=p.get('access');
+    if(access){
+      var d=JSON.parse(decodeURIComponent(escape(atob(access))));
+      if(d&&d.pack>=1){
+        localStorage.setItem('valeur_acces',JSON.stringify({pack:d.pack,masque:d.masque,email:d.email,date:new Date().toISOString()}));
+        return true;
+      }
+    }
+    var acces=JSON.parse(localStorage.getItem('valeur_acces')||'null');
+    return acces&&acces.pack>=1;
+  }catch(e){return false;}
+}
+
+function getAccessPack(){
+  try{
+    var p=new URLSearchParams(window.location.search);
+    if(p.get('admin')==='soleil2026') return 3;
+    var access=p.get('access');
+    if(access){var d=JSON.parse(decodeURIComponent(escape(atob(access))));if(d&&d.pack)return d.pack;}
+    var acces=JSON.parse(localStorage.getItem('valeur_acces')||'null');
+    return acces?acces.pack:0;
+  }catch(e){return 0;}
+}
+
+function goToPack(pack,masque){
+  var urls={
+    1:'https://buy.stripe.com/00w4gs6nz8BFgADf8scwg00',
+    2:'https://buy.stripe.com/cNifZaeU52dh7038K4cwg01',
+    3:'https://buy.stripe.com/fZu8wIfY99FJ0BF6BWcwg02'
+  };
+  localStorage.setItem('valeur_pending',JSON.stringify({masque:masque,pack:pack}));
+  window.location.href=urls[pack];
+}
+
+var PAYWALL_TEASER={
+  rouge:{title:'Votre corps vous envoie des signaux.',sub:'Voici ce qu\'ils révèlent vraiment — et comment reprendre confiance en lui.'},
+  orange:{title:'Derrière votre façade de contrôle...',sub:'Voici ce qui se passe réellement en vous — et le chemin vers la vraie connexion.'},
+  jaune:{title:'Votre cerveau anticipe tout.',sub:'Voici ce que cette vigilance vous coûte vraiment — et comment retrouver la paix.'},
+  vert:{title:'Vous donnez sans compter.',sub:'Voici pourquoi — et comment apprendre à vous donner à vous aussi.'},
+  bleu:{title:'Vous tenez les rênes.',sub:'Voici ce que ce contrôle vous fait réellement — et comment découvrir votre vraie force.'},
+  indigo:{title:'Vous n\'êtes jamais tout à fait à la hauteur.',sub:'Voici d\'où vient cette voix — et comment la faire taire définitivement.'},
+  violet:{title:'Qui êtes-vous vraiment ?',sub:'Voici les premières réponses — et un chemin vers une identité ancrée et choisie.'}
+};
+
+function buildPaywall(dominant,meta,data,prenom){
+  var t=PAYWALL_TEASER[dominant]||PAYWALL_TEASER.vert;
+  var r=parseInt(meta.color.slice(1,3),16),g=parseInt(meta.color.slice(3,5),16),b=parseInt(meta.color.slice(5,7),16);
+  var h='';
+  /* Blurred preview */
+  h+='<div class="paywall-wall fu">';
+  h+='<div class="paywall-blur-inner">';
+  h+='<div class="portrait" style="pointer-events:none"><span class="card-label">Ce que vous vivez vraiment</span>';
+  h+='<h2 class="card-title">Une journée type<br><em>Masque '+meta.label+' actif</em></h2>';
+  h+='<p style="font-size:14px;color:var(--muted);line-height:1.8">'+data.scene1.substring(0,180)+'…</p>';
+  h+='<div class="inner-voice" style="margin-top:16px"><span class="iv-label">Voix intérieure</span><p class="iv-quote">'+data.voice.substring(0,120)+'…</p></div>';
+  h+='</div>';
+  h+='</div>';
+  h+='<div class="paywall-overlay"></div>';
+  h+='</div>';
+  /* CTA box */
+  h+='<div class="paywall-section fu">';
+  h+='<div class="paywall-box">';
+  h+='<p style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:14px">Ce rapport complet révèle</p>';
+  h+='<h2 class="paywall-title">'+t.title+'<br><em>'+t.sub.split('—')[0].trim()+'</em></h2>';
+  h+='<p class="paywall-sub">'+t.sub+'</p>';
+  /* 3 pack cards */
+  h+='<div class="pack-cards">';
+  /* Pack 1 */
+  h+='<div class="pack-card">';
+  h+='<span class="pack-num">Pack 1</span>';
+  h+='<div class="pack-name">Offre Découverte</div>';
+  h+='<div class="pack-price">39€</div>';
+  h+='<ul class="pack-items"><li>Rapport complet personnalisé</li><li>Portrait Masque '+meta.label+' en 3 scènes</li><li>Dyades & triades si détectées</li><li>Score de Présence Authentique</li></ul>';
+  h+='<button class="pack-btn ghost" onclick="goToPack(1,\''+dominant+'\')">Débloquer →</button>';
+  h+='</div>';
+  /* Pack 2 */
+  h+='<div class="pack-card featured">';
+  h+='<div class="pack-badge">Le plus choisi</div>';
+  h+='<span class="pack-num">Pack 2</span>';
+  h+='<div class="pack-name">Diag + Guide</div>';
+  h+='<div class="pack-price">97€</div>';
+  h+='<ul class="pack-items"><li>Tout le Pack 1</li><li>Livret Masque '+meta.label+' — 7 modules</li><li>Fiche personnalisée · 21 jours</li><li>Exercices guidés · Accès à vie</li></ul>';
+  h+='<button class="pack-btn gold" onclick="goToPack(2,\''+dominant+'\')">Commencer →</button>';
+  h+='</div>';
+  /* Pack 3 */
+  h+='<div class="pack-card">';
+  h+='<span class="pack-num">Pack 3</span>';
+  h+='<div class="pack-name">Premium</div>';
+  h+='<div class="pack-price">147€</div>';
+  h+='<ul class="pack-items"><li>Tout le Pack 2</li><li>Séance visio 60 min avec Céline</li><li>Plan d\'action 30 jours</li><li>Compte-rendu écrit sous 48h</li></ul>';
+  h+='<button class="pack-btn ghost" onclick="goToPack(3,\''+dominant+'\')">Réserver →</button>';
+  h+='</div>';
+  h+='</div>'; /* end pack-cards */
+  h+='<p style="font-size:11px;color:rgba(155,176,200,.35);margin-top:16px;letter-spacing:.5px">Paiement sécurisé · Accès immédiat · Utilisé par Céline Bourbon, Psychologue</p>';
+  h+='</div></div>'; /* end paywall-box + paywall-section */
+  return h;
+}
+
+function buildUnlockedCTA(dominant,meta,pack){
+  var livretURL='https://celinebourbon-ux.github.io/Livrets-VALEUR-Collection/livret_masque_'+dominant+'_COMPLET.html';
+  var ficheURL='https://celinebourbon-ux.github.io/Livrets-VALEUR-Collection/fiche_masque_dominant.html';
+  var h='<div class="cta-card fu" style="text-align:center">';
+  h+='<p style="font-family:var(--font-d);font-size:var(--fs-md);font-weight:300;font-style:italic;color:var(--subtle);margin-bottom:14px;line-height:1.65">« L\'emprise de ce masque n\'est pas une fatalité.<br>Elle s\'est construite progressivement — elle se déconstruit progressivement. »</p>';
+  h+='<h2 style="font-family:var(--font-d);font-size:var(--fs-xl);font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.05">Commencer votre<br><em style="color:var(--MC)">libération</em></h2>';
+  h+='<p style="font-size:14px;color:var(--muted);margin:0 auto 28px;line-height:1.7;max-width:480px">Le Livret Masque '+meta.label+' — 7 modules, exercices guidés, chemin concret.</p>';
+  h+='<div style="display:flex;flex-direction:column;align-items:center;gap:12px">';
+  if(pack>=2){
+    h+='<a href="'+ficheURL+'" class="btn-gold" style="text-decoration:none"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Ma Fiche 21 jours →</a>';
+    h+='<a href="'+livretURL+'" class="btn-ghost-gold" style="text-decoration:none">Accéder au Livret Masque '+meta.label+' →</a>';
+  }else{
+    h+='<a href="'+livretURL+'" class="btn-gold" style="text-decoration:none"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Accéder au Livret Masque '+meta.label+' →</a>';
+    h+='<button class="btn-ghost-gold" onclick="goToPack(2,\''+dominant+'\')">Passer au Pack 2 — Guide complet</button>';
+  }
+  if(pack>=3){
+    h+='<a href="https://www.doctolib.fr/psychologue/bordeaux/celine-bourbon" target="_blank" class="btn-ghost-gold" style="text-decoration:none">Réserver ma séance avec Céline →</a>';
+  }
+  h+='</div></div>';
+  return h;
 }
 
 /* ═══ CONSTRUCTION PAGE ═══ */
@@ -639,6 +795,12 @@ function buildPage(dominant,meta,data,playlist,scores,prenom,profile,spa){
       +'<div style="height:7px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div id="spa-bar-fill" style="height:100%;width:0;background:linear-gradient(90deg,#E53E3E,#D69E2E,#C9A84C,#38A169);border-radius:3px;transition:width 1.4s cubic-bezier(.4,0,.2,1)"></div></div>'
       +'<div style="display:flex;justify-content:space-between;font-size:9px;text-transform:uppercase;margin-top:5px"><span style="color:rgba(229,62,62,.4)">0%</span><span style="color:rgba(201,168,76,.7);font-weight:600">'+spa.pct+'%</span><span style="color:rgba(56,161,105,.4)">100%</span></div>'
       +'</div></div>';
+  }
+
+  /* PAYWALL CHECK */
+  if(!isUnlocked()){
+    html+=buildPaywall(dominant,meta,data,prenom);
+    return html;
   }
 
   /* CONSTELLATION */
@@ -753,17 +915,9 @@ function buildPage(dominant,meta,data,playlist,scores,prenom,profile,spa){
     +'<div class="ba-col aft"><div class="ba-lbl">Lib\u00e9r\u00e9\u00b7e du masque</div><ul class="ba-list">'+data.after.map(function(a){return'<li>'+a+'</li>';}).join('')+'</ul></div></div></div>';
 
   /* CTA */
-  html+='<div class="cta-card fu" style="text-align:center">'
-    +'<p style="font-family:var(--font-d);font-size:var(--fs-md);font-weight:300;font-style:italic;color:var(--subtle);margin-bottom:14px;line-height:1.65">« L\'emprise de ce masque n\'est pas une fatalité.<br>Elle s\'est construite progressivement — elle se déconstruit progressivement. »</p>'
-    +'<h2 style="font-family:var(--font-d);font-size:var(--fs-xl);font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.05">Commencer votre<br><em style="color:var(--MC)">lib\u00e9ration</em></h2>'
-    +'<p style="font-size:14px;color:var(--muted);margin:0 auto 28px;line-height:1.7;max-width:480px">Le Livret Masque '+dominant_lbl+' — 7 modules, exercices guidés, chemin concret.</p>'
-    +'<div style="display:flex;flex-direction:column;align-items:center;gap:14px">'
-    +'<a href="'+livretURL+'" class="btn-gold"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Accéder au Livret Masque '+dominant_lbl+' \u2192</a>'
-    +'<a href="https://celinebourbon-ux.github.io/Livrets-VALEUR-Collection/" class="btn-ghost-gold">Voir la collection complète</a>'
-    +'<div style="max-width:460px;padding:18px 22px;background:rgba(255,255,255,.02);border-radius:var(--r-s);border:1px solid rgba(255,255,255,.04);text-align:center;margin-top:6px"><p style="font-family:var(--font-d);font-size:clamp(15px,1.9vw,18px);font-weight:300;color:rgba(240,234,225,.3);line-height:1.75;margin-bottom:8px">Vous êtes entièrement libre de ne pas aller plus loin.</p><p style="font-size:12px;font-weight:300;color:rgba(240,234,225,.22);line-height:1.8">Dans six mois, les mêmes scènes reviendront. Non par manque de volonté — mais parce que la cible n\'était pas encore nommée.<br><strong style="font-weight:400;color:rgba(240,234,225,.38)">Elle l\'est maintenant.</strong></p></div></div>'
-    +'<p class="btn-note" style="margin-top:20px;color:rgba(201,168,76,.3)">M\u00e9thode V.A.L.E.U.R\u00a9 · C\u00e9line Bourbon, Psychologue · <em>De la peur \u00e0 la joie d\'\u00eatre soi</em> — \u00c9ditions L\'Harmattan</p></div>';
+  html+=buildUnlockedCTA(dominant,meta,getAccessPack());
 
-  /* LOOP VIRAL */
+    /* LOOP VIRAL */
   html+='<div class="fu" style="margin:24px 0;text-align:center;padding:26px;border:1px solid rgba(255,255,255,.05);border-radius:var(--r-s);background:rgba(255,255,255,.01)">'
     +'<p style="font-family:var(--font-d);font-size:var(--fs-lg);font-weight:300;color:var(--text);margin-bottom:6px">Vous reconnaissez quelqu\u2019un ?</p>'
     +'<p style="font-size:var(--fs-sm);color:var(--muted);margin-bottom:18px">Chaque personne que vous connaissez porte un masque. Invitez-la \u00e0 d\u00e9couvrir le sien.</p>'
