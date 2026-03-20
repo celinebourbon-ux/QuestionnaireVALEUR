@@ -911,6 +911,7 @@ function buildRepondantParams(sc, profile, dateStr, spaSc) {
     lien_resultats: window.location.origin + window.location.pathname.replace('index.html','') + 'resultats.html',
     scores_resume: Object.keys(sc).sort((a,b)=>sc[b]-sc[a]).map(k => MASK_DEF[k].label + ' : ' + sc[k] + '% (' + levelText(sc[k]) + ')').join('\n'),
     score_spa: spaSc ? spaSc.pct + '%' : 'N/A',
+    score_spa_num: spaSc ? spaSc.pct : 0,
     niveau_spa: spaSc ? spaSc.level : '—'
   };
 }
@@ -1033,11 +1034,26 @@ function buildEmailParams(sc, profile, spaSc) {
     pct_violet: sc.violet, score_violet: sc.violet+'%', level_violet: levelText(sc.violet),
     items_critiques: critLines, defis: defiLines, interpretations: interp, all_responses: journal.length > 4800 ? journal.substring(0, 4800) + '\n[suite tronquee - 50 items complets dans scores_summary]' : journal,
     score_spa: spaSc ? spaSc.pct + '%' : 'N/A',
+    score_spa_num: spaSc ? spaSc.pct : 0,
     niveau_spa: spaSc ? spaSc.level : '—',
     scores_summary: Object.keys(sc).map(k => MASK_DEF[k].label + ': ' + sc[k] + '% (' + levelText(sc[k]) + ')').join(' | ') + (spaSc ? ' | SPA: ' + spaSc.pct + '% (' + spaSc.level + ')' : ''),
     lien_resultats_praticien: ''
   };
 }
+
+/* ═══ AUTO-LAUNCH ═══ */
+(function(){
+  /* Accès direct — tout le monde passe directement au questionnaire */
+  /* Admin bypass via ?admin=soleil2026 (pré-remplit les infos) */
+  var p=new URLSearchParams(window.location.search);
+  if(p.get('admin')==='soleil2026'){
+    /* Admin — direct access */
+    goToScreen('screen-welcome');
+    return;
+  }
+  /* Accès public direct */
+  goToScreen('screen-welcome');
+})();
 </script>
 </body>
 </html>
