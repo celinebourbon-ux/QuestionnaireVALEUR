@@ -501,6 +501,15 @@ var VERCEL_API='https://valeur-backend.vercel.app/api';
 var _currentDominant='vert';
 
 function hasAccess(){
+  // 0. Bypass admin (?admin=VALEUR-ADMIN-2025)
+  try{
+    var params0=new URLSearchParams(window.location.search);
+    if(params0.get('admin')==='VALEUR-ADMIN-2025'){
+      localStorage.setItem('valeur_acces',JSON.stringify({pack:2,masque:'admin',email:'admin@valeur.psyh.fr',date:new Date().toISOString()}));
+      window.history.replaceState({},'',window.location.pathname);
+      return true;
+    }
+  }catch(e){}
   // 1. Token URL (?access=xxx) → vient du lien email deliver.html
   try{
     var params=new URLSearchParams(window.location.search);
