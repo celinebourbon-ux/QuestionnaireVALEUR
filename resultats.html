@@ -492,9 +492,9 @@ const ETAPES=[
 
 /* ⚠ STRIPE — remplacez ces liens par vos vrais liens de paiement Stripe */
 var STRIPE_LINKS={
-  1:'https://buy.stripe.com/VOTRE_LIEN_PACK1',
-  2:'https://buy.stripe.com/VOTRE_LIEN_PACK2',
-  3:'https://buy.stripe.com/VOTRE_LIEN_PACK3'
+  1:'https://buy.stripe.com/7sY4gs13f059dor4tOcwg06',
+  2:'https://buy.stripe.com/cNi14g6nz4lp98b1hCcwg05',
+  3:'https://buy.stripe.com/7sY4gs13f059dor4tOcwg06'
 };
 
 var VERCEL_API='https://valeur-backend.vercel.app/api';
@@ -521,6 +521,7 @@ function hasAccess(){
 }
 
 function buyPack(n){
+  if(n>2)return;
   localStorage.setItem('valeur_pending',JSON.stringify({pack:n,masque:_currentDominant}));
   window.location.href=STRIPE_LINKS[n]||'deliver.html';
 }
@@ -603,7 +604,6 @@ function buildPaywall(dominant,meta,data,playlist,scores,prenom,profile){
   const level=getLevel(scores[dominant]);
   const score=scores[dominant];
 
-  // Masques miroir par masque — questions personnalisées
   const MIRROR_Q={
     rouge:["Vous vous réveillez en surveillant déjà votre corps ?","Une sensation banale devient vite une inquiétude sérieuse ?","Le médecin vous rassure — et quelque chose revient quand même ?"],
     orange:["Vous fonctionnez bien. Mais quelque chose reste inaccessible, là, derrière ?","On vous demande comment vous allez, et vous répondez 'ça va' — sans vraiment savoir ?","Une émotion forte arrive, et la première réaction est de s'en éloigner ?"],
@@ -615,7 +615,6 @@ function buildPaywall(dominant,meta,data,playlist,scores,prenom,profile){
   };
   const questions=(MIRROR_Q[dominant]||MIRROR_Q.vert);
 
-  // BA émotionnel par masque
   const BA_NOW={
     rouge:["Une fatigue d'être constamment en alerte","Un corps qui est devenu source d'inquiétude plutôt qu'allié","Des consultations qui rassurent — et recommencer quand même"],
     orange:["Un vide qu'on ne sait pas nommer","Fonctionner parfaitement — et passer à côté de soi","Des relations qui restent en surface"],
@@ -636,7 +635,6 @@ function buildPaywall(dominant,meta,data,playlist,scores,prenom,profile){
   };
   const nowItems=(BA_NOW[dominant]||BA_NOW.vert);
   const afterItems=(BA_AFTER[dominant]||BA_AFTER.vert);
-
   const previewRaw=data.scene1.replace(/<[^>]+>/g,'').substring(0,210);
 
   let configLabel;
@@ -646,7 +644,7 @@ function buildPaywall(dominant,meta,data,playlist,scores,prenom,profile){
 
   let html='';
 
-  /* ── ZONE 0 — ACCROCHE ÉMOTIONNELLE ── */
+  /* ZONE 0 — ACCROCHE */
   html+=`<div class="pw-hook fu">
     <p class="pw-hook-kicker">Ce que vous venez de traverser</p>
     <div class="pw-questions">
@@ -659,7 +657,7 @@ function buildPaywall(dominant,meta,data,playlist,scores,prenom,profile){
     </div>
   </div>`;
 
-  /* ── ZONE 1b — DÉJÀ ACHETÉ (visible, en haut) ── */
+  /* ZONE 1b — DÉJÀ ACHETÉ (visible, en haut) */
   html+=`<div class="unlock-banner fu">
     <div class="unlock-banner-txt">
       <strong>✦ Vous avez déjà acheté ?</strong>
@@ -672,7 +670,7 @@ function buildPaywall(dominant,meta,data,playlist,scores,prenom,profile){
     <div id="unlock-msg" class="unlock-msg" style="display:none"></div>
   </div>`;
 
-  /* ── ZONE 1 — HERO ── */
+  /* ZONE 1 — HERO */
   html+=`<div class="hero fu">
     <div class="hero-tag"><span class="pulse"></span>Résultats V.A.L.E.U.R© · Analyse personnalisée</div>
     ${prenomTxt}
@@ -686,7 +684,7 @@ function buildPaywall(dominant,meta,data,playlist,scores,prenom,profile){
     <div class="mirror-text">${data.mirror}</div>
   </div>`;
 
-  /* ── ZONE 1 SUITE — CONSTELLATION + SCORES ── */
+  /* CONSTELLATION */
   html+=`<div class="constell-card fu">
     <span class="card-label">Votre cartographie complète</span>
     <h2 class="card-title">Votre Constellation de Protection</h2>
@@ -716,7 +714,7 @@ function buildPaywall(dominant,meta,data,playlist,scores,prenom,profile){
     </div>
   </div>`;
 
-  /* ── ZONE 2 — PORTRAIT PREVIEW (fondu) ── */
+  /* ZONE 2 — PORTRAIT PREVIEW */
   html+=`<div class="portrait-preview fu">
     <span class="card-label">Un aperçu de ce que votre portrait révèle</span>
     <h2 class="card-title" style="margin-bottom:24px">Une journée type avec votre Masque ${dominant_lbl} actif</h2>
@@ -729,7 +727,7 @@ function buildPaywall(dominant,meta,data,playlist,scores,prenom,profile){
     </div>
   </div>`;
 
-  /* ── ZONE 3 — PROMESSE CENTRALE ── */
+  /* ZONE 3 — PROMESSE */
   html+=`<div class="promise-zone fu">
     <p class="promise-main">
       Ce rapport ne vous dit pas ce qui ne va pas chez vous.<br>
@@ -737,63 +735,42 @@ function buildPaywall(dominant,meta,data,playlist,scores,prenom,profile){
       et comment cette protection est devenue, avec le temps, <strong>ce qui vous empêche d'être pleinement vous-même.</strong>
     </p>
     <div class="reveal-grid">
-      <div class="reveal-item">
-        <div class="reveal-dot" style="background:var(--MC)"></div>
-        <div class="reveal-txt"><strong>Portrait complet</strong>7 scènes de votre vie quotidienne — la mécanique exacte de votre masque en action</div>
-      </div>
-      <div class="reveal-item">
-        <div class="reveal-dot" style="background:#E53E3E"></div>
-        <div class="reveal-txt"><strong>Voix intérieure</strong>Les pensées automatiques de votre masque — mot pour mot, telles qu'elles arrivent</div>
-      </div>
-      <div class="reveal-item">
-        <div class="reveal-dot" style="background:#D69E2E"></div>
-        <div class="reveal-txt"><strong>Configuration en profondeur</strong>Comment vos masques s'amplifient mutuellement — la vraie source de vos répétitions</div>
-      </div>
-      <div class="reveal-item">
-        <div class="reveal-dot" style="background:#38A169"></div>
-        <div class="reveal-txt"><strong>Coûts silencieux</strong>Ce que ce masque vous coûte — en énergie, en relations, en vie non vécue</div>
-      </div>
-      <div class="reveal-item">
-        <div class="reveal-dot" style="background:#6B46C1"></div>
-        <div class="reveal-txt"><strong>Score de Présence Authentique</strong>La mesure de votre distance à vous-même — et ce que ça indique pour la suite</div>
-      </div>
-      <div class="reveal-item">
-        <div class="reveal-dot" style="background:var(--gold)"></div>
-        <div class="reveal-txt"><strong>Le chemin</strong>L'étape V.A.L.E.U.R© la plus importante pour votre profil — et pourquoi elle change tout</div>
-      </div>
+      <div class="reveal-item"><div class="reveal-dot" style="background:var(--MC)"></div><div class="reveal-txt"><strong>Portrait complet</strong>7 scènes de votre vie quotidienne — la mécanique exacte de votre masque en action</div></div>
+      <div class="reveal-item"><div class="reveal-dot" style="background:#E53E3E"></div><div class="reveal-txt"><strong>Voix intérieure</strong>Les pensées automatiques de votre masque — mot pour mot, telles qu'elles arrivent</div></div>
+      <div class="reveal-item"><div class="reveal-dot" style="background:#D69E2E"></div><div class="reveal-txt"><strong>Configuration en profondeur</strong>Comment vos masques s'amplifient mutuellement — la vraie source de vos répétitions</div></div>
+      <div class="reveal-item"><div class="reveal-dot" style="background:#38A169"></div><div class="reveal-txt"><strong>Coûts silencieux</strong>Ce que ce masque vous coûte — en énergie, en relations, en vie non vécue</div></div>
+      <div class="reveal-item"><div class="reveal-dot" style="background:#6B46C1"></div><div class="reveal-txt"><strong>Score de Présence Authentique</strong>La mesure de votre distance à vous-même — et ce que ça indique pour la suite</div></div>
+      <div class="reveal-item"><div class="reveal-dot" style="background:var(--gold)"></div><div class="reveal-txt"><strong>Le chemin</strong>L'étape V.A.L.E.U.R© la plus importante pour votre profil — et pourquoi elle change tout</div></div>
     </div>
   </div>`;
 
-  /* ── ZONE 4 — AVANT/APRÈS ÉMOTIONNEL ── */
+  /* ZONE 4 — AVANT/APRÈS ÉMOTIONNEL */
   html+=`<div class="ba-emo-zone fu">
     <h3 class="ba-emo-title">Ce que vous portez en ce moment —<br><em>et ce que vous pourriez ne plus porter</em></h3>
     <div class="ba-emo-grid">
       <div class="ba-emo-col now">
         <div class="ba-emo-lbl">Ce que vous vivez</div>
-        <ul class="ba-emo-items">
-          ${nowItems.map(i=>`<li>"${i}"</li>`).join('')}
-        </ul>
+        <ul class="ba-emo-items">${nowItems.map(i=>`<li>"${i}"</li>`).join('')}</ul>
       </div>
       <div class="ba-emo-col after">
         <div class="ba-emo-lbl">Ce que le rapport rend possible</div>
-        <ul class="ba-emo-items">
-          ${afterItems.map(i=>`<li>${i}</li>`).join('')}
-        </ul>
+        <ul class="ba-emo-items">${afterItems.map(i=>`<li>${i}</li>`).join('')}</ul>
       </div>
     </div>
   </div>`;
 
-  /* ── ZONE 5 — LES 3 PACKS AVEC NARRATIVE ── */
+  /* ZONE 5 — 2 PACKS */
   html+=`<div class="packs-zone fu">
     <p style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;text-align:center;margin-bottom:12px">Choisissez votre chemin</p>
     <h2 style="font-family:var(--font-d);font-size:clamp(24px,5vw,36px);font-weight:300;color:var(--text);text-align:center;line-height:1.15;margin-bottom:12px">Votre rapport · Masque <em style="color:var(--MC);font-style:italic">${dominant_lbl}</em></h2>
-    <p class="packs-intro">Vous pouvez commencer par <strong>comprendre</strong> (Pack 1). Vous pouvez commencer par <strong>transformer</strong> (Pack 2). Et si vous voulez être accompagnée — <strong>je suis là</strong> (Pack 3).</p>
-    <div class="pack-grid">
+    <p class="packs-intro">Vous pouvez commencer par <strong>comprendre</strong> — Pack 1. Ou commencer par <strong>comprendre et transformer</strong> — Pack 2. L'équivalent de 6 séances de psychologue, à votre rythme, pour toujours.</p>
+    <div class="pack-grid" style="grid-template-columns:1fr 1fr">
 
       <div class="pack-card">
-        <p class="pack-narrative">Pour comprendre — enfin — ce qui se passe vraiment.</p>
-        <div class="pack-name">Découverte</div>
-        <div class="pack-price"><span class="pack-amount">39</span><span class="pack-currency">€</span></div>
+        <p class="pack-narrative">Pour savoir enfin d'où ça vient.</p>
+        <div class="pack-name">Rapport complet</div>
+        <div style="font-size:11px;font-weight:300;color:var(--muted);margin-bottom:16px;font-style:italic">Pour comprendre</div>
+        <div class="pack-price"><span class="pack-amount">59</span><span class="pack-currency">€</span></div>
         <ul class="pack-includes">
           <li>Rapport personnalisé complet</li>
           <li>Portrait en 7 scènes · Voix intérieure</li>
@@ -806,36 +783,24 @@ function buildPaywall(dominant,meta,data,playlist,scores,prenom,profile){
 
       <div class="pack-card vedette">
         <div class="vedette-ribbon">✦ Recommandé</div>
-        <p class="pack-narrative">Pour comprendre <em>et</em> traverser — avec un guide construit pour votre masque.</p>
-        <div class="pack-name">Rapport + Livret</div>
-        <div class="pack-price"><span class="pack-amount">97</span><span class="pack-currency">€</span></div>
+        <p class="pack-narrative">L'équivalent de 6 séances de psychologue — à votre rythme, pour toujours.</p>
+        <div class="pack-name">Programme complet</div>
+        <div style="font-size:11px;font-weight:300;color:rgba(201,168,76,.7);margin-bottom:16px;font-style:italic">Pour comprendre et transformer</div>
+        <div class="pack-price"><span class="pack-amount">197</span><span class="pack-currency">€</span></div>
         <ul class="pack-includes">
-          <li><strong>Tout le Pack Découverte</strong></li>
+          <li><strong>Tout le Rapport complet (Pack 1)</strong></li>
           <li>Livret Masque ${dominant_lbl} — 7 modules V.A.L.E.U.R©</li>
-          <li>Exercices guidés · Protocoles concrets</li>
+          <li>Livret Psychoéducation — SNA · Fenêtre de tolérance · Cohérence cardiaque · Conscience observatrice</li>
           <li>Fiche 21 jours personnalisée</li>
-          <li>Accès à vie · Tous appareils</li>
+          <li style="color:var(--gold)">Accès à vie · Tous appareils</li>
         </ul>
         <button class="pack-btn pack-btn-gold" onclick="buyPack(2)">Commencer la transformation →</button>
-      </div>
-
-      <div class="pack-card">
-        <p class="pack-narrative">Pour ne pas traverser ça seul·e — avec Céline à vos côtés.</p>
-        <div class="pack-name">Premium</div>
-        <div class="pack-price"><span class="pack-amount">147</span><span class="pack-currency">€</span></div>
-        <ul class="pack-includes">
-          <li><strong>Tout le Pack Rapport + Livret</strong></li>
-          <li>Séance visio 60 min avec Céline</li>
-          <li>Débrief rapport en direct</li>
-          <li>Plan d'action 30 jours</li>
-          <li>Compte-rendu écrit sous 48h</li>
-        </ul>
-        <button class="pack-btn pack-btn-std" onclick="buyPack(3)">Être accompagné·e →</button>
+        <p style="font-size:10px;font-weight:300;color:rgba(201,168,76,.5);text-align:center;margin-top:10px">Tout ce qu'un psychologue vous expliquerait — réuni dans un programme que vous faites à votre rythme.</p>
       </div>
 
     </div>
 
-    <!-- Zone 6 — Garantie Céline -->
+    <!-- GARANTIE CÉLINE -->
     <div class="garantie-zone">
       <div class="garantie-avatar">C</div>
       <div class="garantie-body">
