@@ -33,26 +33,23 @@ body{background:var(--navy);color:var(--text);font-family:var(--font-b);font-wei
 .o2{width:500px;height:500px;opacity:.11;bottom:-150px;right:-120px;animation-delay:-9s}
 .o3{width:350px;height:350px;background:var(--gold);top:38%;left:45%;opacity:.06;animation-delay:-14s}
 
-.top-bar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(6,12,24,.93);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.05);padding:11px 24px;display:flex;align-items:center;justify-content:space-between}
-.tb-logo{font-family:var(--font-d);font-size:14px;font-weight:600;letter-spacing:2.5px;color:var(--gold)}
+.top-bar{position:fixed;top:3px;left:0;right:0;z-index:100;background:rgba(6,12,24,.93);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.05);padding:0 40px;height:56px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+.tb-logo{font-family:var(--font-d);font-size:14px;font-weight:600;letter-spacing:4px;color:rgba(247,244,238,.9);text-decoration:none;display:flex;align-items:center;gap:10px}
 .tb-right{font-size:10px;color:var(--muted);letter-spacing:.8px}
+
+.tb-nav{display:flex;align-items:center;justify-content:center;gap:24px}
+.tb-nav a{font-size:10px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:rgba(247,244,238,.4);text-decoration:none;transition:color .2s;white-space:nowrap}
+.tb-nav a:hover{color:rgba(247,244,238,.8)}
+.tb-btn{display:flex;justify-content:flex-end}
+.tb-back{background:none;border:1px solid rgba(247,244,238,.12);border-radius:2px;padding:7px 16px;font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(247,244,238,.45);text-decoration:none;transition:all .2s;white-space:nowrap}
+.tb-back:hover{border-color:rgba(247,244,238,.3);color:rgba(247,244,238,.7)}
+@media(max-width:768px){.tb-nav{display:none}.top-bar{grid-template-columns:1fr 1fr;padding:0 16px}}
+
 
 .wrap{max-width:800px;margin:0 auto;padding:0 20px 100px}
 
 /* ── HERO ── */
-.hero{padding:112px 0 40px;text-align:center}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--MC2);border:1px solid color-mix(in srgb,var(--MC) 30%,transparent);border-radius:40px;padding:6px 18px;margin-bottom:28px;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--MC);font-weight:500}
-.hero-tag .pulse{width:6px;height:6px;border-radius:50%;background:var(--MC);animation:pulse-dot 2s infinite}
-.hero-eyebrow{font-family:var(--font-d);font-size:clamp(13px,2.5vw,16px);letter-spacing:4px;text-transform:uppercase;color:var(--muted);font-weight:400;margin-bottom:12px}
-.hero-name{font-family:var(--font-d);font-size:clamp(50px,13vw,92px);font-weight:300;line-height:.95;color:var(--text);margin-bottom:8px}
-.hero-name em{color:var(--MC);font-style:italic}
-.hero-descriptor{font-family:var(--font-d);font-size:clamp(17px,3.5vw,24px);color:rgba(240,234,225,.55);font-weight:300;font-style:italic;margin-bottom:18px}
-.prenom-txt{font-family:var(--font-d);font-size:14px;color:var(--muted);margin-bottom:6px;letter-spacing:1px}
-.level-pill{display:inline-flex;align-items:center;gap:7px;border:1px solid;border-radius:40px;padding:5px 16px;font-size:11px;font-weight:600;letter-spacing:1.5px;margin-bottom:28px}
-.level-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.mirror-text{max-width:620px;margin:0 auto;background:linear-gradient(135deg,var(--MC2) 0%,transparent 100%);border-left:2px solid var(--MC);border-radius:0 var(--r-s) var(--r-s) 0;padding:26px 30px;text-align:left;font-size:clamp(16px,2.5vw,19px);line-height:1.95;color:rgba(240,234,225,.85)}
-.mirror-text strong{color:var(--text);font-weight:500}
-.mirror-text em{color:var(--MC)}
+
 
 /* ── PLAYLIST / NEURO ── */
 .playlist-card{background:linear-gradient(135deg,rgba(255,255,255,.02),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.07);border-radius:var(--r);padding:44px 36px;margin:28px 0;position:relative;overflow:hidden}
@@ -195,16 +192,7 @@ body{background:var(--navy);color:var(--text);font-family:var(--font-b);font-wei
    ══════════════════════════════════════════ */
 
 /* Zone 0 — Accroche émotionnelle */
-.pw-hook{padding:72px 0 48px;text-align:center}
-.pw-hook-kicker{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--MC);font-weight:600;margin-bottom:32px;display:flex;align-items:center;justify-content:center;gap:12px}
-.pw-hook-kicker::before,.pw-hook-kicker::after{content:'';width:28px;height:1px;background:var(--MC);opacity:.5}
-.pw-questions{display:flex;flex-direction:column;gap:0;max-width:700px;margin:0 auto 40px}
-.pw-q{font-family:var(--font-d);font-size:clamp(18px,3.2vw,26px);font-weight:300;line-height:1.5;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.04);color:rgba(240,234,225,.7);transition:color .3s}
-.pw-q:first-child{padding-top:0}
-.pw-q:last-child{border-bottom:none}
-.pw-q em{color:var(--text);font-style:italic;font-weight:400}
-.pw-hook-answer{font-family:var(--font-d);font-size:clamp(20px,3.5vw,28px);font-weight:600;color:var(--text);line-height:1.4;max-width:680px;margin:0 auto;padding:32px 0 0}
-.pw-hook-answer em{color:var(--MC);font-style:italic;font-weight:300}
+
 
 /* Zone 1b — Déjà acheté (VISIBLE, juste après l'accroche) */
 .unlock-banner{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);border-radius:var(--r-s);padding:18px 24px;margin:0 0 40px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
@@ -233,9 +221,7 @@ body{background:var(--navy);color:var(--text);font-family:var(--font-b);font-wei
 /* Zone 3 — Promesse centrale */
 .promise-zone{background:var(--navy3);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);padding:52px 44px;margin:28px 0;position:relative;overflow:hidden}
 .promise-zone::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--MC),transparent)}
-.promise-main{font-family:var(--font-d);font-size:clamp(18px,3vw,24px);font-weight:300;color:var(--text);line-height:1.75;margin-bottom:32px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.06)}
-.promise-main em{color:var(--MC);font-style:italic}
-.promise-main strong{font-weight:600}
+
 .reveal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:0}
 @media(max-width:520px){.reveal-grid{grid-template-columns:1fr}}
 .reveal-item{display:flex;align-items:flex-start;gap:12px;padding:16px 18px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:var(--r-s)}
@@ -308,6 +294,98 @@ footer{border-top:1px solid rgba(255,255,255,.04);padding:30px 20px;text-align:c
 
 @media(max-width:600px){.card,.portrait,.portrait-preview,.valeur-card,.cta-card,.constell-card,.playlist-card,.incitation-zone,.unlock-zone,.packs-zone{padding:26px 18px}}
 @media(max-width:600px){.packs-title{margin-bottom:24px}}
+
+.chroma-top{height:3px;position:fixed;top:0;left:0;right:0;z-index:101;display:flex}
+.chroma-top div{flex:1}
+
+/* ══ PAYWALL v3 — 3 ACTES ══ */
+
+/* ACTE I — IMPACT */
+.pw-act1{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px 60px;position:relative;overflow:hidden}
+.pw-act1-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;border-radius:50%;opacity:.12;pointer-events:none;filter:blur(80px)}
+.pw-act1-leitmotiv{font-family:'Cormorant Garamond',serif;font-size:clamp(13px,1.6vw,16px);font-weight:300;font-style:italic;color:rgba(201,168,76,.7);letter-spacing:2px;text-transform:uppercase;margin-bottom:48px;max-width:600px}
+.pw-act1-masque{font-family:'Cormorant Garamond',serif;font-size:clamp(72px,16vw,140px);font-weight:300;line-height:.9;letter-spacing:-2px;margin-bottom:16px}
+.pw-act1-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,3vw,26px);font-weight:300;font-style:italic;color:rgba(240,234,225,.5);margin-bottom:48px}
+.pw-act1-mirror{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3.5vw,30px);font-weight:300;font-style:italic;color:rgba(240,234,225,.82);max-width:640px;line-height:1.65;margin-bottom:64px}
+.pw-act1-pill{display:inline-flex;align-items:center;gap:8px;border:1px solid;border-radius:3px;padding:6px 20px;font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:72px}
+.pw-scroll-cue{display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(240,234,225,.3);font-size:11px;letter-spacing:2px;text-transform:uppercase;animation:float-cue 2.5s ease-in-out infinite}
+.pw-scroll-cue svg{opacity:.4}
+@keyframes float-cue{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+/* ACTE II — RECONNAISSANCE */
+.pw-act2{padding:0 0 80px}
+.pw-sep{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);margin:0}
+
+/* Blocs reconnaissance */
+.pw-recog{max-width:760px;margin:0 auto;padding:80px 32px}
+.pw-recog-n{font-family:'Cormorant Garamond',serif;font-size:clamp(80px,18vw,160px);font-weight:300;line-height:.85;color:rgba(255,255,255,.025);display:block;margin-bottom:-20px}
+.pw-recog-q{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,4vw,36px);font-weight:300;font-style:italic;color:rgba(240,234,225,.9);line-height:1.5;margin-bottom:14px}
+.pw-recog-a{font-size:clamp(14px,2vw,17px);font-weight:300;color:rgba(240,234,225,.5);line-height:1.85;max-width:580px}
+
+/* Bloc combo dyade/triade */
+.pw-combo{max-width:760px;margin:0 auto 0;padding:0 32px 0}
+.pw-combo-inner{border-left:2px solid;padding:24px 28px;background:rgba(255,255,255,.02)}
+.pw-combo-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;opacity:.6;margin-bottom:10px}
+.pw-combo-txt{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.8vw,22px);font-weight:300;font-style:italic;color:rgba(240,234,225,.78);line-height:1.75}
+
+/* CADENAS — frustration organisée */
+.pw-lock-zone{max-width:760px;margin:60px auto 0;padding:0 32px}
+.pw-lock-intro{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3vw,28px);font-weight:300;color:rgba(240,234,225,.8);text-align:center;margin-bottom:36px;line-height:1.65}
+.pw-lock-items{display:flex;flex-direction:column;gap:0}
+.pw-lock-item{padding:20px 24px;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:center;gap:16px;position:relative;overflow:hidden}
+.pw-lock-item:last-child{border-bottom:none}
+.pw-lock-icon{font-size:14px;opacity:.35;flex-shrink:0;width:20px;text-align:center}
+.pw-lock-content{flex:1}
+.pw-lock-title{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,2.5vw,20px);font-weight:400;color:rgba(240,234,225,.85);margin-bottom:4px}
+.pw-lock-blur{font-size:13px;color:rgba(240,234,225,.3);line-height:1.5;filter:blur(4px);user-select:none;pointer-events:none}
+.pw-lock-badge{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,234,225,.2);font-weight:600;flex-shrink:0}
+.pw-lock-sep{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);margin:8px 0}
+
+/* ACTE III — DÉCISION */
+.pw-act3{padding:80px 24px}
+.pw-act3-inner{max-width:760px;margin:0 auto}
+.pw-act3-finale{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,4vw,38px);font-weight:300;font-style:italic;color:rgba(240,234,225,.82);text-align:center;line-height:1.5;margin-bottom:56px}
+.pw-act3-finale em{color:var(--MC);font-style:normal}
+
+/* Packs v3 */
+.pw-packs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+@media(max-width:600px){.pw-packs{grid-template-columns:1fr}}
+.pw-pack{border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:32px 28px;position:relative;cursor:pointer;transition:border-color .3s,transform .2s;background:rgba(255,255,255,.02)}
+.pw-pack:hover{border-color:rgba(255,255,255,.2);transform:translateY(-2px)}
+.pw-pack.featured{border-color:var(--MC);background:rgba(255,255,255,.035)}
+.pw-pack-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--MC);color:#0D1526;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 14px;border-radius:40px;white-space:nowrap}
+.pw-pack-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--text);margin-bottom:8px}
+.pw-pack-desc{font-size:13px;color:rgba(240,234,225,.5);line-height:1.7;margin-bottom:20px}
+.pw-pack-price{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:300;color:var(--text);line-height:1;margin-bottom:20px}
+.pw-pack-price sup{font-size:18px;vertical-align:super}
+.pw-pack-items{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:24px}
+.pw-pack-items li{font-size:12px;color:rgba(240,234,225,.6);display:flex;gap:8px;align-items:flex-start}
+.pw-pack-items li::before{content:'✦';color:var(--MC);opacity:.6;flex-shrink:0;font-size:10px;margin-top:2px}
+.pw-pack-btn{width:100%;padding:14px;border:1px solid rgba(255,255,255,.12);border-radius:4px;background:none;color:rgba(240,234,225,.8);font-family:'Jost',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .25s}
+.pw-pack.featured .pw-pack-btn{background:var(--MC);border-color:var(--MC);color:#0D1526}
+.pw-pack-btn:hover{background:rgba(255,255,255,.08)}
+.pw-pack.featured .pw-pack-btn:hover{background:var(--MC);opacity:.9}
+
+/* Garantie */
+.pw-garantie{display:flex;align-items:flex-start;gap:16px;padding:24px;border:1px solid rgba(255,255,255,.05);border-radius:4px;margin-top:0}
+.pw-garantie-av{width:40px;height:40px;border-radius:50%;background:var(--MC2);border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);flex-shrink:0}
+.pw-garantie-txt{font-size:13px;color:rgba(240,234,225,.55);line-height:1.7;font-style:italic}
+.pw-garantie-sig{font-size:11px;font-weight:600;letter-spacing:1px;color:rgba(240,234,225,.35);text-transform:uppercase;margin-top:6px;font-style:normal}
+
+/* Unlock banner v3 */
+.pw-unlock-v3{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:16px 22px;margin-bottom:40px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.pw-unlock-label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(201,168,76,.5);font-weight:600}
+.pw-unlock-form{display:flex;gap:6px;align-items:center}
+
+
+.pw-lock-more{margin-top:10px;display:flex;flex-direction:column;gap:5px;filter:blur(5px);opacity:.25;pointer-events:none;user-select:none}
+.plm-line{height:9px;background:rgba(240,234,225,.5);border-radius:2px}
+.plm-spacer{height:4px}
+.plm-w40{width:40%}.plm-w45{width:45%}.plm-w50{width:50%}.plm-w55{width:55%}
+.plm-w60{width:60%}.plm-w65{width:65%}.plm-w70{width:70%}.plm-w72{width:72%}
+.plm-w75{width:75%}.plm-w80{width:80%}.plm-w85{width:85%}.plm-w88{width:88%}
+.plm-w90{width:90%}.plm-w92{width:92%}.plm-w95{width:95%}
+
 </style>
 </head>
 <body>
@@ -328,15 +406,38 @@ document.addEventListener('keydown',function(e){if(e.target.tagName==='INPUT'||e
   <div class="orb o3"></div>
 </div>
 
+<div class="chroma-top">
+  <div style="background:#B5312A"></div>
+  <div style="background:#C4581F"></div>
+  <div style="background:#B8930A"></div>
+  <div style="background:#2D7A4F"></div>
+  <div style="background:#1D5F8A"></div>
+  <div style="background:#5C3280"></div>
+  <div style="background:#7A3594"></div>
+</div>
 <header class="top-bar">
-  <span class="tb-logo">V.A.L.E.U.R©</span>
-  <span class="tb-right">© Céline Bourbon · Psychologue · Tous droits réservés</span>
+  <a href="https://valeur.psyh.fr" class="tb-logo"><img src="https://celinebourbon-ux.github.io/Livrets-VALEUR-Collection/Masque%20VALEUR%20M%C3%A9thode%20Transformationnelle.png" alt="" style="width:22px;height:22px;object-fit:cover;border-radius:50%;border:1px solid rgba(201,168,76,.3)">V.A.L.E.U.R©</a>
+  <div class="tb-nav">
+    <a href="https://valeur.psyh.fr#sept-peurs">Les 7 peurs</a>
+    <a href="https://celinebourbon-ux.github.io/QuestionnaireVALEUR/">Questionnaire</a>
+    <a href="https://valeur.psyh.fr/methode.html">La méthode</a>
+    <a href="https://valeur.psyh.fr/histoire.html">L'histoire</a>
+    <a href="https://valeur.psyh.fr#faq">FAQ</a>
+  </div>
+  <div class="tb-btn"><a href="https://valeur.psyh.fr" class="tb-back">← valeur.psyh.fr</a></div>
 </header>
 
 <div class="wrap" id="page-wrap"></div>
 
 <footer>
   <div class="ft-logo">V.A.L.E.U.R©</div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:20px;margin-bottom:14px;flex-wrap:wrap">
+    <a href="https://valeur.psyh.fr" style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,.4);text-decoration:none;transition:color .2s" onmouseover="this.style.color='rgba(201,168,76,.7)'" onmouseout="this.style.color='rgba(201,168,76,.4)'">valeur.psyh.fr</a>
+    <span style="color:rgba(255,255,255,.08)">·</span>
+    <a href="https://valeur.psyh.fr/methode.html" style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,.4);text-decoration:none;transition:color .2s" onmouseover="this.style.color='rgba(201,168,76,.7)'" onmouseout="this.style.color='rgba(201,168,76,.4)'">La méthode</a>
+    <a href="https://valeur.psyh.fr/histoire.html" style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,.4);text-decoration:none;transition:color .2s" onmouseover="this.style.color='rgba(201,168,76,.7)'" onmouseout="this.style.color='rgba(201,168,76,.4)'">L'histoire</a>
+    
+  </div>
   <p class="ft-copy">
     © Céline Bourbon, Psychologue. Méthode V.A.L.E.U.R© — Tous droits réservés.<br>
     Ce rapport est strictement personnel et confidentiel. Toute reproduction est interdite.<br>
@@ -637,230 +738,271 @@ function render(){
    ═══════════════════════════════════════ */
 function buildPaywall(dominant,meta,data,playlist,scores,prenom,profile){
   const dominant_lbl=meta.label;
-  const prenomTxt=prenom?`<p class="prenom-txt">Rapport personnalisé pour ${prenom}</p>`:'';
   const level=getLevel(scores[dominant]);
   const score=scores[dominant];
 
-  const MIRROR_Q={
-    rouge:["Vous vous réveillez en surveillant déjà votre corps ?","Une sensation banale devient vite une inquiétude sérieuse ?","Le médecin vous rassure — et quelque chose revient quand même ?"],
-    orange:["Vous fonctionnez bien. Mais quelque chose reste inaccessible, là, derrière ?","On vous demande comment vous allez, et vous répondez 'ça va' — sans vraiment savoir ?","Une émotion forte arrive, et la première réaction est de s'en éloigner ?"],
-    jaune:["Votre cerveau ne s'arrête pas — même quand tout va bien ?","Vous avez besoin de savoir, de prévoir, de tout anticiper pour ne pas être pris au dépourvu ?","Un imprévu, aussi mineur soit-il, déclenche quelque chose d'inconfortable ?"],
-    vert:["Vous vous adaptez à tout le monde — sauf à vous-même ?","Un message plus froid que d'habitude, et quelque chose se met en route ?","Vous donnez beaucoup. Plus qu'on ne vous donne. Et vous accumulez ça en silence ?"],
-    bleu:["Vous ne pouvez pas vraiment déléguer — pas vraiment ?","Vous portez quelque chose que vous ne pouvez pas poser, même quand vous êtes épuisé·e ?","Lâcher prise ressemble à capituler ?"],
-    indigo:["Vous n'êtes jamais vraiment satisfait·e de ce que vous faites ?","Une petite voix dit que ce succès n'était pas vraiment vous — juste de la chance ?","Vous ne commencez pas tant que les conditions ne sont pas parfaites ?"],
-    violet:["Vous jouez tellement de rôles que vous ne savez plus lequel est le vrai ?","Quelque chose dans votre vie ne vous ressemble plus — mais vous ne savez pas comment changer ?","La question 'qui suis-je vraiment ?' revient, sans réponse nette ?"]
+  /* Mirror phrases — 1 seule, la plus forte */
+  const MIRROR1={
+    rouge:"Vous vous réveillez en surveillant déjà votre corps ?",
+    orange:"Vous fonctionnez bien. Mais quelque chose reste inaccessible, là, derrière ?",
+    jaune:"Votre cerveau ne s\'arrête pas — même quand tout va bien ?",
+    vert:"Vous vous adaptez à tout le monde — sauf à vous-même ?",
+    bleu:"Vous portez quelque chose que vous ne pouvez pas poser, même quand vous êtes épuisé·e ?",
+    indigo:"Vous n\'êtes jamais vraiment satisfait·e de ce que vous faites ?",
+    violet:"Vous jouez tellement de rôles que vous ne savez plus lequel est le vrai ?"
   };
-  const questions=(MIRROR_Q[dominant]||MIRROR_Q.vert);
 
-  const BA_NOW={
-    rouge:["Une fatigue d'être constamment en alerte","Un corps qui est devenu source d'inquiétude plutôt qu'allié","Des consultations qui rassurent — et recommencer quand même"],
-    orange:["Un vide qu'on ne sait pas nommer","Fonctionner parfaitement — et passer à côté de soi","Des relations qui restent en surface"],
-    jaune:["L'épuisement d'un cerveau qui ne s'arrête jamais","Tout anticiper — et être toujours surpris par l'imprévu","Des décisions retardées jusqu'à l'urgence"],
-    vert:["S'oublier pour que les autres restent","Accumuler des rancœurs qu'on ne dit pas","Ne plus savoir ce qu'on veut vraiment"],
-    bleu:["Tout porter — sans pouvoir s'arrêter","La solitude d'être le seul à tout tenir","La fatigue de surveiller ce que font les autres"],
-    indigo:["N'être jamais assez bien — même quand on réussit","Repousser ce qui compte par peur d'échouer","L'épuisement de prouver sans cesse qu'on mérite sa place"],
-    violet:["Jouer des rôles sans habiter aucun d'eux","Maintenir une vie qui ne ressemble plus","Un sentiment diffus de passer à côté de soi"]
+  /* 3 blocs reconnaissance — universels, ultra-précis */
+  const RECOG={
+    rouge:[
+      {q:"Votre corps est devenu une source d'information anxieuse.", a:"Une sensation banale déclenche une surveillance. Vous vérifiez. Vous rassurez. Et puis ça revient. Ce n'est pas de l'hypocondrie — c'est un système nerveux qui a appris que le danger pouvait venir de l'intérieur."},
+      {q:"Vous fonctionnez sous tension permanente — sans toujours savoir pourquoi.", a:"L'anticipation est automatique. Avant même qu'un problème existe, vous avez déjà envisagé le pire. Ce radar vous épuise. Mais vous ne savez pas comment l'éteindre."},
+      {q:"Le repos vous est difficile — vraiment difficile.", a:"Même quand tout va bien, une partie de vous reste en alerte. Le relâchement total semble dangereux. Comme si baisser la garde suffisait pour que quelque chose arrive."}
+    ],
+    orange:[
+      {q:"Vous êtes présent·e partout — et absent·e à vous-même.", a:"On dit que vous êtes fort·e, équilibré·e, fiable. Et vous l'êtes. Mais quelque chose reste inaccessible derrière cette façade. Un espace intérieur que vous n'habitez plus vraiment."},
+      {q:"Les émotions fortes vous mettent en mode gestion.", a:"Quand quelque chose monte, la première réaction est de le contenir, l'analyser, le mettre à distance. Pas par froideur — par survie. Ressentir vraiment semblait trop dangereux, à un moment."},
+      {q:"Une relation profonde vous attire et vous effraie en même temps.", a:"L'intimité réelle suppose de montrer ce qu'on ressent. Et ça, quelque chose en vous résiste. Alors vous maintenez une certaine distance — confortable, mais solitaire."}
+    ],
+    jaune:[
+      {q:"Votre tête ne s'arrête pas. Même la nuit. Même quand tout va bien.", a:"Ce n'est pas de l'anxiété — c'est un mécanisme de contrôle qui tourne en permanence. Anticiper, prévoir, calculer les risques : votre cerveau fait ça automatiquement pour vous protéger de l'imprévu."},
+      {q:"L'incertitude vous est physiquement insupportable.", a:"Ne pas savoir comment ça va se terminer, ne pas avoir le plan B, ne pas contrôler les variables — quelque chose en vous se raidit. Ce besoin de certitude a un coût énorme sur votre énergie quotidienne."},
+      {q:"Vous prenez des décisions très difficilement — ou trop vite.", a:"Soit vous analysez jusqu'à l'épuisement. Soit vous décidez sous pression pour que l'incertitude s'arrête. Dans les deux cas, c'est la peur de l'inconnu qui commande — pas vous."}
+    ],
+    vert:[
+      {q:"Vous vous oubliez dans les relations — et vous accumulez en silence.", a:"Vous ajustez votre ton, vos mots, parfois votre personnalité pour que l'autre reste. Ce n'est pas de la faiblesse. C'est un apprentissage très ancien : l'amour se méritait. Il fallait mériter de rester."},
+      {q:"Un silence, un message froid, un regard distrait — et quelque chose se réactive.", a:"Ce radar relationnel fonctionne même avec des personnes bienveillantes. Il scrute les signaux. Il interprète. Il prépare la réponse avant même que le danger existe vraiment."},
+      {q:"Vous savez exactement ce dont les autres ont besoin. Et vous ne savez plus ce que vous voulez.", a:"À force de s'adapter, on perd le fil de soi-même. Vos désirs, vos préférences, vos limites — tout ça s'est progressivement mis en sourdine. Pour que les autres restent."}
+    ],
+    bleu:[
+      {q:"Déléguer vraiment — laisser quelqu'un d'autre tenir les rênes — vous est presque impossible.", a:"Pas parce que les autres sont incompétents. Parce que si vous lâchez le contrôle, quelque chose pourrait déraper. Et vous seriez responsable de ne pas avoir tenu. Ce poids, vous le portez seul."},
+      {q:"Vous êtes épuisé·e — mais vous continuez.", a:"Poser ce que vous portez ressemble à une capitulation. Comme si vous étiez le seul point fixe de tout ce système. Lâcher, c'est risquer que tout s'effondre. Alors vous tenez."},
+      {q:"Recevoir de l'aide vous met mal à l'aise.", a:"L'aide suppose une vulnérabilité que vous n'autorisez pas facilement. Et si l'autre voyait que vous n'avez pas tout sous contrôle ? Ce serait admettre quelque chose que vous refusez depuis longtemps."}
+    ],
+    indigo:[
+      {q:"Vous n'êtes jamais vraiment satisfait·e — même quand vous réussissez.", a:"Ce succès était de la chance. Ce compliment était de la politesse. Ce résultat aurait pu être meilleur. Une voix intérieure minimise systématiquement ce que vous accomplissez. Pas pour vous motiver — pour vous garder en alerte."},
+      {q:"Vous attendez les conditions parfaites avant de commencer.", a:"Pas encore prêt·e. Pas encore assez compétent·e. Pas encore le bon moment. Ce perfectionnisme vous protège d'une chose précise : le risque d'échouer en ayant vraiment essayé."},
+      {q:"Vous êtes votre critique le plus sévère — et votre juge le plus impitoyable.", a:"Vous appliquez à vous-même des standards que vous n'imposeriez jamais aux autres. Cette rigueur a construit beaucoup de choses — elle a aussi coûté énormément."}
+    ],
+    violet:[
+      {q:"Vous jouez tellement de rôles que vous ne savez plus lequel est le vrai.", a:"Au travail, en famille, en couple, avec les amis — vous adaptez une version de vous. Et parfois, seul·e, la question arrive : mais moi, qui suis-je vraiment ? Sans le rôle. Sans le masque."},
+      {q:"Vous maintenez une vie qui ne vous ressemble plus — sans savoir comment changer.", a:"Les engagements, les habitudes, les identités héritées — tout ça forme un cadre dans lequel vous avez du mal à vous reconnaître. Sortir du cadre semble trop risqué. Alors vous restez."},
+      {q:"Quelque chose vous manque — mais vous ne savez pas quoi.", a:"Pas un objet, pas une personne, pas un accomplissement. Un sentiment de vous-même. Une façon d'habiter votre propre vie plutôt que de la jouer. Ce vide est la signature du Masque Violet."}
+    ]
   };
-  const BA_AFTER={
-    rouge:["Reconnaître un signal d'anxiété — et ne pas le confondre avec un danger","Traverser une sensation corporelle sans alarme immédiate","Un corps redevenu neutre, habitable"],
-    orange:["Nommer une émotion — même vaguement","Tolérer un moment de calme sans le fuir","Exprimer quelque chose de vrai à quelqu'un"],
-    jaune:["Tolérer un imprévu sans le vivre comme une menace","Commencer sans avoir tout prévu","Déléguer — et le laisser se faire"],
-    vert:["Dire ce qu'on veut, même si ça déplaît","Laisser l'autre gérer son humeur — ce n'est pas votre rôle","Savoir ce dont on a besoin et oser le formuler"],
-    bleu:["Confier quelque chose et ne pas reprendre","Se reposer — vraiment — sans culpabilité","Recevoir de l'aide sans la corriger"],
-    indigo:["Recevoir un compliment et le laisser atterrir","Commencer quelque chose sans attendre les conditions parfaites","Se satisfaire d'un travail 'assez bien'"],
-    violet:["Exprimer une préférence authentique — petite, mais réelle","Abandonner un rôle vide et tolérer le vide qui suit","Habiter un moment présent — sans rôle à jouer"]
-  };
-  const nowItems=(BA_NOW[dominant]||BA_NOW.vert);
-  const afterItems=(BA_AFTER[dominant]||BA_AFTER.vert);
-  const previewRaw=data.scene1.replace(/<[^>]+>/g,'').substring(0,210);
 
-  let configLabel;
-  if(profile.type==='triade') configLabel=`Triade · ${profile.masks.map(m=>getMeta(m).label).join(' + ')}`;
-  else if(profile.type==='dyade') configLabel=`Dyade · ${profile.masks.map(m=>getMeta(m).label).join(' + ')}`;
-  else configLabel=`Masque ${dominant_lbl} dominant`;
+  /* Phrases combo dyade/triade — ultra courtes, déclenchent l'envie */
+  const COMBO_MSG={
+    dyade:`Votre profil révèle une <em style="color:var(--MC)">combinaison active</em> — deux masques en interaction. L'un déclenche. L'autre verrouille. C'est là que se logent les répétitions les plus tenaces.`,
+    triade:`Votre profil révèle une <em style="color:var(--MC)">configuration rare</em> — trois masques actifs simultanément. Ce que vous ressentez comme de la complexité a une structure précise. Votre rapport la cartographie entièrement.`
+  };
+
+  const recogBlocs=(RECOG[dominant]||RECOG.vert);
+  const mirror1=(MIRROR1[dominant]||MIRROR1.vert);
+  const prenomLine=prenom?`<p style="font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:32px">${prenom}</p>`:'';
 
   let html='';
 
-  /* ZONE 0 — ACCROCHE */
-  html+=`<p style="font-family:'Cormorant Garamond',serif;font-size:clamp(14px,1.5vw,17px);font-weight:300;font-style:italic;color:rgba(201,168,76,.6);text-align:center;margin:0 0 4px;padding:48px 24px 0;line-height:1.6">Le premier test de personnalité qui ne vous dit pas qui vous êtes — mais ce qui vous empêche d'être vous-même.</p>`;
-  html+=`<div class="pw-hook fu">
-    <p class="pw-hook-kicker">Ce que vous venez de traverser</p>
-    <div class="pw-questions">
-      ${questions.map(q=>`<p class="pw-q"><em>${q}</em></p>`).join('')}
-    </div>
-    <div class="pw-hook-answer">
-      Ce n'est pas vous qui êtes trop sensible, trop anxieux·se, trop <em>quelque chose</em>.<br>
-      C'est votre Masque <strong>${dominant_lbl}</strong> qui réagit à votre place.<br>
-      <em>Votre rapport le nomme. Avec précision.</em>
-    </div>
-  </div>`;
-
-  /* ZONE 1b — DÉJÀ ACHETÉ (visible, en haut) */
-  html+=`<div class="unlock-banner fu">
-    <div class="unlock-banner-txt">
-      <strong>✦ Vous avez déjà acheté ?</strong>
-      Entrez votre email — votre rapport s'ouvre immédiatement.
-    </div>
-    <div class="unlock-banner-form">
-      <input type="email" id="unlock-email" class="unlock-input" placeholder="votre@email.com">
-      <button id="unlock-btn" class="unlock-btn" onclick="checkEmailUnlock()">Accéder →</button>
-    </div>
-    <div id="unlock-msg" class="unlock-msg" style="display:none"></div>
-  </div>`;
-
-  /* ZONE 1 — HERO */
-  html+=`<div class="hero fu">
-    <div class="hero-tag"><span class="pulse"></span>Résultats V.A.L.E.U.R© · Analyse personnalisée</div>
-    ${prenomTxt}
-    <p class="hero-eyebrow">Masque dominant identifié</p>
-    <h1 class="hero-name">Masque <em>${dominant_lbl}</em></h1>
-    <p class="hero-descriptor">${data.descriptor}</p>
-    <div class="level-pill" style="border-color:${meta.color};color:${meta.color}">
-      <span class="level-dot" style="background:${meta.color}"></span>
+  /* ══ ACTE I — IMPACT ══ */
+  html+=`<div class="pw-act1 fu">
+    <div class="pw-act1-glow" style="background:${meta.color}"></div>
+    <p class="pw-act1-leitmotiv">La première fois qu'un questionnaire ne vous dit pas qui vous êtes — mais ce qui vous empêche d'être vous-même</p>
+    ${prenomLine}
+    <h1 class="pw-act1-masque" style="color:${meta.color}">Masque<br>${dominant_lbl}</h1>
+    <p class="pw-act1-sub">${data.descriptor}</p>
+    <p class="pw-act1-mirror">"${mirror1}"</p>
+    <div class="pw-act1-pill" style="border-color:${meta.color};color:${meta.color}">
+      <span style="width:5px;height:5px;border-radius:50%;background:${meta.color};flex-shrink:0;display:inline-block"></span>
       ${level} · ${score}%
     </div>
-    <div class="mirror-text">${data.mirror}</div>
+    <div class="pw-scroll-cue">
+      <span>Votre rapport</span>
+      <svg width="16" height="20" viewBox="0 0 16 20"><path d="M8 0v14M2 9l6 7 6-7" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+    </div>
   </div>`;
 
-  /* CONSTELLATION */
-  html+=`<div class="constell-card fu">
-    <span class="card-label">Votre cartographie complète</span>
-    <h2 class="card-title">Votre Constellation de Protection</h2>
-    <p class="constell-sub">Les 7 masques sont actifs en chacun de nous — voici leur intensité dans votre profil</p>
-    <div class="constell-inner">
-      <svg id="c-svg" viewBox="0 0 310 310" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <filter id="gl-d"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          <filter id="gl-s"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          <filter id="gl-f"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        </defs>
-        <circle cx="155" cy="155" r="140" fill="none" stroke="rgba(255,255,255,.025)" stroke-width="1"/>
-        <circle cx="155" cy="155" r="95" fill="none" stroke="rgba(255,255,255,.025)" stroke-width="1"/>
-        <circle cx="155" cy="155" r="50" fill="none" stroke="rgba(255,255,255,.025)" stroke-width="1"/>
-        <g id="c-lines"></g><g id="c-orbs"></g><g id="c-labels"></g>
-      </svg>
-      <div class="scores-side">
-        <div id="score-rows"></div>
-        <div class="config-badge">
-          <div class="config-lock">🔒</div>
-          <div>
-            <div class="ab-name" style="color:var(--gold)">${configLabel}</div>
-            <div class="ab-sub config-locked-txt">Analyse des interactions — contenu verrouillé</div>
+  /* ══ ACTE II — RECONNAISSANCE ══ */
+  html+=`<div class="pw-act2">`;
+  html+=`<div class="pw-sep"></div>`;
+
+  recogBlocs.forEach((bloc,i)=>{
+    html+=`<div class="pw-recog fu">
+      <span class="pw-recog-n">0${i+1}</span>
+      <p class="pw-recog-q">${bloc.q}</p>
+      <p class="pw-recog-a">${bloc.a}</p>
+    </div>
+    <div class="pw-sep"></div>`;
+  });
+
+  /* Combo dyade/triade — uniquement si pertinent */
+  if(profile.type==='dyade'||profile.type==='triade'){
+    const comboMsg=COMBO_MSG[profile.type];
+    html+=`<div class="pw-combo fu">
+      <div class="pw-combo-inner" style="border-color:${meta.color}">
+        <div class="pw-combo-label" style="color:${meta.color}">${profile.type==='triade'?'Triade':'Dyade'} · ${profile.masks.map(m=>getMeta(m).label).join(' + ')}</div>
+        <p class="pw-combo-txt">${comboMsg}</p>
+      </div>
+    </div>
+    <div class="pw-sep" style="margin-top:60px"></div>`;
+  }
+
+  /* Cadenas — frustration organisée */
+  html+=`<div class="pw-lock-zone fu">
+    <p class="pw-lock-intro">Vous connaissez déjà vos problématiques.<br>Ce rapport ne vous les décrit pas — <em style="color:var(--MC);font-style:normal">il vous en révèle la source exacte.</em><br><span style="font-size:clamp(15px,2.2vw,19px);color:rgba(240,234,225,.45);font-style:normal">Et comprendre la source — précisément, sans approximation —<br>c'est le seul début de changement qui tienne vraiment.</span></p>
+    <div class="pw-lock-items">
+      <div class="pw-lock-item">
+        <span class="pw-lock-icon">🔒</span>
+        <div class="pw-lock-content">
+          <div class="pw-lock-title">Ce qui produit vos réactions — pas ce qu'elles sont</div>
+          <div class="pw-lock-blur">Sept scènes de votre vie quotidienne décryptées depuis leur source. Vous ne verrez pas ce que vous faites — vous verrez pourquoi une part de vous ne peut pas encore faire autrement. Ce n'est pas un résumé de vous. C'est une explication.</div>
+          <div class="pw-lock-more">
+            <div class="plm-line plm-w80"></div>
+            <div class="plm-line plm-w95"></div>
+            <div class="plm-line plm-w60"></div>
+            <div class="plm-spacer"></div>
+            <div class="plm-line plm-w90"></div>
+            <div class="plm-line plm-w75"></div>
+            <div class="plm-line plm-w85"></div>
+            <div class="plm-line plm-w50"></div>
           </div>
         </div>
+        <span class="pw-lock-badge">Verrouillé</span>
+      </div>
+      <div class="pw-lock-item">
+        <span class="pw-lock-icon">🔒</span>
+        <div class="pw-lock-content">
+          <div class="pw-lock-title">Une prise de conscience libératrice</div>
+          <div class="pw-lock-blur">Votre masque vous parle. En permanence. Ces phrases précises qui arrivent avant même que vous ayez le temps de réfléchir — elles ont une origine. Ce rapport les nomme. Mot pour mot. Vous saurez enfin d'où elles viennent.</div>
+          <div class="pw-lock-more">
+            <div class="plm-line plm-w95"></div>
+            <div class="plm-line plm-w70"></div>
+            <div class="plm-spacer"></div>
+            <div class="plm-line plm-w85"></div>
+            <div class="plm-line plm-w90"></div>
+            <div class="plm-line plm-w65"></div>
+            <div class="plm-spacer"></div>
+            <div class="plm-line plm-w80"></div>
+            <div class="plm-line plm-w45"></div>
+          </div>
+        </div>
+        <span class="pw-lock-badge">Verrouillé</span>
+      </div>
+      <div class="pw-lock-item">
+        <span class="pw-lock-icon">🔒</span>
+        <div class="pw-lock-content">
+          <div class="pw-lock-title">La structure de ce qui se répète — nommée, pas supposée</div>
+          <div class="pw-lock-blur">Ce n'est pas un manque de volonté. Ce n'est pas votre caractère. C'est une mécanique précise — identifiable, cartographiable. Vos masques s'amplifient mutuellement selon une logique que ce rapport nomme. Nommer, c'est déjà sortir du piège.</div>
+          <div class="pw-lock-more">
+            <div class="plm-line plm-w90"></div>
+            <div class="plm-line plm-w75"></div>
+            <div class="plm-line plm-w85"></div>
+            <div class="plm-spacer"></div>
+            <div class="plm-line plm-w60"></div>
+            <div class="plm-line plm-w95"></div>
+            <div class="plm-line plm-w70"></div>
+          </div>
+        </div>
+        <span class="pw-lock-badge">Verrouillé</span>
+      </div>
+      <div class="pw-lock-item">
+        <span class="pw-lock-icon">🔒</span>
+        <div class="pw-lock-content">
+          <div class="pw-lock-title">Ce que cela vous coûte — réellement</div>
+          <div class="pw-lock-blur">Pas de la fatigue en général. Des coûts précis, nommés, chiffrés en énergie, en relations, en décisions non prises, en vie non vécue. Ce que vous payez chaque jour sans pouvoir le formuler — formulé.</div>
+          <div class="pw-lock-more">
+            <div class="plm-line plm-w85"></div>
+            <div class="plm-line plm-w70"></div>
+            <div class="plm-spacer"></div>
+            <div class="plm-line plm-w90"></div>
+            <div class="plm-line plm-w80"></div>
+            <div class="plm-line plm-w55"></div>
+            <div class="plm-spacer"></div>
+            <div class="plm-line plm-w75"></div>
+            <div class="plm-line plm-w92"></div>
+            <div class="plm-line plm-w40"></div>
+          </div>
+        </div>
+        <span class="pw-lock-badge">Verrouillé</span>
+      </div>
+      <div class="pw-lock-item">
+        <span class="pw-lock-icon">🔒</span>
+        <div class="pw-lock-content">
+          <div class="pw-lock-title">L'endroit exact où commencer — pour votre configuration</div>
+          <div class="pw-lock-blur">Pas un programme générique. Pas des mois à tâtonner. L'étape V.A.L.E.U.R© la plus déterminante pour votre profil précis — celle qui ouvre quelque chose de réel, là où d'autres tentatives ont tourné en rond.</div>
+          <div class="pw-lock-more">
+            <div class="plm-line plm-w88"></div>
+            <div class="plm-line plm-w72"></div>
+            <div class="plm-line plm-w95"></div>
+            <div class="plm-spacer"></div>
+            <div class="plm-line plm-w65"></div>
+            <div class="plm-line plm-w80"></div>
+          </div>
+        </div>
+        <span class="pw-lock-badge">Verrouillé</span>
       </div>
     </div>
   </div>`;
 
-  /* ZONE 2 — PORTRAIT PREVIEW */
-  html+=`<div class="portrait-preview fu">
-    <span class="card-label">Un aperçu de ce que votre portrait révèle</span>
-    <h2 class="card-title" style="margin-bottom:24px">Une journée type avec votre Masque ${dominant_lbl} actif</h2>
-    <div class="preview-fade">
-      <p class="preview-text">${previewRaw}…</p>
-      <div class="preview-gradient"></div>
-    </div>
-    <div class="preview-lock">
-      <p class="lock-label">Ce que vous venez de lire, <strong>vous le vivez</strong> — régulièrement, sans toujours comprendre pourquoi.<br>La suite du portrait le nomme dans sa totalité. <strong>Avec la voix intérieure. Les coûts silencieux. Ce que ça vous coûte en vrai.</strong></p>
-    </div>
-  </div>`;
+  html+=`</div>`; /* end pw-act2 */
 
-  /* ZONE 3 — PROMESSE */
-  html+=`<div class="promise-zone fu">
-    <p class="promise-main">
-      Ce rapport ne vous dit pas ce qui ne va pas chez vous.<br>
-      Il vous explique pourquoi <em>une part de vous a appris à se protéger de cette façon</em> —<br>
-      et comment cette protection est devenue, avec le temps, <strong>ce qui vous empêche d'être pleinement vous-même.</strong>
-    </p>
-    <div class="reveal-grid">
-      <div class="reveal-item"><div class="reveal-dot" style="background:var(--MC)"></div><div class="reveal-txt"><strong>Portrait complet</strong>7 scènes de votre vie quotidienne — la mécanique exacte de votre masque en action</div></div>
-      <div class="reveal-item"><div class="reveal-dot" style="background:#E53E3E"></div><div class="reveal-txt"><strong>Voix intérieure</strong>Les pensées automatiques de votre masque — mot pour mot, telles qu'elles arrivent</div></div>
-      <div class="reveal-item"><div class="reveal-dot" style="background:#D69E2E"></div><div class="reveal-txt"><strong>Configuration en profondeur</strong>Comment vos masques s'amplifient mutuellement — la vraie source de vos répétitions</div></div>
-      <div class="reveal-item"><div class="reveal-dot" style="background:#38A169"></div><div class="reveal-txt"><strong>Coûts silencieux</strong>Ce que ce masque vous coûte — en énergie, en relations, en vie non vécue</div></div>
-      <div class="reveal-item"><div class="reveal-dot" style="background:#6B46C1"></div><div class="reveal-txt"><strong>Score de Présence Authentique</strong>La mesure de votre distance à vous-même — et ce que ça indique pour la suite</div></div>
-      <div class="reveal-item"><div class="reveal-dot" style="background:var(--gold)"></div><div class="reveal-txt"><strong>Le chemin</strong>L'étape V.A.L.E.U.R© la plus importante pour votre profil — et pourquoi elle change tout</div></div>
-    </div>
-  </div>`;
+  /* ══ ACTE III — DÉCISION ══ */
+  html+=`<div class="pw-act3 fu">
+    <div class="pw-act3-inner">
+      <p class="pw-act3-finale">Ce rapport ne vous explique pas ce que vous vivez.<br>Il vous explique <em>d'où cela vient.</em><br><span style="font-size:clamp(16px,2.2vw,20px);font-style:normal;color:rgba(240,234,225,.5)">Et cette compréhension-là — précise, ciblée, la vôtre —<br>est le début de tout changement qui tienne.</span></p>
 
-  /* ZONE 4 — AVANT/APRÈS ÉMOTIONNEL */
-  html+=`<div class="ba-emo-zone fu">
-    <h3 class="ba-emo-title">Ce que vous portez en ce moment —<br><em>et ce que vous pourriez ne plus porter</em></h3>
-    <div class="ba-emo-grid">
-      <div class="ba-emo-col now">
-        <div class="ba-emo-lbl">Ce que vous vivez</div>
-        <ul class="ba-emo-items">${nowItems.map(i=>`<li>"${i}"</li>`).join('')}</ul>
-      </div>
-      <div class="ba-emo-col after">
-        <div class="ba-emo-lbl">Ce que le rapport rend possible</div>
-        <ul class="ba-emo-items">${afterItems.map(i=>`<li>${i}</li>`).join('')}</ul>
-      </div>
-    </div>
-  </div>`;
-
-  /* ZONE 5 — 2 PACKS */
-  html+=`<div class="packs-zone fu">
-    <p style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;text-align:center;margin-bottom:12px">Choisissez votre chemin</p>
-    <h2 style="font-family:var(--font-d);font-size:clamp(24px,5vw,36px);font-weight:300;color:var(--text);text-align:center;line-height:1.15;margin-bottom:12px">Votre rapport · Masque <em style="color:var(--MC);font-style:italic">${dominant_lbl}</em></h2>
-    <p class="packs-intro">Vous pouvez commencer par <strong>comprendre</strong> — Pack 1. Ou commencer par <strong>comprendre et transformer</strong> — Pack 2. L'équivalent de 6 séances de psychologue, à votre rythme, pour toujours.</p>
-    <div class="pack-grid" style="grid-template-columns:1fr 1fr">
-
-      <div class="pack-card">
-        <p class="pack-narrative">Pour savoir enfin d'où ça vient.</p>
-        <div class="pack-name">Rapport complet</div>
-        <div style="font-size:11px;font-weight:300;color:var(--muted);margin-bottom:16px;font-style:italic">Pour comprendre</div>
-        <div class="pack-price"><span class="pack-amount">59</span><span class="pack-currency">€</span></div>
-        <ul class="pack-includes">
-          <li>Rapport personnalisé complet</li>
-          <li>Portrait en 7 scènes · Voix intérieure</li>
-          <li>Coûts silencieux · Configuration</li>
-          <li>Constellation des 7 masques</li>
-          <li>Score de Présence Authentique</li>
-        </ul>
-        <button class="pack-btn pack-btn-std" onclick="buyPack(1)">Accéder au rapport →</button>
+      <div class="pw-unlock-v3">
+        <span class="pw-unlock-label">✦ Vous avez déjà acheté ?</span>
+        <div class="pw-unlock-form">
+          <input type="email" id="unlock-email" class="unlock-input" placeholder="votre@email.com">
+          <button id="unlock-btn" class="unlock-btn" onclick="checkEmailUnlock()">Accéder →</button>
+        </div>
+        <div id="unlock-msg" class="unlock-msg" style="display:none;width:100%"></div>
       </div>
 
-      <div class="pack-card vedette">
-        <div class="vedette-ribbon">✦ Recommandé</div>
-        <p class="pack-narrative">L'équivalent de 6 séances de psychologue — à votre rythme, pour toujours.</p>
-        <div class="pack-name">Programme complet</div>
-        <div style="font-size:11px;font-weight:300;color:rgba(201,168,76,.7);margin-bottom:16px;font-style:italic">Pour comprendre et transformer</div>
-        <div class="pack-price"><span class="pack-amount">197</span><span class="pack-currency">€</span></div>
-        <ul class="pack-includes">
-          <li><strong>Tout le Rapport complet (Pack 1)</strong></li>
-          <li>Livret Masque ${dominant_lbl} — 7 modules V.A.L.E.U.R©</li>
-          <li>Livret Psychoéducation — SNA · Fenêtre de tolérance · Cohérence cardiaque · Conscience observatrice</li>
-          <li>Fiche 21 jours personnalisée</li>
-          <li style="color:var(--gold)">Accès à vie · Tous appareils</li>
-        </ul>
-        <button class="pack-btn pack-btn-gold" onclick="buyPack(2)">Commencer la transformation →</button>
-        <p style="font-size:10px;font-weight:300;color:rgba(201,168,76,.5);text-align:center;margin-top:10px">Tout ce qu'un psychologue vous expliquerait — réuni dans un programme que vous faites à votre rythme.</p>
+      <div class="pw-packs">
+        <div class="pw-pack">
+          <div class="pw-pack-name">Rapport complet</div>
+          <div class="pw-pack-desc">Votre portrait psychologique complet. Tout ce qui est verrouillé ci-dessus, déverrouillé.</div>
+          <div class="pw-pack-price">59<sup>€</sup></div>
+          <ul class="pw-pack-items">
+            <li>Portrait complet — 7 scènes</li>
+            <li>Voix intérieure</li>
+            <li>Combinaisons actives</li>
+            <li>Coûts silencieux</li>
+            <li>Score de Présence Authentique</li>
+            <li>Dyades et triades si présentes</li>
+          </ul>
+          <button class="pw-pack-btn" onclick="buyPack(1)">Accéder au rapport →</button>
+        </div>
+        <div class="pw-pack featured">
+          <div class="pw-pack-badge">Le plus complet</div>
+          <div class="pw-pack-name">Programme complet</div>
+          <div class="pw-pack-desc">Le rapport + les outils pour travailler votre masque en profondeur, à votre rythme.</div>
+          <div class="pw-pack-price">197<sup>€</sup></div>
+          <ul class="pw-pack-items">
+            <li>Tout le rapport complet</li>
+            <li>Livret Masque dominant — 7 modules V.A.L.E.U.R©</li>
+            <li>Livret Psychoéducation</li>
+            <li>Fiche 21 jours personnalisée</li>
+          </ul>
+          <button class="pw-pack-btn" onclick="buyPack(2)">Commencer la transformation →</button>
+        </div>
       </div>
 
-    </div>
-
-
-    <!-- VEILLE -->
-    <div class="fu" style="margin:32px 0 0;padding:24px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:4px;text-align:center">
-      <p style="font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:8px">Offres à venir</p>
-      <p style="font-size:13px;font-weight:300;color:rgba(247,244,238,.5);line-height:1.7;margin-bottom:14px">Formations, groupes, nouveaux supports V.A.L.E.U.R© — en avant-première.</p>
-      <form id="veille-form-res" onsubmit="submitVeille(event,'veille-form-res','veille-msg-res')" style="display:flex;gap:6px;max-width:380px;margin:0 auto 8px">
-        <input type="email" id="veille-email-res" placeholder="Votre email" required style="flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(247,244,238,.8);outline:none">
-        <button type="submit" style="background:rgba(168,135,58,.15);border:1px solid rgba(168,135,58,.25);border-radius:2px;padding:10px 16px;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(201,168,76,.7);cursor:pointer;white-space:nowrap">Suivre →</button>
-      </form>
-      <div id="veille-msg-res" style="display:none;font-size:11px;color:rgba(201,168,76,.7);margin-top:8px"></div>
-    </div>
-    <!-- GARANTIE CÉLINE -->
-    <div class="garantie-zone">
-      <div class="garantie-avatar">C</div>
-      <div class="garantie-body">
-        <div class="garantie-sig">Céline Bourbon · Psychologue</div>
-        <p class="garantie-txt">"Ce rapport est construit pour que vous vous y reconnaissiez entièrement. Pas un profil générique — le vôtre. Si ce n'est pas le cas, je veux le savoir."</p>
+      <div class="pw-garantie">
+        <div class="pw-garantie-av">C</div>
+        <div>
+          <p class="pw-garantie-txt">"Ce rapport est construit pour que vous vous y reconnaissiez entièrement. Pas un profil générique — le vôtre. Si ce n'est pas le cas, je veux le savoir."</p>
+          <div class="pw-garantie-sig">Céline Bourbon · Psychologue</div>
+        </div>
       </div>
+
     </div>
   </div>`;
 
   return html;
 }
+
 
 /* ═══════════════════════════════════════
    CONTENU COMPLET (déverrouillé)
@@ -923,6 +1065,20 @@ function buildPage(dominant,meta,data,playlist,scores,prenom,profile){
         Ces pensées <strong style="color:var(--text)">ne s\'effaceront pas d\'un coup</strong>. Mais dès qu\'on les reconnaît — dès qu\'on les nomme au moment où elles apparaissent — elles perdent de leur emprise. Le cerveau est capable de se reconfigurer : de nouveaux réflexes peuvent s\'installer, plus souples, plus choisis. C\'est l\'objet du parcours qui vous est proposé. <em style="color:var(--gold)">Ce qu\'on peut voir, on peut le changer.</em>
       </p>
     </div>
+  </div>`;
+
+
+  /* ZONE 1b — DÉJÀ ACHETÉ (après le hero) */
+  html+=`<div class="unlock-banner fu">
+    <div class="unlock-banner-txt">
+      <strong>✦ Vous avez déjà acheté ?</strong>
+      Entrez votre email — votre rapport s'ouvre immédiatement.
+    </div>
+    <div class="unlock-banner-form">
+      <input type="email" id="unlock-email" class="unlock-input" placeholder="votre@email.com">
+      <button id="unlock-btn" class="unlock-btn" onclick="checkEmailUnlock()">Accéder →</button>
+    </div>
+    <div id="unlock-msg" class="unlock-msg" style="display:none"></div>
   </div>`;
 
   /* CONSTELLATION */
