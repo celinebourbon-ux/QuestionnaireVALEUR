@@ -759,8 +759,8 @@ function detectProfile(sc) {
     return {type:'pan', subtype:'pan', masks:high65.map(m => m.key)};
   }
 
-  /* ─ Étape 2 — MONO DOMINANT : 1 masque >= 80% */
-  if (m0.pct >= 80) {
+  /* ─ Étape 2 — MONO DOMINANT : 1 masque >= 85% */
+  if (m0.pct >= 85) {
     const prof = {type:'mono', subtype:'dominant', masks:[m0.key]};
     if (m1 && m1.pct >= 65) {
       prof.subtype = 'dominant_secondaire';
@@ -794,8 +794,8 @@ function detectProfile(sc) {
   return {type:'residuel', subtype:'residuel', masks:significatifs.map(m => m.key)};
 }
 function levelText(p) {
-  if (p >= 80) return "Dominant";
-  if (p >= 65) return "Élevé";
+  if (p >= 85) return "Dominant";
+  if (p >= 70) return "Élevé";
   if (p >= 50) return "Significatif";
   if (p >= 30) return "Modéré";
   return "Non significatif";
