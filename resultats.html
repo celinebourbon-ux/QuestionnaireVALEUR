@@ -782,6 +782,32 @@ function getDyadeBehDetail(dyadeKey,idx){
   var g=['Ce comportement est une réponse automatique à la peur sous-jacente.','Il se répète parce qu\'il a réduit l\'anxiété une fois.','Le masque rejoue ce réflexe même quand la peur n\'est plus justifiée.','Une fois nommé, ce mécanisme perd progressivement de son emprise.','C\'est la logique du masque — pas votre choix conscient.'];
   return g[idx%5];
 }
+
+const DYADE_CERCLES={
+  'jaune+rouge':[{a:"Un symptôme surgit",b:"Rouge l'interprète comme menace. Jaune exige une certitude."},{a:"Vous cherchez une réponse définitive",b:"Elle n'existe pas — l'incertitude relance la vigilance."},{a:"La rassurance ne suffit pas",b:"Le prochain signal repart de zéro, amplifié."},{a:"Le cycle recommence plus vite",b:"Chaque rassurance partielle alimente la prochaine alerte."}],
+  'orange+vert':[{a:"Votre besoin de connexion s'active",b:"Masque Vert pousse à vous rapprocher."},{a:"L'émotion monte quand l'intimité devient réelle",b:"Masque Orange la coupe automatiquement."},{a:"Vous semblez vous retirer",b:"Masque Vert interprète ce retrait comme un rejet imminent."},{a:"Il redouble l'approche",b:"Besoin → coupure → retrait → redoublement. En boucle."}],
+  'jaune+vert':[{a:"Un signal ambigu de l'autre",b:"Masque Vert le perçoit comme distance possible."},{a:"Masque Jaune exige de savoir",b:"Vous analysez, relisez, cherchez à en être sûr·e."},{a:"L'incertitude ne se résout pas",b:"Masque Vert amplifie la surveillance relationnelle."},{a:"L'autre ressent la pression",b:"Ce qui crée la distance que vous craigniez."}],
+  'orange+rouge':[{a:"Une sensation corporelle anxieuse monte",b:"Masque Rouge déclenche l'alerte."},{a:"Masque Orange coupe l'accès émotionnel",b:"L'anxiété ne peut être nommée ni traversée."},{a:"Elle s'exprime par le corps, plus fort",b:"Faute d'autre canal de sortie."},{a:"La surveillance corporelle s'intensifie",b:"Le cycle s'auto-alimente sans jamais se résoudre."}],
+  'bleu+jaune':[{a:"Une situation échappe à votre contrôle",b:"Bleu et Jaune s'activent simultanément."},{a:"Vous planifiez et imposez une méthode",b:"Pour reprendre la maîtrise."},{a:"L'autre résiste ou improvise",b:"L'incertitude revient — plus menaçante qu'avant."},{a:"Le contrôle se resserre encore",b:"Jusqu'à l'épuisement ou la rupture."}],
+  'bleu+indigo':[{a:"Un résultat n'atteint pas vos standards",b:"Masque Indigo exige de recommencer."},{a:"Masque Bleu reprend le contrôle",b:"Vous rectifiez, vérifiez, imposez votre façon."},{a:"Les autres ne sont jamais assez bons",b:"Ni vous-même — le standard monte à chaque cycle."},{a:"L'exigence s'étend à tout",b:"Sans jamais trouver de seuil suffisant."}],
+  'indigo+vert':[{a:"Une compétence ou réussite visible",b:"Masque Vert craint qu'elle crée de la distance."},{a:"Masque Indigo la minimise",b:"Attribuée à la chance, aux circonstances, aux autres."},{a:"Vous restez en retrait",b:"L'effacement est perçu comme protection du lien."},{a:"Vos talents restent inexploités",b:"Et la question 'qui suis-je ?' reste sans réponse."}],
+  'indigo+jaune':[{a:"Un projet important se profile",b:"Masque Jaune exige les conditions parfaites."},{a:"Masque Indigo ajoute l'exigence de perfection",b:"Paralysie totale par impossibilité cumulée."},{a:"Le projet est reporté",b:"Alimentant la preuve que vous n'êtes pas encore prêt·e."},{a:"La prochaine occasion arrive avec plus d'anxiété",b:"Le cycle s'amplifie à chaque répétition."}],
+  'jaune+violet':[{a:"Un changement approche",b:"Masque Violet perçoit une menace à l'identité connue."},{a:"Masque Jaune exige de tout prévoir",b:"Les deux produisent une résistance rigide à la nouveauté."},{a:"Les routines s'alourdissent",b:"Elles protègent mais épuisent — plus rien ne peut entrer."},{a:"La vie rétrécit progressivement",b:"Chaque dérogation aux habitudes déclenche une anxiété."}],
+  'bleu+rouge':[{a:"Une sensation corporelle attire votre attention",b:"Masque Rouge l'interprète comme alerte."},{a:"Masque Bleu transforme l'alerte en plan d'action",b:"Vous gérez votre corps comme un projet."},{a:"Le corps résiste à la maîtrise totale",b:"Ce qui réactive l'anxiété de Masque Rouge."},{a:"Le contrôle se renforce",b:"Créant la tension physique qu'il prétendait prévenir."}],
+  'rouge+vert':[{a:"Un symptôme surgit",b:"Masque Rouge génère une anxiété corporelle."},{a:"La solitude amplifie l'anxiété",b:"Masque Vert a besoin d'une présence pour la traverser."},{a:"La réassurance soulage momentanément",b:"Mais crée une dépendance au soutien de l'autre."},{a:"La prochaine inquiétude est plus difficile seul·e",b:"Le besoin de présence augmente progressivement."}],
+  'indigo+rouge':[{a:"Le corps donne un signal de limite",b:"Masque Rouge le perçoit comme défaillance."},{a:"Masque Indigo l'interprète comme insuffisance",b:"'Je devrais être capable de gérer ça'."},{a:"Les standards s'appliquent au corps",b:"Régimes, protocoles, optimisations sans fin."},{a:"Le corps s'épuise sous l'exigence",b:"Ce qui déclenche de nouveaux signaux — et recommence."}],
+  'rouge+violet':[{a:"Une préoccupation de santé surgit",b:"Masque Rouge s'en saisit."},{a:"Elle comble un vide identitaire",b:"Masque Violet y trouve un rôle stable : le patient attentif."},{a:"L'identité se construit autour de la santé",b:"Guérir deviendrait une perte de soi."},{a:"Les symptômes persistent",b:"Ils remplissent une fonction identitaire que rien ne remplace."}],
+  'jaune+orange':[{a:"Une situation imprévue arrive",b:"Masque Jaune s'active pour la contrôler."},{a:"Masque Orange empêche de ressentir l'anxiété",b:"Vous planifiez à vide — sans accès à ce que vous vivez."},{a:"La planification ne procure aucune satisfaction",b:"L'émotion non traversée cherche une autre sortie."},{a:"Plus de contrôle, moins de ressenti",b:"La vie devient mécanique — le cycle s'approfondit."}],
+  'bleu+orange':[{a:"Une réussite arrive",b:"Masque Orange empêche de la ressentir vraiment."},{a:"Masque Bleu cherche la prochaine maîtrise",b:"Pour compenser le vide que la réussite n'a pas comblé."},{a:"La prochaine réussite arrive",b:"Même résultat — satisfaction zéro, vide intact."},{a:"Le besoin de contrôle augmente",b:"Pour masquer un vide qui ne fait que s'approfondir."}],
+  'indigo+orange':[{a:"Un travail est terminé",b:"Masque Indigo l'évalue immédiatement."},{a:"Masque Orange empêche de ressentir la fierté",b:"Le résultat n'a aucun goût."},{a:"Le standard monte",b:"Puisque rien ne satisfait, peut-être qu'un niveau supérieur le ferait."},{a:"L'épuisement s'installe sans signal émotionnel",b:"Jusqu'au crash soudain."}],
+  'orange+violet':[{a:"Un moment de calme arrive",b:"Masque Violet cherche qui vous êtes — sans réponse."},{a:"Masque Orange coupe l'accès émotionnel",b:"La question identitaire ne peut être ressentie ni résolue."},{a:"Vous vivez en pilote automatique",b:"Les deux masques s'alimentent mutuellement."},{a:"Le vide existentiel s'approfondit silencieusement",b:"Sans signal d'alarme — jusqu'à la rupture."}],
+  'bleu+vert':[{a:"La peur d'être quitté·e s'active",b:"Masque Vert cherche à sécuriser le lien."},{a:"Masque Bleu transforme cette peur en contrôle",b:"Surveillance, vérifications, exigences."},{a:"L'autre ressent la pression et s'éloigne",b:"Ce qui intensifie la peur d'abandon."},{a:"Le contrôle se resserre",b:"Créant l'éloignement qu'il cherchait à éviter."}],
+  'vert+violet':[{a:"Une relation importante se développe",b:"Masque Vert craint le rejet — il s'adapte."},{a:"Masque Violet cherche une identité",b:"Il la trouve dans le reflet de l'autre — fusion progressive."},{a:"Vous disparaissez dans la relation",b:"Préférences, valeurs, désirs s'effacent."},{a:"La peur du rejet s'intensifie",b:"Car quitter signifierait n'être plus rien."}],
+  'bleu+violet':[{a:"Le rôle de 'celui qui gère' est remis en question",b:"Masque Violet perçoit une menace identitaire."},{a:"Masque Bleu s'accroche au contrôle",b:"C'est la seule identité disponible."},{a:"Plus le rôle est menacé",b:"Plus le contrôle devient rigide."},{a:"L'identité réelle reste inexplorée",b:"Le vide sous-jacent grandit à mesure que le rôle s'alourdit."}],
+  'indigo+violet':[{a:"Une opportunité se présente",b:"Masque Indigo exige d'être parfait avant d'y répondre."},{a:"Masque Violet cherche qui doit être parfait",b:"L'identité est floue — le perfectionnisme s'applique dans le vide."},{a:"L'inaction s'installe",b:"On ne peut être parfait quand on ne sait pas qui on est."},{a:"Le sentiment d'imposture s'approfondit",b:"Alimenté par l'inaction — qui alimente à son tour le perfectionnisme."}]
+};
+function getDyadeCercle(a,b){return DYADE_CERCLES[[a,b].sort().join('+')]||null;}
+
 function getDyadeKey(a,b){return[a,b].sort().join('+');}
 
 const DYADES_COMPLETE={
@@ -804,29 +830,32 @@ const DYADES_COMPLETE={
   'orange+violet':{name:'Dissociation Totale',tagline:'Qui suis-je et qu\'est-ce que je ressens ?',severite:'CRITIQUE',alerte:true,desc:'Votre Masque Orange vous prive de l\'accès à vos ressentis — votre Masque Violet vous prive d\'une identité stable. Double absence : vous ne savez pas ce que vous ressentez, et vous ne savez pas qui vous êtes. La vie peut sembler irréelle — observée de l\'extérieur plutôt que vécue de l\'intérieur. Cette configuration répond particulièrement bien à un travail structuré et progressif.',behaviors:['Dépersonnalisation chronique — sensation d\'observer sa propre vie de l\'extérieur','Incapacité à identifier besoins, désirs, préférences','Vie vécue en pilote automatique permanent','Relations superficielles uniquement — intimité impossible','Vide existentiel profond et persistant']},
   'bleu+vert':{name:'Dépendance Dominante',tagline:'J\'ai besoin de toi et je te contrôle',severite:'CRITIQUE',alerte:true,desc:'Votre Masque Vert a peur d\'être abandonné·e — votre Masque Bleu contrôle pour se sentir en sécurité. Ensemble, ils créent un cycle épuisant entre besoin et emprise. Vous avez besoin de l\'autre et vous le contrôlez pour ne pas le perdre. L\'autre ressent la pression et s\'éloigne. Ce qui intensifie la peur d\'abandon. Ce qui renforce le contrôle. Le cycle crée précisément ce qu\'il cherche à éviter.',behaviors:['Surveillance constante du partenaire','Oscillation entre supplication affective et exigences autoritaires','Jalousie intense masquée en préoccupation','Contrôle déguisé en sollicitude','Colères disproportionnées lors de menaces perçues']},
   'vert+violet':{name:'Fusion Identitaire',tagline:'Je suis ce que tu veux que je sois',severite:'Très sévère',desc:'Votre Masque Vert craint d\'être rejeté·e — votre Masque Violet cherche une identité stable. Ensemble, ils créent une dissolution de soi par fusion avec l\'autre. Votre identité se construit dans le reflet de l\'autre — ses valeurs, ses préférences, ses désirs. Quitter une relation devient existentiellement menaçant, non par amour exclusif, mais parce que la séparation signifierait ne plus rien être.',behaviors:['Identité caméléon selon les personnes présentes','Impossibilité de définir préférences ou opinions personnelles','Adoption inconsciente des valeurs du partenaire','Panique profonde à l\'idée d\'une séparation','Refus systématique de tout conflit par terreur du rejet']},
-  'bleu+violet':{name:'Pouvoir Sans Identité',tagline:'Je domine car je ne sais pas qui je suis',severite:'Sévère',desc:'Votre Masque Bleu a besoin de contrôler — votre Masque Violet cherche une identité. Le pouvoir devient la seule identité disponible. Votre rôle — celui qui organise, décide, gère — est à la fois votre protection et votre prison. Une crise survient dès que ce rôle est menacé. L\'identité réelle reste inexplorée tant que le rôle tient. Et le rôle doit tenir — coûte que coûte.',behaviors:['Rôle professionnel ou familial devenu totalité de l\'identité','Besoin pathologique d\'être celui qui décide','Panique existentielle face à toute perte de statut','Relations uniquement hiérarchiques','Effondrement identitaire lors de perte de pouvoir']},
+  'bleu+violet':{name:'Pouvoir Sans Identité',tagline:'Je domine car je ne sais pas qui je suis',severite:'Sévère',desc:'Votre Masque Bleu a besoin de contrôler — votre Masque Violet cherche une identité. Le pouvoir devient la seule identité disponible. Votre rôle — celui qui organise, décide, gère — est à la fois votre protection et votre prison. Une crise survient dès que ce rôle est menacé. L\'identité réelle reste inexplorée tant que le rôle tient. Et le rôle doit tenir — coûte que coûte.',behaviors:['Rôle professionnel ou familial devenu totalité de l\'identité','Besoin intense d\'être celui qui décide','Panique existentielle face à toute perte de statut','Relations uniquement hiérarchiques','Effondrement identitaire lors de perte de pouvoir']},
   'indigo+violet':{name:'L\'Imposteur Sans Visage',tagline:'Je ne suis pas assez ET je ne sais pas qui je suis',severite:'Très sévère',desc:'Votre Masque Indigo impose des standards impossibles — votre Masque Violet cherche une identité floue. Double absence : perfectionnisme sans ancrage identitaire stable. Vous ne savez pas qui doit être parfait. Les standards s\'appliquent dans le vide — changeants, arbitraires, impossibles. Le sentiment d\'imposture est total et généralisé : pas seulement dans un domaine, mais dans l\'existence entière.',behaviors:['Standards impossibles appliqués à une identité fondamentalement floue','Syndrome de l\'imposteur radical généralisé','Changement constant de domaines professionnels ou personnels','Perfectionnisme paralysant sans ancrage identitaire','Sentiment de fraude généralisé à toute la vie']}
 };
 
 const TRIADES_DATA={
-  'jaune+orange+rouge':{name:'Anxiété Généralisée Somatisée',tagline:'Ruminations, corps en alerte, sans accès aux émotions',severite:'Modérée-Sévère',desc:'Triple verrouillage : corps en hypervigilance, anticipation obsessionnelle, déconnexion émotionnelle. L\'anxiété ne peut ni être ressentie, ni être pensée autrement que comme menace corporelle.',manifestations:['Ruminations obsessives sur santé et futur','Hypervigilance corporelle couplée à planification excessive','Incapacité à ressentir l\'anxiété émotionnellement','Épuisement physique et mental permanent','Somatisation massive de l\'anxiété non conscientisée']},
-  'bleu+indigo+jaune':{name:'Perfectionnisme Autoritaire',tagline:'Micromanagement tyrannique de soi et des autres',severite:'Sévère',desc:'Standards impossibles, besoin de maîtriser, intolérance à l\'incertitude. La rigidité devient une façon d\'exister. L\'environnement doit se conformer ou provoquer une réaction violente.',manifestations:['Micromanagement tyrannique','Standards impossibles imposés rigidement','Rigidité cognitive totale','Colères disproportionnées face à toute non-conformité','Épuisement de l\'entourage professionnel et personnel']},
-  'indigo+orange+vert':{name:'Dépression Relationnelle Silencieuse',tagline:'Sur-adaptation, dépression masquée, invisible à l\'entourage',severite:'Modérée-Sévère',desc:'Vous vous adaptez à tout le monde, n\'exprimez rien, et vous dénigrez en silence. La souffrance est invisible car elle ne s\'exprime jamais directement. Un vide silencieux s\'installe progressivement.',manifestations:['Sur-adaptation relationnelle permanente','Auto-dénigrement constant et silencieux','Retrait émotionnel progressif','Dépression souriante totalement invisible','Vide existentiel masqué par le fonctionnement social']},
-  'bleu+jaune+rouge':{name:'Contrôle Total Corps-Futur-Autres',tagline:'Tout simultanément : corps, futur ET relations',severite:'Sévère',desc:'Besoin de contrôler trois fronts simultanément : le corps, l\'avenir, et les autres. Un épuisement systémique qui ne s\'arrête jamais.',manifestations:['Besoin de contrôler corps, futur et relations en même temps','Tension musculaire chronique généralisée','Irritabilité constante','Intolérance absolue à tout imprévu','Risque cardiovasculaire élevé par stress chronique']},
-  'indigo+orange+violet':{name:'Crise Identitaire Dissociée',tagline:'Qui suis-je et que dois-je ressentir ?',severite:'Sévère',desc:'Ne sait pas qui il est, ne ressent rien, mais doit être parfait. Standards arbitraires appliqués à une identité floue, sur fond de déconnexion totale.',manifestations:['Identité inexistante + absence d\'accès émotionnel','Standards perfectionnistes arbitraires','Vie en autopilote permanent','Burnout existentiel profond','Crise de sens sévère et chronique']},
-  'jaune+rouge+vert':{name:'Anxiété de Survie Relationnelle',tagline:'Triple peur : mourir, être abandonné·e, ne pas savoir',severite:'Sévère',desc:'La triple peur — du corps, de l\'abandon, de l\'incertitude — crée une tension permanente. L\'anxiété est à la fois somatique, relationnelle et cognitive.',manifestations:['Triple peur simultanée : corps, abandon, incertitude','Attaques de panique déclenchées par menaces relationnelles','Hypervigilance simultanée sur corps ET partenaire','Besoin constant de réassurance double (santé + amour)','Épuisement massif du partenaire aidant']},
-  'bleu+jaune+vert':{name:'Surveillance Relationnelle Totale',tagline:'Je dois savoir, contrôler et ne jamais perdre',severite:'Sévère',alerte:true,desc:'Contrôle total du partenaire justifié par "amour". Surveillance permanente mêlant intolérance à l\'incertitude, besoin de maîtrise et peur d\'abandon. Une des configurations relationnellement les plus destructrices.',manifestations:['Contrôle total et constant du partenaire','Besoin de savoir en permanence où, avec qui, pourquoi','Jalousie pathologique déguisée en inquiétude','Colères violentes lors de menaces perçues','Relation toxique destructrice pour les deux']},
-  'orange+rouge+violet':{name:'Somatisation Dissociée Chronique',tagline:'Le corps parle ce que je ne ressens pas et ne sais pas qui je suis',severite:'Sévère',desc:'Symptômes multiples sans cause médicale, déconnexion totale, identité construite autour de la maladie. Une configuration qui tends à se chroniciser.',manifestations:['Symptômes multiples variés sans cause médicale identifiable','Déconnexion totale du vécu émotionnel','Identité construite exclusivement autour de la maladie','Errance médicale chronique','Résistance inconsciente profonde à toute guérison']},
-  'bleu+indigo+orange':{name:'Excellence Narcissique Vide',tagline:'Réussir, contrôler, ne rien ressentir',severite:'Sévère',desc:'Performance spectaculaire, maîtrise totale, vide intérieur absolu. Le succès ne procure aucune satisfaction. L\'effondrement survient souvent après l\'apogée.',manifestations:['Réussite spectaculaire avec vide intérieur total','Burnout brutal post-succès','Incapacité à jouir des accomplissements','Relations purement instrumentales','Crash existentiel après une réussite majeure']},
-  'jaune+orange+vert':{name:'Dépendance Planifiée Sans Émotion',tagline:'Sur-adapter, planifier, ne rien ressentir',severite:'Modérée-Sévère',desc:'Adaptation relationnelle automatique, routines rigides, absence de ressenti. Une vie structurée mais émotionnellement vide et relationnellement dépendante.',manifestations:['Sur-adaptation relationnelle automatique','Routines rigides et planification excessive','Absence totale de ressenti émotionnel','Vie structurée mais vide de sens','Relations superficielles malgré dépendance affective']},
-  'indigo+jaune+rouge':{name:'Perfectionnisme Sanitaire',tagline:'Le corps parfait dans un futur certain',severite:'Sévère',desc:'Obsession de la santé parfaite, standards corporels impossibles, intolérance à toute incertitude physique. Une configuration épuisante à vivre.',manifestations:['Orthorexie et ritualisation alimentaire','Contrôle obsessionnel de la santé','Routines santé envahissantes et rigides','Épuisement par hyperactivité physique','Standards corporels impossibles']},
-  'bleu+vert+violet':{name:'Identité Relationnelle Dominée',tagline:'Je fusionne et je contrôle pour exister',severite:'Sévère',desc:'Fusion identitaire totale avec le partenaire, combinée à un contrôle de la relation. Une codépendance sévère où les deux partenaires sont pris dans un système toxique.',manifestations:['Fusion identitaire totale avec le partenaire','Contrôle toxique simultané','Relations destructrices chroniques','Codépendance sévère mutuelle','Impossibilité de vivre seul·e']},
-  'bleu+jaune+orange':{name:'Tyrannie Émotionnellement Gelée',tagline:'Rigidité totale, contrôle froid, sans émotion',severite:'Sévère',desc:'Autoritarisme froid, rigidité inflexible, absence d\'empathie. Une configuration qui épuise les relations et isole progressivement.',manifestations:['Autoritarisme froid et détaché','Rigidité totale inflexible','Relations épuisées et progressivement distantes','Contrôle sans empathie aucune','Isolement relationnel progressif']},
-  'rouge+vert+violet':{name:'Dépendance Somatisée Existentielle',tagline:'Triple vulnérabilité : corps, abandon, identité',severite:'Très sévère',desc:'Triple vulnérabilité catastrophique. L\'identité est construite autour de la maladie ET de la dépendance à l\'autre. Une configuration qui rend l\'autonomie très difficile.',manifestations:['Triple vulnérabilité corps-abandon-identité','Identité de malade dépendant·e','Chronicisation massive des symptômes','Impossibilité totale d\'autonomie','Bénéfices secondaires massifs']},
-  'indigo+jaune+violet':{name:'Perfectionnisme Identitaire Flou',tagline:'Être parfait·e sans savoir qui on est',severite:'Sévère',desc:'Standards rigides imposés à une identité floue. La paralysie décisionnelle et l\'errance existentielle caractérisent cette configuration.',manifestations:['Standards rigides sur identité floue','Paralysie décisionnelle totale','Errance existentielle chronique','Épuisement sans accomplissement','Sentiment d\'imposture généralisé']}
+  'jaune+orange+rouge':{name:'Anxiété Généralisée Somatisée',tagline:'Ruminations, corps en alerte, sans accès aux émotions',severite:'Modérée',desc:'Triple verrouillage : corps en hypervigilance, anticipation obsessionnelle, déconnexion émotionnelle. L\'anxiété ne peut ni être ressentie, ni être pensée autrement que comme menace corporelle.',manifestations:['Ruminations obsessives sur santé et futur','Hypervigilance corporelle couplée à planification excessive','Incapacité à ressentir l\'anxiété émotionnellement','Épuisement physique et mental permanent','Somatisation massive de l\'anxiété non conscientisée']},
+  'bleu+indigo+jaune':{name:'Perfectionnisme Autoritaire',tagline:'Micromanagement tyrannique de soi et des autres',severite:'Significative',desc:'Votre Masque Jaune exige des certitudes — votre Masque Bleu a besoin de tout maîtriser — votre Masque Indigo impose des standards impossibles. Les trois produisent ensemble un autoritarisme épuisant : tout doit être parfait, certain, et sous contrôle. Cette configuration crée des tensions relationnelles profondes et une solitude structurelle.',manifestations:['Micromanagement tyrannique','Standards impossibles imposés rigidement','Rigidité cognitive totale','Colères disproportionnées face à toute non-conformité','Épuisement de l\'entourage professionnel et personnel']},
+  'indigo+orange+vert':{name:'Dépression Relationnelle Silencieuse',tagline:'Sur-adaptation, dépression masquée, invisible à l\'entourage',severite:'Modérée',desc:'Votre Masque Vert vous efface pour préserver la relation — votre Masque Indigo vous efface parce qu\'être vu·e est risqué — votre Masque Orange coupe l\'accès à ce que vous ressentez vraiment. Triple effacement silencieux. La souffrance est réelle mais invisible — même pour vous-même.',manifestations:['Sur-adaptation relationnelle permanente','Auto-dénigrement constant et silencieux','Retrait émotionnel progressif','Dépression souriante totalement invisible','Vide existentiel masqué par le fonctionnement social']},
+  'bleu+jaune+rouge':{name:'Contrôle Total Corps-Futur-Autres',tagline:'Tout simultanément : corps, futur ET relations',severite:'Significative',desc:'Votre Masque Rouge surveille le corps — votre Masque Jaune anticipe et planifie — votre Masque Bleu contrôle les situations et les personnes. Trois fronts simultanément. L\'épuisement est structurel : impossible de relâcher une surveillance sans en activer une autre.',manifestations:['Besoin de contrôler corps, futur et relations en même temps','Tension musculaire chronique généralisée','Irritabilité constante','Intolérance absolue à tout imprévu','Risque cardiovasculaire élevé par stress chronique']},
+  'indigo+orange+violet':{name:'Crise Identitaire Dissociée',tagline:'Qui suis-je et que dois-je ressentir ?',severite:'Significative',desc:'Ne sait pas qui il est, ne ressent rien, mais doit être parfait. Standards arbitraires appliqués à une identité floue, sur fond de déconnexion totale. Cette configuration peut produire un épuisement existentiel profond.',manifestations:['Identité inexistante avec absence d\'accès émotionnel','Standards perfectionnistes arbitraires','Vie en autopilote permanent','Burnout existentiel profond','Crise de sens profonde et chronique']},
+  'jaune+rouge+vert':{name:'Anxiété de Survie Relationnelle',tagline:'Triple peur : mourir, être abandonné·e, ne pas savoir',severite:'Significative',desc:'Votre Masque Rouge génère une anxiété corporelle — votre Masque Vert a besoin de connexion pour la traverser — votre Masque Jaune exige de savoir si cette connexion est stable. Triple tension : le corps, le lien, et l\'incertitude de l\'un et de l\'autre s\'alimentent sans interruption.',manifestations:['Triple peur simultanée : corps, abandon, incertitude','Attaques de panique déclenchées par menaces relationnelles','Hypervigilance simultanée sur corps ET partenaire','Besoin constant de réassurance double (santé + amour)','Épuisement massif du partenaire aidant']},
+  'bleu+jaune+vert':{name:'Surveillance Relationnelle Totale',tagline:'Je dois savoir, contrôler et ne jamais perdre',severite:'Significative',alerte:true,desc:'Contrôle total du partenaire justifié par amour. Surveillance permanente mêlant intolérance à l\'incertitude, besoin de maîtrise et peur d\'abandon. Une des configurations relationnellement les plus épuisantes.',manifestations:['Contrôle total et constant du partenaire','Besoin de savoir en permanence où, avec qui, pourquoi','Jalousie intense déguisée en inquiétude','Colères violentes lors de menaces perçues','Relation épuisante et destructrice pour les deux']},
+  'orange+rouge+violet':{name:'Somatisation Dissociée Chronique',tagline:'Le corps parle ce que je ne ressens pas et ne sais pas qui je suis',severite:'Significative',desc:'Symptômes multiples sans cause médicale, déconnexion totale, identité construite autour de la maladie. Une configuration qui tend à se chroniciser par les bénéfices secondaires qu\'elle procure.',manifestations:['Symptômes multiples variés sans cause médicale identifiable','Déconnexion totale du vécu émotionnel','Identité construite exclusivement autour de la maladie','Errance médicale chronique','Résistance inconsciente profonde à toute guérison']},
+  'bleu+indigo+orange':{name:'Excellence Narcissique Vide',tagline:'Réussir, contrôler, ne rien ressentir',severite:'Significative',desc:'Performance spectaculaire, maîtrise totale, vide intérieur absolu. Le succès ne procure aucune satisfaction. L\'effondrement survient souvent après l\'apogée.',manifestations:['Réussite spectaculaire avec vide intérieur total','Burnout brutal post-succès','Incapacité à jouir des accomplissements','Relations purement instrumentales','Crash existentiel après une réussite majeure']},
+  'jaune+orange+vert':{name:'Dépendance Planifiée Sans Émotion',tagline:'Sur-adapter, planifier, ne rien ressentir',severite:'Modérée',desc:'Adaptation relationnelle automatique, routines rigides, absence de ressenti. Une vie structurée mais émotionnellement vide et relationnellement dépendante.',manifestations:['Sur-adaptation relationnelle automatique','Routines rigides et planification excessive','Absence totale de ressenti émotionnel','Vie structurée mais vide de sens','Relations superficielles malgré dépendance affective']},
+  'indigo+jaune+rouge':{name:'Perfectionnisme Sanitaire',tagline:'Le corps parfait dans un futur certain',severite:'Significative',desc:'Obsession de la santé parfaite, standards corporels impossibles, intolérance à toute incertitude physique. Une configuration épuisante à vivre au quotidien.',manifestations:['Orthorexie et ritualisation alimentaire','Contrôle obsessionnel de la santé','Routines santé envahissantes et rigides','Épuisement par hyperactivité physique','Standards corporels impossibles']},
+  'bleu+vert+violet':{name:'Identité Relationnelle Dominée',tagline:'Je fusionne et je contrôle pour exister',severite:'Significative',desc:'Fusion identitaire totale avec le partenaire, combinée à un contrôle de la relation. Une dépendance mutuelle profonde où les deux partenaires sont pris dans une dynamique épuisante.',manifestations:['Fusion identitaire totale avec le partenaire','Contrôle envahissant simultané','Relations épuisantes chroniques','Dépendance mutuelle profonde','Impossibilité de vivre seul·e']},
+  'bleu+jaune+orange':{name:'Tyrannie Émotionnellement Gelée',tagline:'Rigidité totale, contrôle froid, sans émotion',severite:'Significative',desc:'Votre Masque Bleu contrôle — votre Masque Jaune anticipe — votre Masque Orange coupe l\'accès émotionnel. Vous gérez tout avec une efficacité froide. Les relations s\'appauvrissent progressivement. L\'entourage ressent une rigidité qui n\'est pas votre caractère profond — c\'est la logique de trois masques sans émotion.',manifestations:['Autoritarisme froid et détaché','Rigidité totale inflexible','Relations épuisées et progressivement distantes','Contrôle sans empathie aucune','Isolement relationnel progressif']},
+  'rouge+vert+violet':{name:'Dépendance Somatisée Existentielle',tagline:'Triple vulnérabilité : corps, abandon, identité',severite:'Profonde',desc:'Votre Masque Rouge surveille le corps — votre Masque Vert a besoin de l\'autre pour aller bien — votre Masque Violet cherche qui il est. Ces trois peurs ensemble créent une dépendance totale : au corps, à l\'autre, et à un rôle stable. L\'autonomie est très difficile à construire depuis cette configuration.',manifestations:['Triple vulnérabilité corps-abandon-identité','Identité construite autour du rôle de patient·e dépendant·e','Chronicisation des symptômes par bénéfices secondaires','Impossibilité de fonctionner en autonomie complète','Bénéfices secondaires massifs']},
+  'indigo+jaune+violet':{name:'Perfectionnisme Identitaire Flou',tagline:'Être parfait·e sans savoir qui on est',severite:'Significative',desc:'Votre Masque Indigo impose des standards — votre Masque Jaune exige des certitudes — votre Masque Violet ne sait pas qui doit atteindre ces standards. Standards rigides sur identité floue. La paralysie décisionnelle et l\'errance caractérisent cette configuration.',manifestations:['Standards rigides sur identité floue','Paralysie décisionnelle totale','Errance existentielle chronique','Épuisement sans accomplissement','Sentiment d\'imposture généralisé']}
 };
 
+
 /* Normalise une clé dyade : trie les 2 masques */
+
+
 function resolveDyade(a,b){return DYADES_COMPLETE[getDyadeKey(a,b)]||null;}
 
 /* Normalise une clé triade : trie les 3 masques */
@@ -1571,22 +1600,22 @@ function buildPage(dominant,meta,data,playlist,scores,prenom,profile){
   html+=`<div class="card fu">
     <span class="card-eyebrow">L\'analyse que seul ce questionnaire peut produire</span>
     <h2 class="card-title">Vos masques ne s\'additionnent pas — <em style="color:var(--MC);font-style:italic">ils s\'amplifient</em></h2>
-    <p class="card-p" style="margin-bottom:24px">Identifier leur interaction révèle des dynamiques que chaque masque seul ne suffit pas à expliquer. C\'est là que réside la source précise de vos récurrences les plus tenaces.</p>`;
+    <p class="card-p" style="margin-bottom:24px">Identifier leur interaction révèle des dynamiques que chaque masque seul ne suffit pas à expliquer. C\'est là que réside la source précise de vos récurrences les plus tenaces.</p>
+    <div class="cv-wrap fu">
+      <div class="cv-title">Le cercle vicieux de votre Masque ${dominant_lbl}</div>
+      <div class="cv-chain">
+        ${cercleDom.map(function(step,i){var nb=i===0?meta.color:'rgba(255,255,255,.05)';var nc=i===0?meta.color:'rgba(255,255,255,.12)';return'<div class="cv-step"><div class="cv-node" style="background:'+nb+';border-color:'+nc+'">'+(i+1)+'</div><div class="cv-text"><strong>'+step.t+'</strong><br>'+step.d+'</div></div>';}).join('')}
+      </div>
+    </div>`;
 
-  /* ── Cercle vicieux dominant ── */
-  html+=`<div class="cv-wrap fu">
-    <div class="cv-title">Le cercle vicieux de votre Masque ${dominant_lbl}</div>
-    <div class="cv-chain">
-      ${cercleDom.map(function(step,i){var nb=i===0?meta.color:'rgba(255,255,255,.05)';var nc=i===0?meta.color:'rgba(255,255,255,.12)';return'<div class="cv-step"><div class="cv-node" style="background:'+nb+';border-color:'+nc+'">'+(i+1)+'</div><div class="cv-text"><strong>'+step.t+'</strong><br>'+step.d+'</div></div>';}).join('')}
-    </div>
-  </div>`;
-
-  /* ── Résolution dynamique dyade/triade ── */
+  /* ── DYADE ── */
   if(profile.type==='dyade'){
     var dyCombo=resolveDyade(profile.masks[0],profile.masks[1]);
+    var dyKey=getDyadeKey(profile.masks[0],profile.masks[1]);
+    var dyCercle=getDyadeCercle(profile.masks[0],profile.masks[1]);
+    var mm0=getMeta(profile.masks[0]),mm1=getMeta(profile.masks[1]);
     if(dyCombo){
-      var mm0=getMeta(profile.masks[0]),mm1=getMeta(profile.masks[1]);
-      html+=`<div class="combo-card" style="margin-top:20px">
+      html+=`<div class="combo-card" style="margin-top:24px">
         <div class="combo-masks">
           <div class="co" style="background:${mm0.color};box-shadow:0 0 10px ${mm0.glow}">${mm0.label}</div>
           <span class="cx">+</span>
@@ -1595,50 +1624,95 @@ function buildPage(dominant,meta,data,playlist,scores,prenom,profile){
         </div>
         <h3 class="combo-name">${dyCombo.name}</h3>
         <p class="combo-tag">« ${dyCombo.tagline} »</p>
-        <p class="combo-desc">${dyCombo.desc}</p>
-        ${dyCombo.alerte?`<div style="background:rgba(229,62,62,.08);border:1px solid rgba(229,62,62,.25);border-radius:var(--r-s);padding:14px 18px;margin-bottom:14px"><p style="font-size:12px;color:rgba(252,129,129,.85);line-height:1.7">Ce profil peut bénéficier d\'un accompagnement professionnel approfondi. La méthode V.A.L.E.U.R© peut constituer un premier pas significatif.</p></div>`:''}
-        ${dyCombo.behaviors?`<div class="beh-list">${dyCombo.behaviors.map(function(b,i){var details=["Ce comportement protège d\'un sentiment de perte ou d\'échec — même quand le risque réel est faible.","Il maintient l\'illusion de contrôle sur une situation qui échappe à la maîtrise totale.","C\'est une réponse automatique — pas un choix conscient.","Ce comportement crée des récurrences difficiles à interrompre sans en comprendre la source.","Il répond à une peur précise — une fois cette peur nommée, le comportement perd de son emprise."];return'<div class="beh-item"><div class="beh-title">'+b+'</div><div class="beh-detail">'+details[i%5]+'</div></div>';}).join('')}</div>`:''}
-      </div>`;
+        ${dyCombo.alerte?`<div style="background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);border-radius:var(--r-s);padding:12px 18px;margin-bottom:14px"><p style="font-size:12px;color:rgba(201,168,76,.85);line-height:1.7">Cette configuration gagne à être accompagnée avec soin. La méthode V.A.L.E.U.R© est précisément conçue pour ce type de profil.</p></div>`:''}
+        <p class="combo-desc">${dyCombo.desc}</p>`;
+
+      /* ③ Cercle vicieux DYADE spécifique */
+      if(dyCercle){
+        html+=`<div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:var(--r-s);padding:20px 22px;margin:20px 0">
+          <div style="font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Le cycle qui se répète entre les deux masques</div>
+          <div class="cv-chain">
+            ${dyCercle.map(function(step,i){return'<div class="cv-step"><div class="cv-node" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12)">'+(i+1)+'</div><div class="cv-text"><strong>'+step.a+'</strong><br><span style="color:rgba(240,234,225,.5);font-size:12px">'+step.b+'</span></div></div>';}).join('')}
+          </div>
+        </div>`;
+      }
+
+      /* ④ 4 behaviors avec contexte spécifique */
+      if(dyCombo.behaviors){
+        html+=`<div class="beh-list" style="margin-top:16px">
+          ${dyCombo.behaviors.map(function(b,i){return'<div class="beh-item"><div class="beh-title">'+b+'</div><div class="beh-detail">'+getDyadeBehDetail(dyKey,i)+'</div></div>';}).join('')}
+        </div>`;
+      }
+      html+=`</div>`; /* end combo-card */
+
+      /* ⑤ Influence secondaire */
+      if(data.combo_sec){
+        html+=`<div class="combo-card sec" style="opacity:.8;margin-top:12px">
+          <div style="font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px">Influence secondaire détectée</div>
+          <div class="combo-masks">${data.combo_sec.masks.map(function(m){var mm=getMeta(m.key);return'<div class="co" style="background:'+mm.color+';opacity:.75">'+m.label+'</div>';}).join('<span class="cx">+</span>')}<span class="cx">=</span></div>
+          <h3 class="combo-name" style="font-size:clamp(16px,3vw,20px)">${data.combo_sec.name}</h3>
+          <p class="combo-tag">« ${data.combo_sec.tagline} »</p>
+          <p class="combo-desc">${data.combo_sec.desc}</p>
+        </div>`;
+      }
     }
+
+  /* ── TRIADE ── */
   } else if(profile.type==='triade'){
     var trCombo=resolveTriade(profile.masks[0],profile.masks[1],profile.masks[2]);
+    var tm0=getMeta(profile.masks[0]),tm1=getMeta(profile.masks[1]),tm2=getMeta(profile.masks[2]);
     if(trCombo){
-      var tm0=getMeta(profile.masks[0]),tm1=getMeta(profile.masks[1]),tm2=getMeta(profile.masks[2]);
-      html+=`<div class="combo-card" style="margin-top:20px">
+      html+=`<div class="combo-card" style="margin-top:24px">
         <div class="combo-masks">
-          <div class="co" style="background:${tm0.color};box-shadow:0 0 10px ${tm0.glow}">${tm0.label}</div>
+          <div class="co" style="background:${tm0.color}">${tm0.label}</div>
           <span class="cx">+</span>
-          <div class="co" style="background:${tm1.color};box-shadow:0 0 8px ${tm1.glow}">${tm1.label}</div>
+          <div class="co" style="background:${tm1.color}">${tm1.label}</div>
           <span class="cx">+</span>
-          <div class="co" style="background:${tm2.color};box-shadow:0 0 8px ${tm2.glow}">${tm2.label}</div>
+          <div class="co" style="background:${tm2.color}">${tm2.label}</div>
           <span class="cx">=</span>
         </div>
         <h3 class="combo-name">${trCombo.name}</h3>
         <p class="combo-tag">« ${trCombo.tagline} »</p>
+        ${trCombo.alerte?`<div style="background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);border-radius:var(--r-s);padding:12px 18px;margin-bottom:14px"><p style="font-size:12px;color:rgba(201,168,76,.85);line-height:1.7">Cette configuration complexe gagne à être travaillée avec méthode. Le parcours V.A.L.E.U.R© est construit précisément pour ce type de profil.</p></div>`:''}
         <p class="combo-desc">${trCombo.desc}</p>
-        ${trCombo.alerte?`<div style="background:rgba(229,62,62,.08);border:1px solid rgba(229,62,62,.25);border-radius:var(--r-s);padding:14px 18px;margin-bottom:14px"><p style="font-size:12px;color:rgba(252,129,129,.85);line-height:1.7">Cette configuration triade mérite un accompagnement professionnel. La méthode V.A.L.E.U.R© peut constituer un point de départ solide.</p></div>`:''}
-        ${trCombo.manifestations?`<div class="beh-list">${trCombo.manifestations.map(function(m){return'<div class="beh-item"><div class="beh-title">'+m+'</div></div>';}).join('')}</div>`:''}
+        ${trCombo.manifestations?'<div class="beh-list" style="margin-top:16px">'+trCombo.manifestations.map(function(m){return'<div class="beh-item"><div class="beh-title">'+m+'</div></div>';}).join('')+'</div>':''}
       </div>`;
     }
+
+  /* ── PAN-MASQUES ── */
   } else if(profile.type==='pan'){
-    html+=`<div class="combo-card" style="margin-top:20px;border-color:rgba(229,62,62,.3)">
-      <div style="font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(252,129,129,.7);margin-bottom:12px">Configuration pan-masques</div>
-      <h3 class="combo-name">Activation multi-masques — Configuration complexe</h3>
-      <p class="combo-tag">« Plusieurs systèmes de protection actifs simultanément »</p>
-      <p class="combo-desc">Votre profil révèle 5 masques ou plus activés de façon significative. Cette configuration indique une mobilisation défensive élargie — chaque masque apporte sa logique, et leur coexistence crée une complexité unique. Ce profil bénéficie particulièrement d\'un accompagnement approfondi et personnalisé.</p>
-      <div style="background:rgba(229,62,62,.06);border:1px solid rgba(229,62,62,.2);border-radius:var(--r-s);padding:14px 18px">
-        <p style="font-size:12px;color:rgba(252,129,129,.75);line-height:1.7">Ce type de configuration répond particulièrement bien à un accompagnement professionnel structuré. La méthode V.A.L.E.U.R© est conçue précisément pour ce type de profil complexe.</p>
-      </div>
+    html+=`<div class="combo-card" style="margin-top:24px;border-color:rgba(201,168,76,.2)">
+      <div style="font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,.6);margin-bottom:12px">Configuration multi-masques</div>
+      <h3 class="combo-name">Plusieurs systèmes de protection actifs simultanément</h3>
+      <p class="combo-tag">« Une mobilisation défensive élargie »</p>
+      <p class="combo-desc">Votre profil révèle plusieurs masques activés de façon significative. Cette configuration indique une protection à plusieurs niveaux simultanément. Elle répond particulièrement bien à un travail structuré et progressif — comme celui que propose la méthode V.A.L.E.U.R©.</p>
     </div>`;
+
+  /* ── MONO — masques secondaires commentés ── */
   } else {
-    /* Mono : masques secondaires + fallback static combo */
+    var secAbove=MASQUES_META.filter(function(m){return m.key!==dominant&&scores[m.key]>=30;}).sort(function(a,b){return scores[b.key]-scores[a.key];});
+    if(secAbove.length>0){
+      html+=`<div style="margin-top:20px;margin-bottom:8px;font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:rgba(240,234,225,.3)">Masques actifs complémentaires</div>`;
+      secAbove.slice(0,3).forEach(function(m){
+        var sc=scores[m.key];
+        var lvl=getLevel(sc);
+        var secComment=SEC_COMMENT[m.key]||'';
+        html+=`<div style="display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.04)">
+          <div style="width:34px;height:34px;border-radius:50%;background:${m.color};opacity:.6;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;flex-shrink:0">${m.label.slice(0,2).toUpperCase()}</div>
+          <div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:1px;color:${m.color};margin-bottom:4px">${m.label} · ${lvl} · ${sc}%</div>
+            <p style="font-size:13px;color:rgba(240,234,225,.55);line-height:1.65">Votre Masque ${dominant_lbl} domine, mais votre Masque ${m.label} à ${sc}% lui ajoute une couche de ${secComment}.</p>
+          </div>
+        </div>`;
+      });
+    }
     if(data.combo_primary){
       html+=`<div class="combo-card" style="margin-top:20px">
         <div class="combo-masks">${data.combo_primary.masks.map(function(m){var mm=getMeta(m.key);return'<div class="co" style="background:'+mm.color+';box-shadow:0 0 10px '+mm.glow+'">'+m.label+'</div>';}).join('<span class="cx">+</span>')}<span class="cx">=</span></div>
         <h3 class="combo-name">${data.combo_primary.name}</h3>
         <p class="combo-tag">« ${data.combo_primary.tagline} »</p>
         <p class="combo-desc">${data.combo_primary.desc}</p>
-        ${data.combo_primary.behaviors?'<div class="beh-list">'+data.combo_primary.behaviors.map(function(b,i){var d=["Réponse automatique protectrice.","Maintien d\'une illusion de contrôle.","Récurrence difficile à interrompre sans en comprendre la source.","Protège d\'une peur précise."];return'<div class="beh-item"><div class="beh-title">'+b+'</div><div class="beh-detail">'+d[i%4]+'</div></div>';}).join('')+'</div>':''}
+        ${data.combo_primary.behaviors?'<div class="beh-list" style="margin-top:14px">'+data.combo_primary.behaviors.map(function(b,i){return'<div class="beh-item"><div class="beh-title">'+b+'</div><div class="beh-detail">'+getDyadeBehDetail(getDyadeKey(data.combo_primary.masks[0].key,data.combo_primary.masks[1].key),i)+'</div></div>';}).join('')+'</div>':''}
       </div>`;
     }
     if(data.combo_sec){
@@ -1650,7 +1724,6 @@ function buildPage(dominant,meta,data,playlist,scores,prenom,profile){
       </div>`;
     }
   }
-
   html+=`</div>`; /* end config card */
 
   /* ══ SECTION 9 — AVANT/APRÈS ══ */
