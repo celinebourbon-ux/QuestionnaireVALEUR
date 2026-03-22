@@ -499,6 +499,35 @@ var STRIPE_LINKS={
 var VERCEL_API='https://valeur-backend-api.vercel.app/api';
 var _currentDominant='vert';
 
+
+/* ── VEILLE EmailJS ── */
+var VEILLE_EJS_KEY='VOTRE_CLE_PUBLIQUE_COMPTE2';
+var VEILLE_EJS_SVC='VOTRE_SERVICE_ID_COMPTE2';
+var VEILLE_EJS_TPL='VOTRE_TEMPLATE_ID_COMPTE2';
+function submitVeille(e,formId,msgId){
+  e.preventDefault();
+  var prenom=document.getElementById('veille-prenom-'+formId.split('-').pop())||{value:''};
+  var emailEl=document.getElementById('veille-email-'+formId.split('-').pop());
+  if(!emailEl||!emailEl.value)return;
+  var btn=document.querySelector('#'+formId+' button[type="submit"]');
+  if(btn)btn.disabled=true;
+  emailjs.send(VEILLE_EJS_SVC,VEILLE_EJS_TPL,{
+    to_email:'contact@psyh.fr',
+    prenom:prenom.value||'(non renseigné)',
+    email_inscription:emailEl.value,
+    date_inscription:new Date().toLocaleDateString('fr-FR'),
+    source:window.location.pathname
+  },VEILLE_EJS_KEY).then(function(){
+    var msg=document.getElementById(msgId);
+    if(msg){msg.textContent="C'est noté. À bientôt.";msg.style.display='block';}
+    document.getElementById(formId).style.display='none';
+  }).catch(function(){
+    var msg=document.getElementById(msgId);
+    if(msg){msg.textContent='Une erreur est survenue — réessayez.';msg.style.display='block';msg.style.color='#B5312A';}
+    if(btn)btn.disabled=false;
+  });
+}
+
 function hasAccess(){
   // 0. Bypass admin (?admin=VALEUR-ADMIN-2025)
   try{
@@ -653,6 +682,7 @@ function buildPaywall(dominant,meta,data,playlist,scores,prenom,profile){
   let html='';
 
   /* ZONE 0 — ACCROCHE */
+  html+=`<p style="font-family:'Cormorant Garamond',serif;font-size:clamp(14px,1.5vw,17px);font-weight:300;font-style:italic;color:rgba(201,168,76,.6);text-align:center;margin:0 0 4px;padding:48px 24px 0;line-height:1.6">Le premier test de personnalité qui ne vous dit pas qui vous êtes — mais ce qui vous empêche d'être vous-même.</p>`;
   html+=`<div class="pw-hook fu">
     <p class="pw-hook-kicker">Ce que vous venez de traverser</p>
     <div class="pw-questions">
@@ -808,6 +838,17 @@ function buildPaywall(dominant,meta,data,playlist,scores,prenom,profile){
 
     </div>
 
+
+    <!-- VEILLE -->
+    <div class="fu" style="margin:32px 0 0;padding:24px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:4px;text-align:center">
+      <p style="font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:8px">Offres à venir</p>
+      <p style="font-size:13px;font-weight:300;color:rgba(247,244,238,.5);line-height:1.7;margin-bottom:14px">Formations, groupes, nouveaux supports V.A.L.E.U.R© — en avant-première.</p>
+      <form id="veille-form-res" onsubmit="submitVeille(event,'veille-form-res','veille-msg-res')" style="display:flex;gap:6px;max-width:380px;margin:0 auto 8px">
+        <input type="email" id="veille-email-res" placeholder="Votre email" required style="flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(247,244,238,.8);outline:none">
+        <button type="submit" style="background:rgba(168,135,58,.15);border:1px solid rgba(168,135,58,.25);border-radius:2px;padding:10px 16px;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(201,168,76,.7);cursor:pointer;white-space:nowrap">Suivre →</button>
+      </form>
+      <div id="veille-msg-res" style="display:none;font-size:11px;color:rgba(201,168,76,.7);margin-top:8px"></div>
+    </div>
     <!-- GARANTIE CÉLINE -->
     <div class="garantie-zone">
       <div class="garantie-avatar">C</div>
