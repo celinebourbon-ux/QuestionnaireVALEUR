@@ -137,10 +137,11 @@ if (typeof lv !== 'function') {
   test('lv(50)  = Significatif',       lv(50),  'Significatif');
   test('lv(57)  = Significatif',       lv(57),  'Significatif');
   test('lv(64)  = Significatif',       lv(64),  'Significatif');
-  test('lv(65)  = Élevé',              lv(65),  'Élevé');
+  test('lv(65)  = Significatif',              lv(65),  'Significatif');
   test('lv(72)  = Élevé',              lv(72),  'Élevé');
   test('lv(79)  = Élevé',              lv(79),  'Élevé');
-  test('lv(80)  = Dominant',           lv(80),  'Dominant');
+  test('lv(80)  = Élevé',              lv(80),  'Élevé');
+  test('lv(85)  = Dominant',           lv(85),  'Dominant');
   test('lv(91)  = Dominant',           lv(91),  'Dominant');
   test('lv(100) = Dominant',           lv(100), 'Dominant');
 }
