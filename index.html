@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Questionnaire V.A.L.E.U.R© — Les Sept Masques</title>
+<title>Questionnaire — Les 7 peurs qui empêchent d'être soi · V.A.L.E.U.R©</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -159,6 +159,28 @@ body{font-family:'Jost',sans-serif;background:#F7F4EE;color:var(--text);min-heig
 .valeur-nav-btn:hover{background:#2C2820}
 @media(max-width:768px){.valeur-nav{padding:0 16px}.valeur-nav-links{display:none}}
 
+
+/* ── QuestionnaireVALEUR mobile fixes ── */
+html{overflow-x:hidden;-webkit-text-size-adjust:100%}
+body{overflow-x:hidden}
+img,video,iframe{max-width:100%;height:auto}
+
+@media(max-width:480px){
+  /* Grilles auto-fit → 1 col sur très petits écrans */
+  [style*="auto-fit"],[style*="minmax(150"],[style*="minmax(220"]{
+    grid-template-columns:1fr !important
+  }
+  [style*="repeat(5,1fr)"]{
+    grid-template-columns:repeat(2,1fr) !important
+  }
+  .app{padding:0 16px 60px}
+}
+@media(max-width:360px){
+  [style*="repeat(2,1fr)"],[style*="repeat(5,1fr)"]{
+    grid-template-columns:1fr !important
+  }
+}
+
 </style>
 </head>
 <body>
@@ -194,8 +216,17 @@ body{font-family:'Jost',sans-serif;background:#F7F4EE;color:var(--text);min-heig
     <span class="mask-dot"></span><span class="mask-dot"></span><span class="mask-dot"></span>
     <span class="mask-dot"></span>
   </div>
-  <h1 class="main-title">Méthode V.A.L.E.U.R©</h1>
-  <p class="main-subtitle">Questionnaire d'identification des masques psychologiques</p>
+  <h1 class="main-title">Questionnaire<br><em>Les 7 peurs qui empêchent d'être soi</em></h1>
+  <div style="display:flex;justify-content:center;margin-top:20px;padding:0 16px">
+  <div style="max-width:720px;width:100%;padding:22px 36px;border-left:3px solid var(--gold);border-radius:0 2px 2px 0;background:rgba(168,135,58,.05);text-align:left">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(17px,2vw,24px);font-weight:400;font-style:italic;color:#3A3530;letter-spacing:.2px;line-height:1.65;margin:0">
+      La première fois qu'un questionnaire de personnalité ne vous dit pas qui vous êtes —<br>
+      <span style="color:#1A1814;font-weight:500">mais ce qui vous empêche d'être vous-même.</span>
+    </p>
+    <div style="width:32px;height:1px;background:var(--gold);margin-top:16px;opacity:.6"></div>
+    <p style="font-family:'Jost',sans-serif;font-size:10px;font-weight:400;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-top:10px;margin-bottom:0">Céline Bourbon · V.A.L.E.U.R©</p>
+  </div>
+</div>
 </header>
 
 <!-- ══ ÉCRAN ACCÈS ══ -->
